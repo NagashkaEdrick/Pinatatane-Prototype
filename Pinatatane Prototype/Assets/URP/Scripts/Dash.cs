@@ -14,25 +14,18 @@ namespace Gameplay {
         public Rigidbody rigidBody;
         [BoxGroup("Fix")]
         public CharacterController movement;
-        [BoxGroup("Fix")]
-        
-        private bool dashEnded;
 
-        // Start is called before the first frame update
-        void Start() {
-            dashEnded = true;
-        }
+        private Coroutine dashCor = null;
 
-        // Update is called once per frame
-        void FixedUpdate() {
-            if (Input.GetAxisRaw("Left Trigger") > 0 && dashEnded) StartCoroutine(StartDash());
+        public void DashAction() {
+            if (dashCor == null) {
+                dashCor = StartCoroutine(StartDash());
+            }
         }
 
         IEnumerator StartDash() {
-            dashEnded = false;
             speed.value *= 10;
-            if (rigidBody.velocity == Vector3.zero)
-            {
+            if (rigidBody.velocity == Vector3.zero) {
                 movement.enabled = false;
                 rigidBody.velocity = transform.forward * speed.value * Time.deltaTime;
             }
@@ -40,7 +33,7 @@ namespace Gameplay {
             movement.enabled = true;
             speed.value /= 10;
             yield return new WaitForSeconds(1f);
-            dashEnded = true;
+            dashCor = null;
         }
     }
 }

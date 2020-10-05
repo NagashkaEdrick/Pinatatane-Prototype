@@ -6,10 +6,8 @@ using UnityEngine.Events;
 
 using Sirenix.OdinInspector;
 
-namespace Pinatatane
-{
-    public class InputManagerQ : SerializedMonoBehaviour
-    {
+namespace Pinatatane {
+    public class InputManagerQ : SerializedMonoBehaviour {
         //Systeme Input avec Action call par string.
 
         public static InputManagerQ Instance;
@@ -18,29 +16,34 @@ namespace Pinatatane
         public InputAction[] inputs;
         [Title("Axis")]
         public AxisAction[] axis;
+        public TriggerAction[] triggers;
 
-        private void Awake()
-        {
+        private void Awake() {
             Instance = this;
         }
 
-        private void Update()
-        {
-            for (int i = 0; i < inputs.Length; i++)
-            {
-                inputs[i].CheckInput();
+        private void Update() {
+            if (inputs != null) {
+                for (int i = 0; i < inputs.Length; i++) {
+                    inputs[i].CheckInput();
+                }
             }
 
-            for (int i = 0; i < axis.Length; i++)
-            {
-                axis[i].CheckInput();
+            if (axis != null) {
+                for (int i = 0; i < axis.Length; i++) {
+                    axis[i].CheckInput();
+                }
+            }
+
+            if (triggers != null) {
+                for (int i = 0; i < triggers.Length; i++) {
+                    triggers[i].CheckInput();
+                }
             }
         }
 
-        public QInput GetInput(string _inputName)
-        {
-            for (int i = 0; i < inputs.Length; i++)
-            {
+        public QInput GetInput(string _inputName) {
+            for (int i = 0; i < inputs.Length; i++) {
                 if (inputs[i].inputName == _inputName)
                     return inputs[i];
             }
@@ -48,24 +51,39 @@ namespace Pinatatane
             return null;
         }
 
-        Coroutine cor;
-        public void Dash()
-        {
-            cor = StartCoroutine(DashCor());
+        public float GetAxis(string axisName) {
+            return Input.GetAxisRaw(axisName);
         }
 
-        IEnumerator DashCor()
-        {
-            yield break;
+        public bool GetTrigger(string axisName) {
+            return Input.GetAxisRaw(axisName) >= 1;
         }
     }
 
-    public abstract class QInput
-    {
+    public abstract class QInput {
         public string inputName;
         public bool isActive = true;
 
         public abstract void CheckInput();
+    }
+
+    [System.Serializable]
+    public class TriggerAction : QInput 
+    {
+        public UnityEvent onTrigger;
+        public string axisName;
+        private bool isClicked = false;
+        public float sensibility = 1f;
+
+        public override void CheckInput() {
+            if (Input.GetAxisRaw(axisName) == sensibility && !isClicked) {
+                onTrigger?.Invoke();
+                isClicked = true;
+            }
+            if (Input.GetAxisRaw(axisName) == 1 - sensibility && isClicked) {
+                isClicked = false;
+            }
+        }
     }
 
     [System.Serializable]

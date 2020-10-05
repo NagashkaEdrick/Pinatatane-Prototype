@@ -6,24 +6,20 @@ namespace Gameplay
 {
     public class InputManager : MonoBehaviour
     {
-        public static float GetXAxisLeftJoystick()
-        {
+        /*public static float GetXAxisLeftJoystick() {
             return Input.GetAxisRaw("Horizontal");
         }
 
-        public static float GetYAxisLeftJoystick()
-        {
+        public static float GetYAxisLeftJoystick() {
             return Input.GetAxisRaw("Vertical");
         }
 
-        public static float GetXAxisRightJoystick()
-        {
+        public static float GetXAxisRightJoystick() {
             return Input.GetAxisRaw("RotationX");
         }
 
-        public static float GetYAxisRightJoystick()
-        {
+        public static float GetYAxisRightJoystick() {
             return Input.GetAxisRaw("RotationY");
-        }
+        }*/
     }
 }

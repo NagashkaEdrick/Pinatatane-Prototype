@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Pinatatane;
 
 namespace Gameplay
 {
@@ -37,10 +38,11 @@ namespace Gameplay
 
         // Gere les mouvement du joueur en fonction du joystick gauche
         void PlayerMovement() {
-            float horizontal = InputManager.GetXAxisLeftJoystick();
-            float vertical = InputManager.GetYAxisLeftJoystick(); ;
+            float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
+            float vertical = InputManagerQ.Instance.GetAxis("Vertical");
             rigidBody.velocity = new Vector3(horizontal, rigidBody.velocity.y, vertical) * speed.value * Time.deltaTime;
         }
+
 
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation() {
@@ -51,7 +53,7 @@ namespace Gameplay
 
         // Realise une rotation par acceleration
         Quaternion smoothRotation(Quaternion startRotationVector, float smoothSpeed) {
-            rightJoyX += InputManager.GetXAxisRightJoystick() * RotationSpeed;
+            rightJoyX += InputManagerQ.Instance.GetAxis("RotationX") * RotationSpeed;
             rightJoyX %= 360;
 
             Quaternion endRotationVector = Quaternion.Euler(0, rightJoyX, 0);
