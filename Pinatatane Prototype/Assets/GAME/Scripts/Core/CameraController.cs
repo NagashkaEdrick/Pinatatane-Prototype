@@ -13,8 +13,7 @@ namespace Gameplay
     {
 
         public Transform target;
-        public Vector3 translation;
-        public Quaternion rotation;
+        public float distance, height;
 
         // Start is called before the first frame update
         void Start()
@@ -25,10 +24,9 @@ namespace Gameplay
         // Update is called once per frame
         void Update()
         {
-            transform.position = target.position;
-            transform.rotation = target.rotation;
-            transform.position += translation;
-            transform.rotation *= rotation;
+            transform.position = target.position - distance * target.forward + height * Vector3.up;
+
+            transform.LookAt(target);
         }
     }
 }

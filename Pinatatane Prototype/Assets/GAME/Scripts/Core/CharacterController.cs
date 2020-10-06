@@ -55,7 +55,6 @@ namespace Gameplay
         Quaternion smoothRotation(Quaternion startRotationVector, float smoothSpeed) {
             rightJoyX += InputManagerQ.Instance.GetAxis("RotationX") * RotationSpeed;
             rightJoyX %= 360;
-
             Quaternion endRotationVector = Quaternion.Euler(0, rightJoyX, 0);
             return Quaternion.Slerp(startRotationVector, endRotationVector, smoothSpeed);
         }
