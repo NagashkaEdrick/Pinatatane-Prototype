@@ -23,7 +23,6 @@ namespace Gameplay {
             }
         }
 
-        /* Probleme : la coroutine ne se fait pas dans un fixedUpdate du coup la modif de physique est molle sur le dash stationaire */
         IEnumerator StartDash() {
             speed.value *= 10;
             if (rigidBody.velocity == Vector3.zero) {

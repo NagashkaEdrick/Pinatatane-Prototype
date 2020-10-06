@@ -34,9 +34,14 @@ namespace Pinatatane {
                     axis[i].CheckInput();
                 }
             }
+        }
 
-            if (triggers != null) {
-                for (int i = 0; i < triggers.Length; i++) {
+        private void FixedUpdate()
+        {
+            if (triggers != null)
+            {
+                for (int i = 0; i < triggers.Length; i++)
+                {
                     triggers[i].CheckInput();
                 }
             }
