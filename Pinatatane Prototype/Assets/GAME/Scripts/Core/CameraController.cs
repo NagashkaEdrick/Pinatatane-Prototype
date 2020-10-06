@@ -11,20 +11,16 @@ namespace Gameplay
      */
     public class CameraController : SerializedMonoBehaviour
     {
+        [BoxGroup("Tweaking")]
+        public FloatValue distance, height;
 
+        [BoxGroup("Fix")]
         public Transform target;
-        public float distance, height;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
 
         // Update is called once per frame
         void Update()
         {
-            transform.position = target.position - distance * target.forward + height * Vector3.up;
+            transform.position = target.position - distance.value * target.forward + height.value * Vector3.up;
 
             transform.LookAt(target);
         }

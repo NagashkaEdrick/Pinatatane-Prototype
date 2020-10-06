@@ -9,6 +9,8 @@ namespace Gameplay {
     {
         [BoxGroup("Tweaking")]
         public FloatValue speed;
+        [BoxGroup("Tweaking")]
+        public FloatValue dashSpeed;
 
         [BoxGroup("Fix")]
         public Rigidbody rigidBody;
@@ -24,7 +26,7 @@ namespace Gameplay {
         }
 
         IEnumerator StartDash() {
-            speed.value *= 10;
+            speed.value *= dashSpeed.value;
             if (rigidBody.velocity == Vector3.zero) {
                 movement.enabled = false;
                 rigidBody.velocity = transform.forward * speed.value * Time.deltaTime;

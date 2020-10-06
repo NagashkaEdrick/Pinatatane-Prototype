@@ -15,10 +15,9 @@ namespace Gameplay
         [BoxGroup("Tweaking")]
         public FloatValue speed; // Vitesse de deplacement du joueur
         [BoxGroup("Tweaking")]
-        public float RotationSpeed; // Vitesse de rotation de la camera
+        public FloatValue RotationSpeed; // Vitesse de rotation de la camera
         [BoxGroup("Tweaking")]
-        [Range(0f, 1f)]
-        public float rotationAcceleration = 0.2f; // Acceleration de la camera
+        public IntervalFloatValue rotationAcceleration; // Acceleration de la camera
 
         [BoxGroup("Fix")]
         public new Transform camera; // Reference sur la camera
@@ -46,14 +45,14 @@ namespace Gameplay
 
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation() {
-            cameraTarget.rotation = smoothRotation(cameraTarget.rotation, rotationAcceleration);
-            transform.rotation = smoothRotation(transform.rotation, rotationAcceleration);
+            cameraTarget.rotation = smoothRotation(cameraTarget.rotation, rotationAcceleration.value);
+            transform.rotation = smoothRotation(transform.rotation, rotationAcceleration.value);
             rigidBody.velocity = Quaternion.Euler(0, rightJoyX, 0) * rigidBody.velocity;
         }
 
         // Realise une rotation par acceleration
         Quaternion smoothRotation(Quaternion startRotationVector, float smoothSpeed) {
-            rightJoyX += InputManagerQ.Instance.GetAxis("RotationX") * RotationSpeed;
+            rightJoyX += InputManagerQ.Instance.GetAxis("RotationX") * RotationSpeed.value;
             rightJoyX %= 360;
             Quaternion endRotationVector = Quaternion.Euler(0, rightJoyX, 0);
             return Quaternion.Slerp(startRotationVector, endRotationVector, smoothSpeed);
