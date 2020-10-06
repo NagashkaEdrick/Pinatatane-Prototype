@@ -11,6 +11,11 @@ namespace Gameplay
      */
     public class CameraController : SerializedMonoBehaviour
     {
+
+        public Transform target;
+        public Vector3 translation;
+        public Quaternion rotation;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -18,9 +23,12 @@ namespace Gameplay
         }
 
         // Update is called once per frame
-        void LateUpdate()
+        void Update()
         {
-
+            transform.position = target.position;
+            transform.rotation = target.rotation;
+            transform.position += translation;
+            transform.rotation *= rotation;
         }
     }
 }
