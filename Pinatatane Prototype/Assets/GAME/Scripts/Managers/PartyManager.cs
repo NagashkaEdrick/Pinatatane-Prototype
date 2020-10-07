@@ -11,6 +11,13 @@ namespace Pinatatane
         private void Awake()
         {
             Instance = this;
+
+            StartCoroutine(GameDeroulement());
+        }
+
+        IEnumerator GameDeroulement()
+        {
+            yield break;
         }
     }
 }

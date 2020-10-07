@@ -1,5 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
+using Photon.Pun;
+using Photon.Realtime;
+
 using UnityEngine;
 
 namespace Pinatatane
@@ -8,12 +12,32 @@ namespace Pinatatane
     {
         public CharacterController characterController;
         public CameraController cameraController;
+        public AnimatorBehaviour animatorBehaviour;
+
+        public PhotonView photonView;
 
         public Transform cameraTarget;
 
         public void InitPlayer()
         {
             cameraController.target = cameraTarget;
+        }
+
+        private void Update()
+        {
+            //Test
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                photonView.RPC("Big", RpcTarget.Others, new Vector3(2,2,2));
+                Debug.Log("bbb");
+            }
+        }
+
+        [PunRPC]
+        public void Big(Vector3 _value)
+        {
+            transform.localScale = _value;
+            Debug.Log("aaa");
         }
     }
 }

@@ -25,12 +25,11 @@ namespace Pinatatane
         public Transform cameraTarget; // Reference sur la cible de la camera
         [BoxGroup("Fix")]
         [SerializeField] public Rigidbody rigidBody;
-        [BoxGroup("Fix")]
-        [SerializeField] AnimatorBehaviour animatorBehaviour;
 
         float rightJoyX;
 
         CharacterController cc => PlayerManager.Instance.LocalPlayer.characterController;
+        AnimatorBehaviour ab => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
 
         // Update is called once per frame
         void FixedUpdate()
@@ -43,16 +42,16 @@ namespace Pinatatane
         void PlayerMovement() {
             float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-            animatorBehaviour.Animate("vertical", vertical);
-            animatorBehaviour.Animate("horizontal", horizontal);
-            rigidBody.velocity = new Vector3(horizontal, rigidBody.velocity.y, vertical) * speed.value * Time.deltaTime;
-        }
+            cc.rigidBody.velocity = new Vector3(horizontal, cc.rigidBody.velocity.y, vertical) * speed.value * Time.deltaTime;
 
+            ab.Animate("vertical", vertical);
+            ab.Animate("horizontal", horizontal);
+        }
 
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation() {
             cameraTarget.rotation = smoothRotation(cameraTarget.rotation, rotationAcceleration.value);
-            cc.transform.rotation = smoothRotation(transform.rotation, rotationAcceleration.value);
+            cc.transform.rotation = smoothRotation(cc.transform.rotation, rotationAcceleration.value);
             cc.rigidBody.velocity = Quaternion.Euler(0, rightJoyX, 0) * cc.rigidBody.velocity;
         }
 

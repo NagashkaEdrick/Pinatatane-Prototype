@@ -250,6 +250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 1756521561635941210}
   cameraController: {fileID: 0}
+  animatorBehaviour: {fileID: 1057187152}
+  photonView: {fileID: 3415627638194251138}
   cameraTarget: {fileID: 1756521561467449151}
 --- !u!114 &1756521561635941210
 MonoBehaviour:
@@ -269,7 +271,6 @@ MonoBehaviour:
   _camera: {fileID: 0}
   cameraTarget: {fileID: 1756521561467449151}
   rigidBody: {fileID: 1756521561635941211}
-  animatorBehaviour: {fileID: 1057187152}
 --- !u!54 &1756521561635941211
 Rigidbody:
   m_ObjectHideFlags: 0
