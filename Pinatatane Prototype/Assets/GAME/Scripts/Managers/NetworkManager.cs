@@ -72,6 +72,16 @@ namespace Pinatatane
             PhotonNetwork.JoinOrCreateRoom(creationRoomText.text, roomOptions, TypedLobby.Default);
         }
 
+        public void CreateRoom(string _roomName)
+        {
+            if (!PhotonNetwork.IsConnected)
+                return;
+
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = networkSettings.playerCountMax;
+            PhotonNetwork.JoinOrCreateRoom(_roomName, roomOptions, TypedLobby.Default);
+        }
+
         public override void OnJoinedRoom()
         {
             base.OnJoinedRoom();

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
-
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 using CharacterController = Pinatatane.CharacterController;
@@ -16,6 +16,7 @@ namespace Pinatatane
 
         [SerializeField] Transform playerParent;
 
+        [ShowInInspector, ReadOnly]
         public Pinata localPlayer { get; private set; }
 
         private void Awake()
