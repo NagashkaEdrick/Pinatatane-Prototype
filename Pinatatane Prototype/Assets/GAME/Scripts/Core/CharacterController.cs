@@ -27,8 +27,14 @@ namespace Pinatatane
         public Rigidbody rigidBody;
 
         float rightJoyX;
+        AnimatorBehaviour animatorBehaviour;
 
         CharacterController cc => PlayerManager.Instance.localPlayer.characterController;
+
+        private void Start()
+        {
+            animatorBehaviour = GetComponent<AnimatorBehaviour>();
+        }
 
         // Update is called once per frame
         void FixedUpdate()
@@ -41,6 +47,8 @@ namespace Pinatatane
         void PlayerMovement() {
             float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
+            animatorBehaviour.animator.SetFloat("horizontal", horizontal);
+            animatorBehaviour.animator.SetFloat("vertical", vertical);
             rigidBody.velocity = new Vector3(horizontal, rigidBody.velocity.y, vertical) * speed.value * Time.deltaTime;
         }
 
