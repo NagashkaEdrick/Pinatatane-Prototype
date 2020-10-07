@@ -20,7 +20,7 @@ namespace Gameplay
         public IntervalFloatValue rotationAcceleration; // Acceleration de la camera
 
         [BoxGroup("Fix")]
-        public new Transform camera; // Reference sur la camera
+        public Transform _camera; // Reference sur la camera
         [BoxGroup("Fix")]
         public Transform cameraTarget; // Reference sur la cible de la camera
         [BoxGroup("Fix")]
