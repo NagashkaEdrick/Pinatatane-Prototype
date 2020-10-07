@@ -16,8 +16,12 @@ namespace Pinatatane
 
         [SerializeField] Transform playerParent;
 
-        [ShowInInspector, ReadOnly]
-        public Pinata localPlayer { get; private set; }
+        [SerializeField] Pinata localPlayer;
+        public Pinata LocalPlayer
+        {
+            get => localPlayer;
+            private set => localPlayer = value;
+        }
 
         private void Awake()
         {

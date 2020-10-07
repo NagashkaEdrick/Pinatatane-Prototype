@@ -24,17 +24,13 @@ namespace Pinatatane
         [BoxGroup("Fix")]
         public Transform cameraTarget; // Reference sur la cible de la camera
         [BoxGroup("Fix")]
-        public Rigidbody rigidBody;
+        [SerializeField] public Rigidbody rigidBody;
+        [BoxGroup("Fix")]
+        [SerializeField] AnimatorBehaviour animatorBehaviour;
 
         float rightJoyX;
-        AnimatorBehaviour animatorBehaviour;
 
-        CharacterController cc => PlayerManager.Instance.localPlayer.characterController;
-
-        private void Start()
-        {
-            animatorBehaviour = GetComponent<AnimatorBehaviour>();
-        }
+        CharacterController cc => PlayerManager.Instance.LocalPlayer.characterController;
 
         // Update is called once per frame
         void FixedUpdate()
@@ -47,8 +43,8 @@ namespace Pinatatane
         void PlayerMovement() {
             float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-            animatorBehaviour.animator.SetFloat("horizontal", horizontal);
-            animatorBehaviour.animator.SetFloat("vertical", vertical);
+            animatorBehaviour.Animate("vertical", vertical);
+            animatorBehaviour.Animate("horizontal", horizontal);
             rigidBody.velocity = new Vector3(horizontal, rigidBody.velocity.y, vertical) * speed.value * Time.deltaTime;
         }
 
