@@ -5,7 +5,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Pinatatane;
 
-namespace Gameplay
+namespace Pinatatane
 {
     /* CHARACTER CONTROLLER:
      * Gere les deplacement du joueur et ses mouvements de camera
@@ -28,6 +28,8 @@ namespace Gameplay
 
         float rightJoyX;
 
+        CharacterController cc => PlayerManager.Instance.localPlayer.characterController;
+
         // Update is called once per frame
         void FixedUpdate()
         {
@@ -46,8 +48,8 @@ namespace Gameplay
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation() {
             cameraTarget.rotation = smoothRotation(cameraTarget.rotation, rotationAcceleration.value);
-            transform.rotation = smoothRotation(transform.rotation, rotationAcceleration.value);
-            rigidBody.velocity = Quaternion.Euler(0, rightJoyX, 0) * rigidBody.velocity;
+            cc.transform.rotation = smoothRotation(transform.rotation, rotationAcceleration.value);
+            cc.rigidBody.velocity = Quaternion.Euler(0, rightJoyX, 0) * cc.rigidBody.velocity;
         }
 
         // Realise une rotation par acceleration

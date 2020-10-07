@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-namespace Gameplay
+namespace Pinatatane
 {
     /* CAMERA CONTROLLER :
      * La camera reste fixe derriere le joueur

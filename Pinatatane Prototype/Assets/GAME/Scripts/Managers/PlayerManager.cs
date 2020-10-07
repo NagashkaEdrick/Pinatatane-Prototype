@@ -4,17 +4,19 @@ using Photon.Pun;
 
 using UnityEngine;
 
-using Gameplay;
+using CharacterController = Pinatatane.CharacterController;
 
 namespace Pinatatane
 {
     public class PlayerManager : MonoBehaviour
     {
-        public CameraController camPrefab = default;
-
         public static PlayerManager Instance;
 
+        public CameraController camPrefab = default;
+
         [SerializeField] Transform playerParent;
+
+        public Pinata localPlayer { get; private set; }
 
         private void Awake()
         {
@@ -23,14 +25,16 @@ namespace Pinatatane
 
         public void CreatePlayer()
         {
-            GameObject go = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-            go.transform.parent = playerParent;
+            GameObject newPlayerGO = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+            newPlayerGO.transform.parent = playerParent;
 
-            Gameplay.CharacterController cc = go.GetComponent<Gameplay.CharacterController>();
+            Pinata player = newPlayerGO.GetComponent<Pinata>();
+
             CameraController c = Instantiate(camPrefab, transform.position, Quaternion.identity);
+            player.cameraController = c;
 
-            c.target = go.transform;
-            cc._camera = c.transform;
+            localPlayer = player;
+            player.InitPlayer();
         }
     }
 }

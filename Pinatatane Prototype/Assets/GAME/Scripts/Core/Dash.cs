@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-namespace Gameplay {
+namespace Pinatatane
+{
     public class Dash : MonoBehaviour 
     {
         [BoxGroup("Tweaking")]
