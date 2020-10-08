@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25bda17104ec034ca008e1bb24eaa08, type: 3}
   m_Name: Camera Distance
   m_EditorClassIdentifier: 
-  value: 5
+  value: 7
