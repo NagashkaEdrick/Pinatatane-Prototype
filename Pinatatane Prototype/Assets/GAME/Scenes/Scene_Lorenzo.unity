@@ -512,36 +512,6 @@ Transform:
   m_Father: {fileID: 1058637099}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &797222622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 797222623}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &797222623
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797222622}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17849748, y: 0.63613915, z: 0.7130172}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &927403277
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -741,8 +711,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  distance: {fileID: 11400000, guid: 7725c8fb0a1583441886da15e401fe79, type: 2}
-  height: {fileID: 11400000, guid: 8e7ed46c6fee23543bb7af246f34027a, type: 2}
+  data: {fileID: 11400000, guid: 12b5ac602ecd7e343b7b6e40d910b992, type: 2}
   target: {fileID: 1743424475}
 --- !u!95 &963194231
 Animator:
@@ -763,6 +732,138 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1028055021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028055023}
+  - component: {fileID: 1028055022}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1028055022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028055021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403fb5dfdaab15949819d8e2bc62f922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: axis
+      Entry: 7
+      Data: 0|Pinatatane.AxisAction[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|Pinatatane.AxisAction, Assembly-CSharp
+    - Name: inputName
+      Entry: 6
+      Data: 
+    - Name: isActive
+      Entry: 5
+      Data: true
+    - Name: axisName
+      Entry: 6
+      Data: 
+    - Name: axisType
+      Entry: 3
+      Data: 0
+    - Name: onAxisMove
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  inputs:
+  - inputName: Jump
+    isActive: 1
+    key: 97
+    inputType: 0
+    onInput:
+      m_PersistentCalls:
+        m_Calls: []
+  triggers:
+  - inputName: LeftTrigger
+    isActive: 1
+    onTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 299995072}
+          m_TargetAssemblyTypeName: Pinatatane.Dash, Assembly-CSharp
+          m_MethodName: DashAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    axisName: LeftTrigger
+    sensibility: 1
+  - inputName: RightTrigger
+    isActive: 1
+    onTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1756521561885402342}
+          m_TargetAssemblyTypeName: GrabBehaviour, Assembly-CSharp
+          m_MethodName: GrabAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    axisName: RightTrigger
+    sensibility: 1
+--- !u!4 &1028055023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028055021}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.39262986, y: 1.0632288, z: 1.405785}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1057187157 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1343214553653338882, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
@@ -908,82 +1009,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1756521561467449151, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
   m_PrefabInstance: {fileID: 1756521561885402340}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1979137965
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1979137967}
-  - component: {fileID: 1979137966}
-  m_Layer: 0
-  m_Name: InputManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1979137966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979137965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 403fb5dfdaab15949819d8e2bc62f922, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: axis
-      Entry: 6
-      Data: 
-  inputs: []
-  triggers:
-  - inputName: LeftTrigger
-    isActive: 1
-    onTrigger:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 299995072}
-          m_TargetAssemblyTypeName: Gameplay.Dash, Assembly-CSharp
-          m_MethodName: DashAction
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    axisName: LeftTrigger
-    sensibility: 1
---- !u!4 &1979137967
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979137965}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.68062806, y: 0.5662632, z: 0.33620906}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2011504086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -991,6 +1016,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4596310749358986419, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: triggers.Array.data[0].onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 299995072}
+    - target: {fileID: 4596310749358986419, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: triggers.Array.data[1].onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1756521561885402342}
+    - target: {fileID: 4596310749358986419, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596310749358986419, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: triggers.Array.data[1].isActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -1025,7 +1066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7388482058666983274, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7388482058666983274, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1043,14 +1084,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[MANAGERS]'
       objectReference: {fileID: 0}
-    - target: {fileID: 7388482059213529744, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7388482059213529744, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-    - target: {fileID: 7388482059214529286, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-      propertyPath: playerParent
-      value: 
-      objectReference: {fileID: 797222623}
+    - target: {fileID: 7388482059213529746, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7388482059214529286, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: localPlayer
       value: 
@@ -1118,3 +1155,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+--- !u!114 &1756521561885402342 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+  m_PrefabInstance: {fileID: 1756521561885402340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d72f6e5de9f22a408ba1377f54570ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -32,10 +32,10 @@ namespace Pinatatane
                 movement.enabled = false;
                 rigidBody.velocity = transform.forward * data.movementSpeed * Time.deltaTime;
             }
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(data.dashDuration);
             movement.enabled = true;
             data.movementSpeed /= data.dashSpeed;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(data.dashCooldown);
             dashCor = null;
         }
     }

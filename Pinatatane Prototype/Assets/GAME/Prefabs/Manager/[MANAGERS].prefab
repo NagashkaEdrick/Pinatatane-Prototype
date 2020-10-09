@@ -218,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7388482059213529745}
-  - component: {fileID: 7388482059213529744}
+  - component: {fileID: 4596310749358986419}
   m_Layer: 0
   m_Name: Input Manager
   m_TagString: Untagged
@@ -240,7 +240,7 @@ Transform:
   m_Father: {fileID: 7388482058666983274}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7388482059213529744
+--- !u!114 &4596310749358986419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -266,7 +266,28 @@ MonoBehaviour:
       Data: 0|Pinatatane.AxisAction[], Assembly-CSharp
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|Pinatatane.AxisAction, Assembly-CSharp
+    - Name: inputName
+      Entry: 6
+      Data: 
+    - Name: isActive
+      Entry: 5
+      Data: true
+    - Name: axisName
+      Entry: 6
+      Data: 
+    - Name: axisType
+      Entry: 3
       Data: 0
+    - Name: onAxisMove
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -281,7 +302,45 @@ MonoBehaviour:
     onInput:
       m_PersistentCalls:
         m_Calls: []
-  triggers: []
+  triggers:
+  - inputName: LeftTrigger
+    isActive: 1
+    onTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Pinatatane.Dash, Assembly-CSharp
+          m_MethodName: DashAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    axisName: LeftTrigger
+    sensibility: 1
+  - inputName: RightTrigger
+    isActive: 1
+    onTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: GrabBehaviour, Assembly-CSharp
+          m_MethodName: GrabAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    axisName: RightTrigger
+    sensibility: 1
 --- !u!1 &7388482059214529280
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camPrefab: {fileID: -7737105762581414211, guid: d4c5b38d6c4b7744698eeef5ec1fbbe2, type: 3}
   playerParent: {fileID: 0}
+  localPlayer: {fileID: 0}
 --- !u!1 &7388482059269906570
 GameObject:
   m_ObjectHideFlags: 0

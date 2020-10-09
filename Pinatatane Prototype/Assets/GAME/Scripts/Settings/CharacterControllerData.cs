@@ -11,6 +11,8 @@ public class CharacterControllerData : ScriptableObject
     public float rotationSpeed = 2;
     public float movementSpeed = 500;
     public float dashSpeed = 10;
+    public float dashDuration = 0.1f;
+    public float dashCooldown = 1f;
     public float cameraHeight = 1;
     public float cameraDistance = 7;
 }

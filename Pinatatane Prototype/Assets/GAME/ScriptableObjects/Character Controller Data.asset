@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Character Controller Data
   m_EditorClassIdentifier: 
   rotationAcceleration: 0.5
-  rotationSpeed: 2
+  rotationSpeed: 4
   movementSpeed: 500
   dashSpeed: 10
   cameraHeight: 1

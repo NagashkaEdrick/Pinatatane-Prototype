@@ -40,8 +40,8 @@ namespace Pinatatane
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
             cc.rigidBody.velocity = new Vector3(horizontal, cc.rigidBody.velocity.y, vertical) * data.movementSpeed * Time.deltaTime;
 
-            ab.Animate("vertical", vertical);
-            ab.Animate("horizontal", horizontal);
+            ab.SetFloat("vertical", vertical);
+            ab.SetFloat("horizontal", horizontal);
         }
 
         // Gere la rotation du joueur en fonction du joystick droit
