@@ -88,6 +88,8 @@ namespace Pinatatane
             Debug.Log("Room Joined.");
 
             PlayerManager.Instance.CreatePlayer();
+
+            Debug.Log(PhotonNetwork.PlayerList[0].NickName);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,16 +9,25 @@ namespace Pinatatane
     {
         public static PartyManager Instance;
 
+        public StateMachine stateMachine;
+
+        [SerializeField] State[] gameStates;
+
+        public Condition_Timer timerCondition;
+
         private void Awake()
         {
             Instance = this;
 
-            StartCoroutine(GameDeroulement());
+            timerCondition.Reset();
+
+            stateMachine = new StateMachine(gameStates);
         }
 
-        IEnumerator GameDeroulement()
+        [Button]
+        void TestCurrentCondition()
         {
-            yield break;
+            stateMachine.TestCurrentStateCondition();
         }
     }
 }

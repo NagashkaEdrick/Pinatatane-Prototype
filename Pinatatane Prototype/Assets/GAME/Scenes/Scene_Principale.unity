@@ -1457,49 +1457,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412749347}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1466988096
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1466988097}
-  - component: {fileID: 1466988098}
-  m_Layer: 0
-  m_Name: PartyManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1466988097
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466988096}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1621485425}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1466988098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466988096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7b11e69fea3d5c48aeabced38a5aa74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1468617394
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,11 +1777,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547208625}
   m_CullTransparentMesh: 0
---- !u!4 &1621485425 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7388482058666983274, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-  m_PrefabInstance: {fileID: 7388482058136639515}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1725070133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,6 +2085,67 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[0].onStateEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[0].conditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[1].conditions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[0].stateName
+      value: LobbyState
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[0].stateDescription
+      value: "-> Les joueurs se connectent.\n-> Attente que les joueurs soient tous
+        \"pr\xEAt\"."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[0].onStateEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[0].onStateEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[1].stateName
+      value: GameState
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[1].stateDescription
+      value: "-> D\xE9roulement de la partie\n-> Fin timer"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[0].conditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: bbd051e22d666964390300b9977f18f5, type: 2}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[1].conditions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b4f1db3dc6e1814f871e3e185aa0d39, type: 2}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[0].testConditionAtStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: gameStates.Array.data[1].testConditionAtStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1466988098, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: timerCondition
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b4f1db3dc6e1814f871e3e185aa0d39, type: 2}
     - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: serializationData.ReferencedUnityObjects.Array.size
       value: 1
@@ -2141,14 +2154,6 @@ PrefabInstance:
       propertyPath: serializationData.ReferencedUnityObjects.Array.data[0]
       value: 
       objectReference: {fileID: 723927690}
-    - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[6].Entry
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-      propertyPath: serializationData.SerializationNodes.Array.data[6].Data
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: serializationData.Prefab
       value: 
