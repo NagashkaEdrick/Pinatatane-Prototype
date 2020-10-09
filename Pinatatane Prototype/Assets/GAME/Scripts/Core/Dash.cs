@@ -9,14 +9,14 @@ namespace Pinatatane
     public class Dash : MonoBehaviour 
     {
         [BoxGroup("Tweaking")]
-        public FloatValue speed;
-        [BoxGroup("Tweaking")]
-        public FloatValue dashSpeed;
+        public CharacterControllerData data;
 
         [BoxGroup("Fix")]
-        public Rigidbody rigidBody;
+        [SerializeField]
+        Rigidbody rigidBody;
         [BoxGroup("Fix")]
-        public CharacterController movement;
+        [SerializeField]
+        CharacterController movement;
 
         private Coroutine dashCor = null;
 
@@ -27,14 +27,14 @@ namespace Pinatatane
         }
 
         IEnumerator StartDash() {
-            speed.value *= dashSpeed.value;
+            data.movementSpeed *= data.dashSpeed;
             if (rigidBody.velocity == Vector3.zero) {
                 movement.enabled = false;
-                rigidBody.velocity = transform.forward * speed.value * Time.deltaTime;
+                rigidBody.velocity = transform.forward * data.movementSpeed * Time.deltaTime;
             }
             yield return new WaitForSeconds(0.1f);
             movement.enabled = true;
-            speed.value /= 10;
+            data.movementSpeed /= data.dashSpeed;
             yield return new WaitForSeconds(1f);
             dashCor = null;
         }

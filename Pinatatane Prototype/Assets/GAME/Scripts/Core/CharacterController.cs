@@ -13,11 +13,7 @@ namespace Pinatatane
     public class CharacterController : MonoBehaviour
     {
         [BoxGroup("Tweaking")]
-        public FloatValue speed; // Vitesse de deplacement du joueur
-        [BoxGroup("Tweaking")]
-        public FloatValue RotationSpeed; // Vitesse de rotation de la camera
-        [BoxGroup("Tweaking")]
-        public IntervalFloatValue rotationAcceleration; // Acceleration de la camera
+        public CharacterControllerData data;
 
         [BoxGroup("Fix")]
         public Transform _camera; // Reference sur la camera
@@ -42,7 +38,7 @@ namespace Pinatatane
         void PlayerMovement() {
             float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-            cc.rigidBody.velocity = new Vector3(horizontal, cc.rigidBody.velocity.y, vertical) * speed.value * Time.deltaTime;
+            cc.rigidBody.velocity = new Vector3(horizontal, cc.rigidBody.velocity.y, vertical) * data.movementSpeed * Time.deltaTime;
 
             ab.Animate("vertical", vertical);
             ab.Animate("horizontal", horizontal);
@@ -50,14 +46,14 @@ namespace Pinatatane
 
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation() {
-            cameraTarget.rotation = smoothRotation(cameraTarget.rotation, rotationAcceleration.value);
-            cc.transform.rotation = smoothRotation(cc.transform.rotation, rotationAcceleration.value);
+            cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration);
+            cc.transform.rotation = smoothRotation(cc.transform.rotation, data.rotationAcceleration);
             cc.rigidBody.velocity = Quaternion.Euler(0, rightJoyX, 0) * cc.rigidBody.velocity;
         }
 
         // Realise une rotation par acceleration
         Quaternion smoothRotation(Quaternion startRotationVector, float smoothSpeed) {
-            rightJoyX += InputManagerQ.Instance.GetAxis("RotationX") * RotationSpeed.value;
+            rightJoyX += InputManagerQ.Instance.GetAxis("RotationX") * data.rotationSpeed;
             rightJoyX %= 360;
             Quaternion endRotationVector = Quaternion.Euler(0, rightJoyX, 0);
             return Quaternion.Slerp(startRotationVector, endRotationVector, smoothSpeed);
