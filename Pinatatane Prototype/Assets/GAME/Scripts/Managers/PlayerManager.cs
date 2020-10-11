@@ -4,8 +4,6 @@ using Photon.Pun;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-using CharacterController = Pinatatane.CharacterController;
-
 namespace Pinatatane
 {
     public class PlayerManager : MonoBehaviour

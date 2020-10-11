@@ -10,7 +10,7 @@ namespace Pinatatane
 {
     public class Pinata : MonoBehaviour
     {
-        public CharacterController characterController;
+        public CharacterMovementBehaviour characterMovementBehaviour;
         public CameraController cameraController;
         public AnimatorBehaviour animatorBehaviour;
 
@@ -29,7 +29,6 @@ namespace Pinatatane
             if (Input.GetKeyDown(KeyCode.K))
             {
                 photonView.RPC("Big", RpcTarget.Others, new Vector3(2,2,2));
-                Debug.Log("bbb");
             }
         }
 
@@ -37,7 +36,6 @@ namespace Pinatatane
         public void Big(Vector3 _value)
         {
             transform.localScale = _value;
-            Debug.Log("aaa");
         }
     }
 }

@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace Pinatatane
 {
-    public class Dash : MonoBehaviour 
+    public class DashBehaviour : MonoBehaviour 
     {
         [BoxGroup("Tweaking")]
         public CharacterControllerData data;
@@ -16,7 +16,7 @@ namespace Pinatatane
         Rigidbody rigidBody;
         [BoxGroup("Fix")]
         [SerializeField]
-        CharacterController movement;
+        CharacterMovementBehaviour movement;
 
         private Coroutine dashCor = null;
 

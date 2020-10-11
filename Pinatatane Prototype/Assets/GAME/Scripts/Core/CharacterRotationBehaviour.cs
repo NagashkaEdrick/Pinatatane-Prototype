@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
-using Pinatatane;
 
-namespace Pinatatane
-{
-    /* CHARACTER CONTROLLER:
-     * Gere les deplacement du joueur et ses mouvements de camera
-     */
-    public class CharacterController : MonoBehaviour
-    {
+using Sirenix.OdinInspector;
+
+namespace Pinatatane {
+    public class CharacterRotationBehaviour : MonoBehaviour {
+
         [BoxGroup("Tweaking")]
         public CharacterControllerData data;
 
@@ -24,24 +19,12 @@ namespace Pinatatane
 
         float rightJoyX;
 
-        CharacterController cc => PlayerManager.Instance.LocalPlayer.characterController;
-        AnimatorBehaviour ab => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
+        CharacterMovementBehaviour cc => PlayerManager.Instance.LocalPlayer.characterMovementBehaviour;
 
         // Update is called once per frame
-        void FixedUpdate()
-        {
-            PlayerMovement();
+        void FixedUpdate() {
+            /* probleme la rotation se fait avant le mouvement donc la rotation de la velocité se fait ecraser par l'update du mouvement */
             PlayerRotation();
-        }
-
-        // Gere les mouvement du joueur en fonction du joystick gauche
-        void PlayerMovement() {
-            float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
-            float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-            cc.rigidBody.velocity = new Vector3(horizontal, cc.rigidBody.velocity.y, vertical) * data.movementSpeed * Time.deltaTime;
-
-            ab.SetFloat("vertical", vertical);
-            ab.SetFloat("horizontal", horizontal);
         }
 
         // Gere la rotation du joueur en fonction du joystick droit
@@ -58,5 +41,6 @@ namespace Pinatatane
             Quaternion endRotationVector = Quaternion.Euler(0, rightJoyX, 0);
             return Quaternion.Slerp(startRotationVector, endRotationVector, smoothSpeed);
         }
+
     }
 }
