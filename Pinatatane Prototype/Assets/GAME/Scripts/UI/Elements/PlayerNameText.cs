@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using TMPro;
+
 using UnityEngine;
+using Photon.Pun;
 
 namespace Pinatatane
 {
@@ -22,12 +25,7 @@ namespace Pinatatane
                 Hide();
             }
 
-            SetName();
-        }
-
-        void SetName()
-        {
-            text.text = pinata.photonView.Owner.NickName;
+            pinata.SetPlayerName();
         }
     }
 }

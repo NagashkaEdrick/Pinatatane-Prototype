@@ -16,6 +16,8 @@ namespace Pinatatane
 
         public TextMeshProUGUI currentScore, otherPlayerScore;
 
+        public NetworkStatutText networkStatutElement;
+
         private void Awake()
         {
             Instance = this;

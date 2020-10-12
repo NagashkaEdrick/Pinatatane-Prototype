@@ -442,6 +442,7 @@ MonoBehaviour:
   score: 0
   playerUIelements:
   - {fileID: 2629225147800968628}
+  playerName: {fileID: 2939388171897409580}
 --- !u!114 &1756521561635941210
 MonoBehaviour:
   m_ObjectHideFlags: 0

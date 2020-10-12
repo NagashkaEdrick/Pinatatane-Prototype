@@ -25,6 +25,7 @@ namespace Pinatatane
 
         public UIElement[] playerUIelements;
 
+        public TextMeshProUGUI playerName;
 
         public void InitPlayer()
         {
@@ -40,7 +41,7 @@ namespace Pinatatane
             //Test
             if (Input.GetKeyDown(KeyCode.K))
             {
-                photonView.RPC("TranslatePos", RpcTarget.Others);
+                photonView.RPC("TranslatePos", RpcTarget.Others, Vector3.zero);
             }
 
             if (Input.GetKeyDown(KeyCode.L))
@@ -55,16 +56,22 @@ namespace Pinatatane
                 playerUIelements[i].Refresh();
         }
 
+        public void SetPlayerName()
+        {
+            photonView.RPC("SetName", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName);
+
+        }
+
+        [PunRPC]
+        public void SetName(string _name)
+        {
+            playerName.text = _name;
+        }
+
         [PunRPC]
         public void TranslatePos(Vector3 _newPos)
         {
             transform.position = _newPos;
-            //DOTween.To(
-            //    () => transform.position,
-            //    x => transform.position = x,
-            //    _newPos,
-            //    _timer
-            //    );
         }
 
         [PunRPC]

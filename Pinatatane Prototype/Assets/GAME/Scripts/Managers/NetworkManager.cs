@@ -19,6 +19,8 @@ namespace Pinatatane
 
         [SerializeField] TextMeshProUGUI creationRoomText;
 
+        public Camera offlineCamera;
+
         private void Awake()
         {
             Instance = this;
@@ -36,6 +38,8 @@ namespace Pinatatane
             base.OnConnectedToMaster();
 
             Debug.Log(PhotonNetwork.LocalPlayer.NickName + " is connected to the server.");
+
+            UIManager.Instance?.networkStatutElement.Online();
 
             if (!PhotonNetwork.InLobby)
                 PhotonNetwork.JoinLobby();
@@ -87,6 +91,7 @@ namespace Pinatatane
             base.OnJoinedRoom();
             Debug.Log("Room Joined.");
 
+            offlineCamera.gameObject.SetActive(false);
             PlayerManager.Instance.CreatePlayer();
         }
     }
