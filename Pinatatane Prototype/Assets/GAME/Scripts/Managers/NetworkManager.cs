@@ -27,7 +27,7 @@ namespace Pinatatane
         private void Start()
         {
             PhotonNetwork.GameVersion = GameSettings.Instance.GameVersion;
-            PhotonNetwork.NickName = GameSettings.Instance.PlayerName;
+            PhotonNetwork.NickName = "Guest" + Random.Range(0, 999).ToString();
             PhotonNetwork.ConnectUsingSettings();
         }
 
@@ -88,8 +88,6 @@ namespace Pinatatane
             Debug.Log("Room Joined.");
 
             PlayerManager.Instance.CreatePlayer();
-
-            Debug.Log(PhotonNetwork.PlayerList[0].NickName);
         }
     }
 }

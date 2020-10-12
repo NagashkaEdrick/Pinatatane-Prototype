@@ -40,6 +40,10 @@ MonoBehaviour:
   - RespawnSpaceship
   - KillOtherPlayer
   - Big
+  - TranslatePos
+  - ChangeScore
+  - SetPlayerManager
+  - SetPlayerName
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
