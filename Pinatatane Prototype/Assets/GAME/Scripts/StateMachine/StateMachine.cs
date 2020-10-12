@@ -21,6 +21,9 @@ namespace Pinatatane
 
         public void StartStateMachine()
         {
+            if (states.Length == 0)
+                return;
+
             currentStateIndex = 0;
             states[currentStateIndex].onStateEnter?.Invoke();
             if (states[currentStateIndex].testConditionAtStart) 

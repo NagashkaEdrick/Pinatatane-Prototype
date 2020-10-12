@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Sirenix.OdinInspector;
+using TMPro;
 
 namespace Pinatatane
 {
@@ -12,6 +13,10 @@ namespace Pinatatane
         public static UIManager Instance;
 
         public Dictionary<string,UIMenu> menus;
+
+        public TextMeshProUGUI currentScore, otherPlayerScore;
+
+        public NetworkStatutText networkStatutElement;
 
         private void Awake()
         {

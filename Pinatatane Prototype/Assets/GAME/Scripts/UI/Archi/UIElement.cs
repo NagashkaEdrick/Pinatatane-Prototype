@@ -22,7 +22,6 @@ namespace Pinatatane
 
         void Init()
         {
-            Refresh();
             rectTransform = GetComponent<RectTransform>();
             TryGetComponent(out canvasGroup);
         }
@@ -34,11 +33,13 @@ namespace Pinatatane
 
         public void Show()
         {
+            canvasGroup.alpha = 1;
             OnShow();
         }
 
         public void Hide()
         {
+            canvasGroup.alpha = 0;
             OnHide();
         }
 

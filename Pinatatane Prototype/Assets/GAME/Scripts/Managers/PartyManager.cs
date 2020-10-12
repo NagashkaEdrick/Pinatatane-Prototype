@@ -19,7 +19,7 @@ namespace Pinatatane
         {
             Instance = this;
 
-            timerCondition.Reset();
+            timerCondition?.Reset();
 
             stateMachine = new StateMachine(gameStates);
         }
