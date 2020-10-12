@@ -91,7 +91,8 @@ namespace Pinatatane
             base.OnJoinedRoom();
             Debug.Log("Room Joined.");
 
-            offlineCamera.gameObject.SetActive(false);
+            offlineCamera?.gameObject.SetActive(false);
+            UIManager.Instance?.FindMenu("RoomCreationMenu").Hide();
             PlayerManager.Instance.CreatePlayer();
         }
     }

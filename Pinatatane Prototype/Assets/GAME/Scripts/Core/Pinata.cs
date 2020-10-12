@@ -8,13 +8,17 @@ using DG.Tweening;
 
 using UnityEngine;
 using TMPro;
+using Sirenix.OdinInspector;
 
 namespace Pinatatane
 {
     public class Pinata : MonoBehaviour
     {
+        [TitleGroup("References", order: 0)]
         public CharacterMovementBehaviour characterMovementBehaviour;
+        [TitleGroup("References", order: 0)]
         public CameraController cameraController;
+        [TitleGroup("References", order: 0)]
         public AnimatorBehaviour animatorBehaviour;
 
         public PhotonView photonView;
@@ -43,11 +47,11 @@ namespace Pinatatane
             {
                 photonView.RPC("TranslatePos", RpcTarget.Others, Vector3.zero);
             }
+        }
 
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                photonView.RPC("ChangeScore", RpcTarget.Others, score += 10);
-            }
+        public void IncrementeScore()
+        {
+            photonView.RPC("ChangeScore", RpcTarget.Others, score += 10);
         }
 
         public void InitPlayerUI()
@@ -59,7 +63,6 @@ namespace Pinatatane
         public void SetPlayerName()
         {
             photonView.RPC("SetName", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName);
-
         }
 
         [PunRPC]

@@ -643,6 +643,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 523383325}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &585271406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 585271408}
+  - component: {fileID: 585271407}
+  - component: {fileID: 585271409}
+  m_Layer: 0
+  m_Name: CandySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &585271407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585271406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1963100ae5b0aff439d909a3a70f11ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photonView: {fileID: 585271409}
+--- !u!4 &585271408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585271406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3.94}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &585271409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585271406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &675303766
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,17 +2760,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4596310749358986419, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
     - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-      propertyPath: serializationData.ReferencedUnityObjects.Array.size
+      propertyPath: serializationData.PrefabModifications.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-      propertyPath: serializationData.ReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 723927690}
-    - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: currentScore
       value: 
@@ -2716,6 +2779,18 @@ PrefabInstance:
       propertyPath: networkStatutElement
       value: 
       objectReference: {fileID: 496012799}
+    - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+    - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 723927690}
+    - target: {fileID: 7388482057903600475, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"menus.{\"RoomCreationMenu\"}","value":$eref:0'
+      objectReference: {fileID: 0}
     - target: {fileID: 7388482058666983274, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2764,10 +2839,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[MANAGERS]'
       objectReference: {fileID: 0}
-    - target: {fileID: 7388482059213529744, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 7388482059213529744, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
     - target: {fileID: 7388482059214529286, guid: 30fbe03021907944fba3b7624fcf9d97, type: 3}
       propertyPath: playerParent
       value: 
