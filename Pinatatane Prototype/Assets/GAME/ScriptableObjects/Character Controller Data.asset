@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Character Controller Data
   m_EditorClassIdentifier: 
   rotationAcceleration: 1
-  rotationSpeed: 2
-  movementSpeed: 1000
-  dashSpeed: 5
+  rotationSpeed: 1
+  movementSpeed: 10
+  dashSpeed: 10
   dashDuration: 0.075
   dashCooldown: 0.5
   cameraHeight: 1
-  cameraDistance: 4
+  cameraDistance: 6
