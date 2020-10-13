@@ -39,7 +39,7 @@ namespace Pinatatane
         void PlayerMovement() {
             float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-            cc.rigidBody.velocity = new Vector3(horizontal, cc.rigidBody.velocity.y, vertical) * data.movementSpeed * Time.deltaTime;
+            cc.rigidBody.velocity = new Vector3(horizontal, cc.rigidBody.velocity.y, vertical) * data.movementSpeed ;
 
             ab.SetFloat("vertical", vertical);
             ab.SetFloat("horizontal", horizontal);
