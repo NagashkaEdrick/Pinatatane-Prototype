@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 
-using DG.Tweening;
-
 using UnityEngine;
 using TMPro;
 using Sirenix.OdinInspector;
@@ -14,57 +12,57 @@ namespace Pinatatane
 {
     public class Pinata : MonoBehaviour
     {
-        [TitleGroup("References", order: 0)]
+        [FoldoutGroup("References", order: 0)]
         public CharacterMovementBehaviour characterMovementBehaviour;
-        [TitleGroup("References", order: 0)]
+        [FoldoutGroup("References", order: 0)]
         public CameraController cameraController;
-        [TitleGroup("References", order: 0)]
+        [FoldoutGroup("References", order: 0)]
         public AnimatorBehaviour animatorBehaviour;
-
+        [FoldoutGroup("References", order: 0)]
         public PhotonView photonView;
-
+        [FoldoutGroup("References", order: 0)]
         public Transform cameraTarget;
-
-        public int score;
-
+        [FoldoutGroup("References", order: 0)]
         public UIElement[] playerUIelements;
-
+        [FoldoutGroup("References", order: 0)]
         public TextMeshProUGUI playerName;
 
+        [TitleGroup("Gameplay Value", Order = 10)]
+        [SerializeField] int score;
+
+        #region Properties
+        public int Score
+        {
+            get => score;
+            set
+            {
+                score = value;
+            }
+        }
+        #endregion
+
+        #region Publics
         public void InitPlayer()
         {
             Debug.Log("Init Player -> " + PhotonNetwork.LocalPlayer.NickName);
-
             cameraController.target = cameraTarget;
 
             InitPlayerUI();
+            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayer(PhotonNetwork.LocalPlayer.NickName, this);
         }
 
-        private void Update()
+        public void IncrementeScore(int _increment)
         {
-            //Test
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                photonView.RPC("TranslatePos", RpcTarget.Others, Vector3.zero);
-            }
-        }
-
-        public void IncrementeScore()
-        {
-            photonView.RPC("ChangeScore", RpcTarget.Others, score += 10);
-        }
-
-        public void InitPlayerUI()
-        {
-            for (int i = 0; i < playerUIelements.Length; i++)
-                playerUIelements[i].Refresh();
+            photonView.RPC("ChangeScore", RpcTarget.Others, Score += _increment);
         }
 
         public void SetPlayerName()
         {
             photonView.RPC("SetName", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName);
         }
+        #endregion
 
+        #region Network
         [PunRPC]
         public void SetName(string _name)
         {
@@ -72,15 +70,18 @@ namespace Pinatatane
         }
 
         [PunRPC]
-        public void TranslatePos(Vector3 _newPos)
+        public void ChangeScore(int _score)
         {
-            transform.position = _newPos;
+            UIManager.Instance.currentScore.text = _score.ToString();
         }
+        #endregion
 
-        [PunRPC]
-        public void ChangeScore(int score)
+        #region Private
+        void InitPlayerUI()
         {
-            UIManager.Instance.currentScore.text = score.ToString();
+            for (int i = 0; i < playerUIelements.Length; i++)
+                playerUIelements[i].Refresh();
         }
+        #endregion
     }
 }

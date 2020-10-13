@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+
+using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -28,18 +30,24 @@ namespace Pinatatane
 
         public virtual void Refresh()
         {
-
+            
         }
 
+        [ButtonGroup("Buttons")]
         public void Show()
         {
             canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
             OnShow();
         }
 
+        [ButtonGroup("Buttons")]
         public void Hide()
         {
             canvasGroup.alpha = 0;
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
             OnHide();
         }
 

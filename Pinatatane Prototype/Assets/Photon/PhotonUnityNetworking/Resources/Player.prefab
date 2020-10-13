@@ -440,10 +440,10 @@ MonoBehaviour:
   animatorBehaviour: {fileID: 1057187152}
   photonView: {fileID: 3415627638194251138}
   cameraTarget: {fileID: 1756521561467449151}
-  score: 0
   playerUIelements:
   - {fileID: 2629225147800968628}
   playerName: {fileID: 2939388171897409580}
+  score: 0
 --- !u!114 &1756521561635941210
 MonoBehaviour:
   m_ObjectHideFlags: 0

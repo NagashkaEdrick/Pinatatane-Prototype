@@ -14,7 +14,7 @@ namespace Pinatatane
 
         public Dictionary<string,UIMenu> menus;
 
-        public TextMeshProUGUI currentScore, otherPlayerScore;
+        public TextMeshProUGUI currentScore;
 
         public NetworkStatutText networkStatutElement;
 
@@ -28,6 +28,13 @@ namespace Pinatatane
             UIMenu menuToRtn = null;
             menus.TryGetValue(key, out menuToRtn);
             return menuToRtn;
+        }
+
+        public T FindMenu<T>(string key) where T : UIMenu
+        {
+            UIMenu menuToRtn = null;
+            menus.TryGetValue(key, out menuToRtn);
+            return menuToRtn as T;
         }
     }
 }
