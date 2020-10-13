@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b4262a6acfc9e40bb017b6baa9ee51, type: 3}
   m_Name: Character Controller Data
   m_EditorClassIdentifier: 
-  rotationAcceleration: 1
+  rotationAcceleration: 0.5
+  gravity: 0.2
   rotationSpeed: 4
   movementSpeed: 500
   dashSpeed: 10
