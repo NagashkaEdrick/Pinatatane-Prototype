@@ -1561,6 +1561,14 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 1756521561635941211, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756521561635941211, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: _camera
       value: 
