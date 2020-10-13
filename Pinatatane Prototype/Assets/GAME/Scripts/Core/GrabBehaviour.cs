@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,22 +8,26 @@ namespace Pinatatane
 {
     public class GrabBehaviour : MonoBehaviour
     {
-        private Coroutine grabCor = null;
-
+        [BoxGroup("Tweaking")]
         public float duration = 1f;
-        public float speed = 10f;
-        public Camera _camera;
-
-        public Image crossHair;
+        [BoxGroup("Tweaking")]
         [Range(0f, 1f)]
         public float crossHairPosition = 0.5f;
+        [BoxGroup("Tweaking")]
         public float length = 15f;
-
+        [BoxGroup("Tweaking")]
         public int numberOfSegment = 10;
+        [BoxGroup("Tweaking")]
+        public bool debug = false;
+
+        [BoxGroup("Fix")]
+        public Camera _camera;
+        [BoxGroup("Fix")]
+        public Image crossHair;
+
+        private Coroutine grabCor = null;
         private Stack<Vector3> segments = new Stack<Vector3>();
         private Stack<GameObject> maillons = new Stack<GameObject>();
-
-        /*public GameObject maillon;*/
 
         int cpt; //nbre de segments deja cree
 
@@ -31,6 +36,24 @@ namespace Pinatatane
 
         private void Update() {
             crossHair.transform.position = new Vector3(crossHair.transform.position.x, crossHairPosition * Screen.height, 0);
+            if (debug)
+            {
+                Vector3 crossHairPos = new Vector3(crossHair.transform.position.x, crossHair.transform.position.y, 0);
+                Ray ray = _camera.ScreenPointToRay(crossHairPos);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, length))
+                {
+                    Debug.DrawRay(ray.origin, ray.direction * length, Color.red);
+                    Debug.DrawRay(transform.position, hit.point - transform.position, Color.blue);
+                    if (Input.GetKeyDown(KeyCode.Keypad0)) Debug.Log(hit.collider.name);
+                }
+                else
+                {
+                    Debug.DrawRay(ray.origin, ray.direction * length, Color.yellow);
+                    Vector3 dest = ray.origin + ray.direction.normalized * length;
+                    Debug.DrawRay(transform.position, dest - transform.position, Color.blue);
+                }
+            }
         }
 
         public void GrabAction()
@@ -59,8 +82,7 @@ namespace Pinatatane
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, length))
             {
-                Debug.DrawRay(ray.origin, ray.direction * length, Color.red);
-                if (Input.GetKeyDown(KeyCode.Keypad0)) Debug.Log(hit.collider.name);
+                /* Collision */
             }
             else
             {

@@ -30,6 +30,8 @@ namespace Pinatatane
         [TitleGroup("Gameplay Value", Order = 10)]
         [SerializeField] int score;
 
+        public PlayerListingElement playerListing;
+
         #region Properties
         public int Score
         {
@@ -37,6 +39,7 @@ namespace Pinatatane
             set
             {
                 score = value;
+                playerListing.RefreshScore(value);
             }
         }
         #endregion
@@ -48,12 +51,14 @@ namespace Pinatatane
             cameraController.target = cameraTarget;
 
             InitPlayerUI();
-            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayer(PhotonNetwork.LocalPlayer.NickName, this);
+            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayer(PhotonNetwork.LocalPlayer.NickName);
         }
 
+        [Button]
         public void IncrementeScore(int _increment)
         {
-            photonView.RPC("ChangeScore", RpcTarget.Others, Score += _increment);
+            Score += _increment;
+            //photonView.RPC("ChangeScore", RpcTarget.Others, Score += _increment);
         }
 
         public void SetPlayerName()
@@ -72,7 +77,7 @@ namespace Pinatatane
         [PunRPC]
         public void ChangeScore(int _score)
         {
-            UIManager.Instance.currentScore.text = _score.ToString();
+            //UIManager.Instance.currentScore.text = _score.ToString();
         }
         #endregion
 
