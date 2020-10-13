@@ -11,16 +11,15 @@ namespace Pinatatane
         [SerializeField] PhotonView photonView;
         [SerializeField] TextMeshProUGUI playerName;
         [SerializeField] TextMeshProUGUI score;
-        public Pinata pinata;
 
         public void Build(string _playerName)
         {
             playerName.text = _playerName;
         }
 
-        public void RefreshScore()
+        public void RefreshScore(int _score)
         {
-            photonView.RPC("RefreshScoreNetwork", RpcTarget.AllBuffered, pinata.Score);
+            photonView.RPC("RefreshScoreNetwork", RpcTarget.AllBuffered, 15);
         }
 
         [PunRPC]

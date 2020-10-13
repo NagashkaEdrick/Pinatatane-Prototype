@@ -13,16 +13,15 @@ namespace Pinatatane
 
         public List<PlayerListingElement> playerListingElements = new List<PlayerListingElement>();
 
-        public void AddPlayer(string _playerName, Pinata _pinata)
+        public void AddPlayer(string _playerName)
         {
-            photonView.RPC("AddPlayerNetworking", RpcTarget.AllBuffered, _playerName, _pinata);
+            photonView.RPC("AddPlayerNetworking", RpcTarget.AllBuffered, _playerName);
         }
 
         [PunRPC]
-        public void AddPlayerNetworking(string _playerName, Pinata _pinata)
+        public void AddPlayerNetworking(string _playerName)
         {
             PlayerListingElement newListingElement = Instantiate(PlayerListingElementPrefab, container);
-            newListingElement.pinata = _pinata;
             newListingElement.Build(_playerName);
         }
 
