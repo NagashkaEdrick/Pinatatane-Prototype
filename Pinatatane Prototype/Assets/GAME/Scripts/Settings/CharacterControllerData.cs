@@ -7,7 +7,7 @@ public class CharacterControllerData : ScriptableObject
 {
     [Range(0f, 1f)]
     public float rotationAcceleration = 0.5f;
-
+    public float gravity = 0.2f;
     public float rotationSpeed = 2;
     public float movementSpeed = 500;
     public float dashSpeed = 10;

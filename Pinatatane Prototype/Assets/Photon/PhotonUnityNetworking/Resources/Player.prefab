@@ -784,7 +784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4844049886212091233
 Transform:
   m_ObjectHideFlags: 0
@@ -813,12 +813,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 1
-  speed: 10
-  _camera: {fileID: 0}
-  crossHair: {fileID: 0}
   crossHairPosition: 0.55
   length: 15
   numberOfSegment: 10
+  debug: 0
+  _camera: {fileID: 0}
+  crossHair: {fileID: 0}
 --- !u!1 &7745438528019224365
 GameObject:
   m_ObjectHideFlags: 0
