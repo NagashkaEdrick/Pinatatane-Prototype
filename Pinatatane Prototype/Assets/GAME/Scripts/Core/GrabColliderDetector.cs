@@ -7,7 +7,11 @@ public class GrabColliderDetector : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-        FindObjectOfType<GrabBehaviour>().SetObjectGrabed(other.gameObject);
+        if (other.GetComponent(typeof(IGrabable)))
+        {
+            Debug.Log(other.gameObject.name);
+            GrabBehaviour grab = FindObjectOfType<GrabBehaviour>();
+            grab.SetObjectGrabed(other.gameObject);
+        }
     }
 }

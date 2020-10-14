@@ -127,11 +127,11 @@ namespace Pinatatane
         IEnumerator RetractGrab()
         {
             cc.setRotationActive(true);
-            yield return new WaitForSeconds(10f);
+            //Debug.Break();
+            if (objectGrabed != null) yield return new WaitForSeconds(2f);
             while (cptLink > 0)
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
-                Debug.Log(objectGrabed);
                 links[cptLink].transform.position = links[cptLink - 1].transform.position;
                 links[cptLink].transform.SetParent(links[cptLink].transform.parent.transform.parent);
                 Destroy(links[cptLink - 1]);

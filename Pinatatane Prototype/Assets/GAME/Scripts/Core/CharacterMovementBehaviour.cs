@@ -74,5 +74,10 @@ namespace Pinatatane
         {
             rotationActive = value;
         }
+
+        public float getRotationAngle()
+        {
+            return rightJoyX;
+        }
     }
 }

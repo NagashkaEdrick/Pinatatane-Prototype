@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Character Controller Data
   m_EditorClassIdentifier: 
   rotationAcceleration: 1
-  gravity: 0.2
+  gravity: 0.05
   rotationSpeed: 1
   movementSpeed: 1000
   dashSpeed: 2.5
