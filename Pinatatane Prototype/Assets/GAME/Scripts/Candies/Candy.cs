@@ -15,7 +15,7 @@ namespace Pinatatane
             if (other.gameObject.GetComponent<Pinata>())
             {
                 Debug.Log("touch");
-                other.gameObject.GetComponent<Pinata>().IncrementeScore(candyValue);
+                //other.gameObject.GetComponent<Pinata>().IncrementeScore(candyValue);
                 PhotonNetwork.Destroy(gameObject);
             }
         }

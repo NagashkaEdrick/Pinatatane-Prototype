@@ -30,7 +30,9 @@ namespace Pinatatane
         [TitleGroup("Gameplay Value", Order = 10)]
         [SerializeField] int score;
 
-        public PlayerListingElement playerListing;
+        public PlayerListingElement playerListingElement;
+
+        public Player player => PhotonNetwork.LocalPlayer;
 
         #region Properties
         public int Score
@@ -38,8 +40,7 @@ namespace Pinatatane
             get => score;
             set
             {
-                score = value;
-                playerListing.RefreshScore(value);
+                score = value;                
             }
         }
         #endregion
@@ -47,23 +48,31 @@ namespace Pinatatane
         #region Publics
         public void InitPlayer()
         {
-            Debug.Log("Init Player -> " + PhotonNetwork.LocalPlayer.NickName);
+            Debug.Log("Init Player -> " + player.NickName);
             cameraController.target = cameraTarget;
 
             InitPlayerUI();
-            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayer(PhotonNetwork.LocalPlayer.NickName);
+            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayer(player);
+
+            Score = 0;
         }
 
-        [Button]
-        public void IncrementeScore(int _increment)
+        [PunRPC]
+        public void IncrementeScore(int _increment, string _id)
         {
-            Score += _increment;
-            //photonView.RPC("ChangeScore", RpcTarget.Others, Score += _increment);
+            if(player.UserId == _id)
+                Score += _increment;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+                photonView.RPC("IncrementeScore", RpcTarget.OthersBuffered, 50, player.UserId);
         }
 
         public void SetPlayerName()
         {
-            photonView.RPC("SetName", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName);
+            photonView.RPC("SetName", RpcTarget.AllBuffered, player.NickName);
         }
         #endregion
 
@@ -72,12 +81,6 @@ namespace Pinatatane
         public void SetName(string _name)
         {
             playerName.text = _name;
-        }
-
-        [PunRPC]
-        public void ChangeScore(int _score)
-        {
-            //UIManager.Instance.currentScore.text = _score.ToString();
         }
         #endregion
 

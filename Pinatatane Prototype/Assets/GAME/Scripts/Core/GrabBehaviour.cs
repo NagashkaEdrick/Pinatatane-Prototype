@@ -16,23 +16,30 @@ namespace Pinatatane
         [BoxGroup("Tweaking")]
         public float length = 15f;
         [BoxGroup("Tweaking")]
-        public int numberOfSegment = 10;
+        public int numberOfLink = 10;
         [BoxGroup("Tweaking")]
         public bool debug = false;
+        [BoxGroup("Tweaking")]
+        public float attractionForce = 50f;
 
         [BoxGroup("Fix")]
         public Camera _camera;
         [BoxGroup("Fix")]
         public Image crossHair;
 
-        private Coroutine grabCor = null;
-        private Stack<Vector3> segments = new Stack<Vector3>();
-        private Stack<GameObject> maillons = new Stack<GameObject>();
+        private Coroutine grabCoroutine = null;
+        private GameObject[] links;
+        private GameObject objectGrabed = null;
 
-        int cpt; //nbre de segments deja cree
+        int cptLink;
 
         CharacterMovementBehaviour cc => PlayerManager.Instance.LocalPlayer.characterMovementBehaviour;
         AnimatorBehaviour animator => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
+
+        private void Start()
+        {
+            links = new GameObject[numberOfLink + 1];
+        }
 
         private void Update() {
             crossHair.transform.position = new Vector3(crossHair.transform.position.x, crossHairPosition * Screen.height, 0);
@@ -54,62 +61,90 @@ namespace Pinatatane
                     Debug.DrawRay(transform.position, dest - transform.position, Color.blue);
                 }
             }
+
+            if(objectGrabed != null)
+            {
+                objectGrabed.GetComponent<Rigidbody>().AddForce((links[cptLink].transform.position - objectGrabed.transform.position) * attractionForce);
+            }
+        }
+
+        public void GrabAnime()
+        {
+            animator.SetBool("grab", true);
         }
 
         public void GrabAction()
         {
-            if (grabCor == null)
+            if (grabCoroutine == null)
             {
-                grabCor = StartCoroutine(LaunchGrab());
+                grabCoroutine = StartCoroutine(StartGrab());
+                // a terme, separer en 2 script le mouvement et la rotation et desactiver le mouvement durant toutes la durée du dash et la rotation uniquement durant l'aller
+                cc.setMovementActive(false);
+                cc.setRotationActive(false);
             }
         }
 
-        IEnumerator LaunchGrab()
+        IEnumerator StartGrab()
         {
-            animator.SetBool("grab", true);
-            cc.setMovementActive(false);
-            yield return new WaitForSeconds(animator.animator.GetCurrentAnimatorStateInfo(0).length);
-
-            // grab
-            segments.Clear();
-            maillons.Clear();
-            segments.Push(transform.position);
-            maillons.Push(transform.GetChild(0).gameObject);
-            cpt = 0;
+            cptLink = 0;
+            links[cptLink] = transform.GetChild(0).gameObject;
 
             Vector3 crossHairPos = new Vector3(crossHair.transform.position.x, crossHair.transform.position.y, 0);
             Ray ray = _camera.ScreenPointToRay(crossHairPos);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, length))
             {
-                /* Collision */
+                yield return LaunchGrab(hit.point);
             }
             else
             {
-                Vector3 dest = ray.origin + ray.direction.normalized * length;
-                float distance = Vector3.Distance(segments.Peek(), dest); //distance courante entre le grab et la destination
-                float lenghtSegment = distance / numberOfSegment;
-                while (cpt < numberOfSegment)
-                {
-                    yield return new WaitForSeconds(duration / numberOfSegment);
-                    GameObject maillon = maillons.Peek();
-                    GameObject o = Instantiate(maillon, maillon.transform, true);
-                    o.transform.Translate((dest - o.transform.position).normalized * lenghtSegment, Space.World);
-                    maillons.Push(o);
-                    cpt++;
-                }
-                while (cpt > 0)
-                {
-                    yield return new WaitForSeconds(duration / numberOfSegment);
-                    Destroy(maillons.Pop());
-                    cpt--;
-                }
+                yield return LaunchGrab(ray.origin + ray.direction.normalized * length);
             }
 
-            grabCor = null;
+            grabCoroutine = null;
             animator.SetBool("grab", false);
             cc.setMovementActive(true);
             yield break;
+        }
+
+        IEnumerator LaunchGrab(Vector3 destinationPoint)
+        {
+            float distance = Vector3.Distance(links[0].transform.position, destinationPoint); //distance entre la main et la destination
+            float lenghtBetweenLink = distance / numberOfLink;
+            links[0].AddComponent<GrabColliderDetector>();
+            while (cptLink < numberOfLink && InputManagerQ.Instance.GetTrigger("RightTrigger"))
+            {
+                yield return new WaitForSeconds(duration / numberOfLink);
+                GameObject link = Instantiate(links[cptLink], links[cptLink].transform, true);
+                link.name = "Maillon " + cptLink;
+                Destroy(links[cptLink].GetComponent<SphereCollider>());
+                Destroy(links[cptLink].GetComponent<GrabColliderDetector>());
+                link.transform.Translate((destinationPoint - link.transform.position).normalized * lenghtBetweenLink, Space.World);
+                links[++cptLink] = link;
+            }
+            yield return RetractGrab();
+        }
+
+        IEnumerator RetractGrab()
+        {
+            cc.setRotationActive(true);
+            while (cptLink > 0)
+            {
+                yield return new WaitForSeconds(duration / numberOfLink);
+                Debug.Log(objectGrabed);
+                links[cptLink].transform.position = links[cptLink - 1].transform.position;
+                links[cptLink].transform.SetParent(links[cptLink].transform.parent.transform.parent);
+                Destroy(links[cptLink - 1]);
+                links[cptLink - 1] = links[cptLink];
+                links[cptLink--] = null;
+            }
+            Destroy(links[0].GetComponent<GrabColliderDetector>());
+            objectGrabed = null;
+        }
+
+        public void SetObjectGrabed(GameObject o)
+        {
+            objectGrabed = o;
         }
     }
 }

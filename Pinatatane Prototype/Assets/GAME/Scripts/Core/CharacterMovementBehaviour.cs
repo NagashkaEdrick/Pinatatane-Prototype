@@ -24,6 +24,7 @@ namespace Pinatatane
 
         float rightJoyX;
         bool movementActive = true;
+        bool rotationActive = true;
 
         CharacterMovementBehaviour cc => PlayerManager.Instance.LocalPlayer.characterMovementBehaviour;
         AnimatorBehaviour ab => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
@@ -32,7 +33,8 @@ namespace Pinatatane
         void FixedUpdate()
         {
             if (movementActive) PlayerMovement();
-            PlayerRotation();
+            else cc.rigidBody.velocity = Vector3.zero;
+            if (rotationActive) PlayerRotation();
         }
 
         // Gere les mouvement du joueur en fonction du joystick gauche
@@ -40,7 +42,6 @@ namespace Pinatatane
             float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
             cc.rigidBody.velocity = new Vector3(horizontal, -data.gravity, vertical).normalized * data.movementSpeed * Time.deltaTime;
-            Debug.Log(cc.rigidBody.velocity);
 
             ab.SetFloat("vertical", vertical);
             ab.SetFloat("horizontal", horizontal);
@@ -67,6 +68,11 @@ namespace Pinatatane
 
         public void setMovementActive(bool value) {
             movementActive = value;
+        }
+
+        public void setRotationActive(bool value)
+        {
+            rotationActive = value;
         }
     }
 }
