@@ -100,7 +100,6 @@ namespace Pinatatane
             {
                 yield return LaunchGrab(ray.origin + ray.direction.normalized * length);
             }
-
             grabCoroutine = null;
             animator.SetBool("grab", false);
             cc.setMovementActive(true);
@@ -128,6 +127,7 @@ namespace Pinatatane
         IEnumerator RetractGrab()
         {
             cc.setRotationActive(true);
+            yield return new WaitForSeconds(10f);
             while (cptLink > 0)
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
