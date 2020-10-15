@@ -110,28 +110,29 @@ namespace Pinatatane
         {
             float distance = Vector3.Distance(links[0].transform.position, destinationPoint); //distance entre la main et la destination
             float lenghtBetweenLink = distance / numberOfLink;
-            GrabColliderDetector col = links[0].AddComponent<GrabColliderDetector>();
+            Collider[] grabedObjects;
 
             while (cptLink < numberOfLink && InputManagerQ.Instance.GetTrigger("RightTrigger"))
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
+
                 GameObject link = Instantiate(links[cptLink], links[cptLink].transform, true);
                 link.name = "Maillon " + cptLink;
-                Destroy(links[cptLink].GetComponent<SphereCollider>());
-                Destroy(links[cptLink].GetComponent<GrabColliderDetector>());
                 link.transform.Translate((destinationPoint - link.transform.position).normalized * lenghtBetweenLink, Space.World);
                 links[++cptLink] = link;
-            }
-            yield return RetractGrab();
-            GrabColliderDetector detector = links[cptLink].GetComponent<GrabColliderDetector>();
-            detector.OnObjectGrabed += OnObjectGrabedAction;
-        }
 
-        private void OnObjectGrabedAction(GameObject objectGrabed, string playerId)
-        {
-            GetGrab(playerId);
-            Debug.Log(objectGrabed.name);
-            StartCoroutine(RetractGrab());
+                grabedObjects = Physics.OverlapSphere(links[cptLink].transform.position, links[cptLink].GetComponent<SphereCollider>().radius);
+                for (int i = 0; i < grabedObjects.Length; i++) {
+                    if (grabedObjects[i].GetComponent(typeof(IGrabable))) {
+                        // On a grab un objet, lancement de la fct qui wait les input
+                        Debug.Log(grabedObjects[i].gameObject.name);
+                        yield return WaitForInput(grabedObjects[i].gameObject);
+                        break;
+                    }
+                }
+            }
+
+            yield return RetractGrab();
         }
 
         IEnumerator RetractGrab()
@@ -140,14 +141,16 @@ namespace Pinatatane
             while (cptLink > 0)
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
-                links[cptLink].transform.position = links[cptLink - 1].transform.position;
-                links[cptLink].transform.SetParent(links[cptLink].transform.parent.transform.parent);
-                Destroy(links[cptLink - 1]);
-                links[cptLink - 1] = links[cptLink];
-                links[cptLink--] = null;
+                Destroy(links[cptLink--]);
             }
-            Destroy(links[0].GetComponent<GrabColliderDetector>());
             objectGrabed = null;
+        }
+
+        IEnumerator WaitForInput(GameObject o) {
+            float t = Time.time;
+            yield return new WaitWhile(() => ((Time.time - t) < 1f && InputManagerQ.Instance.GetAxis("Vertical") >= 0));
+            // En fonction de quel façon on est sortie du while on lance differentes coroutine
+            if (InputManagerQ.Instance.GetAxis("Vertical") < 0) objectGrabed = o;
         }
 
         public void SetObjectGrabed(GameObject o)
@@ -155,7 +158,7 @@ namespace Pinatatane
             objectGrabed = o;
         }
 
-        public void GetGrab(string playerId)
+        public void GetGrabInfo(string playerId)
         {
             Debug.Log("+" + playerId);
         }

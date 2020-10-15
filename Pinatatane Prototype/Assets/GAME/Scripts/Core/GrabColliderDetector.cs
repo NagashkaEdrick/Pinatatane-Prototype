@@ -17,7 +17,7 @@ public class GrabColliderDetector : MonoBehaviour
             //OnObjectGrabed?.Invoke(other.gameObject, other.GetComponent<Pinata>().ID);
             FindObjectOfType<GrabBehaviour>().SetObjectGrabed(other.gameObject);
 
-            grabBehaviour.GetGrab(other.GetComponent<Pinata>().ID);
+            grabBehaviour.GetGrabInfo(other.GetComponent<Pinata>().ID);
         }
     }
 }
