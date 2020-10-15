@@ -110,7 +110,8 @@ namespace Pinatatane
         {
             float distance = Vector3.Distance(links[0].transform.position, destinationPoint); //distance entre la main et la destination
             float lenghtBetweenLink = distance / numberOfLink;
-            links[0].AddComponent<GrabColliderDetector>();
+            GrabColliderDetector col = links[0].AddComponent<GrabColliderDetector>();
+
             while (cptLink < numberOfLink && InputManagerQ.Instance.GetTrigger("RightTrigger"))
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
@@ -122,12 +123,13 @@ namespace Pinatatane
                 links[++cptLink] = link;
             }
             yield return RetractGrab();
-            /*GrabColliderDetector detector = links[cptLink].GetComponent<GrabColliderDetector>();
-            detector.OnObjectGrabed += OnObjectGrabedAction;*/
+            GrabColliderDetector detector = links[cptLink].GetComponent<GrabColliderDetector>();
+            detector.OnObjectGrabed += OnObjectGrabedAction;
         }
 
-        private void OnObjectGrabedAction(GameObject objectGrabed)
+        private void OnObjectGrabedAction(GameObject objectGrabed, string playerId)
         {
+            GetGrab(playerId);
             Debug.Log(objectGrabed.name);
             StartCoroutine(RetractGrab());
         }
@@ -151,6 +153,11 @@ namespace Pinatatane
         public void SetObjectGrabed(GameObject o)
         {
             objectGrabed = o;
+        }
+
+        public void GetGrab(string playerId)
+        {
+            Debug.Log("+" + playerId);
         }
     }
 }
