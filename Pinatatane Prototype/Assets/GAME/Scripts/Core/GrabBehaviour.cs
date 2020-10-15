@@ -29,7 +29,7 @@ namespace Pinatatane
 
         private Coroutine grabCoroutine = null;
         private GameObject[] links;
-        private GameObject objectGrabed = null;
+        public GameObject objectGrabed = null;
 
         int cptLink;
 
@@ -122,13 +122,19 @@ namespace Pinatatane
                 links[++cptLink] = link;
             }
             yield return RetractGrab();
+            /*GrabColliderDetector detector = links[cptLink].GetComponent<GrabColliderDetector>();
+            detector.OnObjectGrabed += OnObjectGrabedAction;*/
+        }
+
+        private void OnObjectGrabedAction(GameObject objectGrabed)
+        {
+            Debug.Log(objectGrabed.name);
+            StartCoroutine(RetractGrab());
         }
 
         IEnumerator RetractGrab()
         {
             cc.setRotationActive(true);
-            //Debug.Break();
-            if (objectGrabed != null) yield return new WaitForSeconds(2f);
             while (cptLink > 0)
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
