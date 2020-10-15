@@ -24,8 +24,6 @@ namespace Pinatatane
             {
                 Hide();
             }
-
-            pinata.SetPlayerName();
         }
     }
 }
