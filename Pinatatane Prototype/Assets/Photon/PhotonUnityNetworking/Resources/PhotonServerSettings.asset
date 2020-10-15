@@ -48,6 +48,9 @@ MonoBehaviour:
   - AddPlayerNetworking
   - RefreshScoreNetwork
   - IncrementeScore
+  - Rfsh
+  - Rfr
+  - SetReady
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
