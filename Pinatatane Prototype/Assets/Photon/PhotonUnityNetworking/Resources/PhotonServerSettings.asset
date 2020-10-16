@@ -51,6 +51,8 @@ MonoBehaviour:
   - Rfsh
   - Rfr
   - SetReady
+  - Grab
+  - GrabNetwork
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
