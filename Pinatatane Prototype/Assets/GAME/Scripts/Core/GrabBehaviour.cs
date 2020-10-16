@@ -29,12 +29,14 @@ namespace Pinatatane
 
         private Coroutine grabCoroutine = null;
         private GameObject[] links;
-        private GameObject objectGrabed = null;
+        public GameObject objectGrabed = null;
 
         int cptLink;
 
         CharacterMovementBehaviour cc => PlayerManager.Instance.LocalPlayer.characterMovementBehaviour;
         AnimatorBehaviour animator => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
+
+        [SerializeField] Pinata pinata;
 
         private void Start()
         {
@@ -100,7 +102,6 @@ namespace Pinatatane
             {
                 yield return LaunchGrab(ray.origin + ray.direction.normalized * length);
             }
-
             grabCoroutine = null;
             animator.SetBool("grab", false);
             cc.setMovementActive(true);
@@ -111,16 +112,30 @@ namespace Pinatatane
         {
             float distance = Vector3.Distance(links[0].transform.position, destinationPoint); //distance entre la main et la destination
             float lenghtBetweenLink = distance / numberOfLink;
-            links[0].AddComponent<GrabColliderDetector>();
+            Collider[] grabedObjects;
+
             while (cptLink < numberOfLink && InputManagerQ.Instance.GetTrigger("RightTrigger"))
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
+
                 GameObject link = Instantiate(links[cptLink], links[cptLink].transform, true);
                 link.name = "Maillon " + cptLink;
-                Destroy(links[cptLink].GetComponent<SphereCollider>());
-                Destroy(links[cptLink].GetComponent<GrabColliderDetector>());
                 link.transform.Translate((destinationPoint - link.transform.position).normalized * lenghtBetweenLink, Space.World);
                 links[++cptLink] = link;
+
+                grabedObjects = Physics.OverlapSphere(links[cptLink].transform.position, links[cptLink].GetComponent<SphereCollider>().radius);
+                for (int i = 0; i < grabedObjects.Length; i++) {
+                    if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet a etait grab
+                        Debug.Log(grabedObjects[i].gameObject.name);
+                        yield return WaitForInput(grabedObjects[i].gameObject);
+                        // Tester e type de la cible
+                        if (grabedObjects[i].gameObject.GetComponent<Pinata>())
+                        {
+                            GetGrabInfo(grabedObjects[i].gameObject.GetComponent<Pinata>().ID, pinata.ID);
+                        }
+                        break;
+                    }
+                }
             }
             yield return RetractGrab();
         }
@@ -131,20 +146,36 @@ namespace Pinatatane
             while (cptLink > 0)
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
-                Debug.Log(objectGrabed);
-                links[cptLink].transform.position = links[cptLink - 1].transform.position;
-                links[cptLink].transform.SetParent(links[cptLink].transform.parent.transform.parent);
-                Destroy(links[cptLink - 1]);
-                links[cptLink - 1] = links[cptLink];
-                links[cptLink--] = null;
+                Destroy(links[cptLink--]);
             }
-            Destroy(links[0].GetComponent<GrabColliderDetector>());
             objectGrabed = null;
+        }
+
+        IEnumerator WaitForInput(GameObject o) {
+            float t = Time.time;
+            yield return new WaitWhile(() => ((Time.time - t) < 1f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f));
+            // En fonction de quel façon on est sortie du while on lance differentes coroutine
+            if (InputManagerQ.Instance.GetAxis("Vertical") <= -0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) objectGrabed = o;
+            else if (InputManagerQ.Instance.GetAxis("Vertical") >= 0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                        && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) Debug.Log("On va vers la cible");
+            else if (InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la gauche");
+            else if (InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                          && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la droite");
         }
 
         public void SetObjectGrabed(GameObject o)
         {
             objectGrabed = o;
+        }
+
+        public void GetGrabInfo(string targetId, string attackerId)
+        {
+            pinata.Grab(targetId, attackerId);
         }
     }
 }

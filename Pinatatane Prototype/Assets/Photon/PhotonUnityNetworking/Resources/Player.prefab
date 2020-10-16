@@ -388,6 +388,7 @@ GameObject:
   - component: {fileID: 1756521561635941209}
   - component: {fileID: 1343214553653338882}
   - component: {fileID: 1756521561635941210}
+  - component: {fileID: 4212750106791532742}
   - component: {fileID: 1756521561635941211}
   - component: {fileID: 1756521561635941157}
   - component: {fileID: 1756521561635941156}
@@ -439,11 +440,10 @@ MonoBehaviour:
   animatorBehaviour: {fileID: 1057187152}
   photonView: {fileID: 3415627638194251138}
   cameraTarget: {fileID: 1756521561467449151}
-  playerUIelements:
-  - {fileID: 2629225147800968628}
-  playerName: {fileID: 2939388171897409580}
-  score: 0
-  playerListingElement: {fileID: 0}
+  pinataUI: {fileID: 4212750106791532742}
+  ID: 
+  isReady: 0
+  isCatch: 0
 --- !u!114 &1756521561635941210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +460,21 @@ MonoBehaviour:
   _camera: {fileID: 0}
   cameraTarget: {fileID: 1756521561467449151}
   rigidBody: {fileID: 1756521561635941211}
+--- !u!114 &4212750106791532742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756521561635941208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56e49fd489df87f4cb70ed3de45c7bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUIelements:
+  - {fileID: 2629225147800968628}
+  playerName: {fileID: 2939388171897409580}
 --- !u!54 &1756521561635941211
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -782,12 +797,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 1
-  speed: 10
-  _camera: {fileID: 0}
-  crossHair: {fileID: 0}
   crossHairPosition: 0.55
   length: 15
-  numberOfSegment: 10
+  numberOfLink: 10
+  debug: 0
+  attractionForce: 50
+  _camera: {fileID: 0}
+  crossHair: {fileID: 0}
+  objectGrabed: {fileID: 0}
+  pinata: {fileID: 1343214553653338882}
 --- !u!1 &7745438528019224365
 GameObject:
   m_ObjectHideFlags: 0

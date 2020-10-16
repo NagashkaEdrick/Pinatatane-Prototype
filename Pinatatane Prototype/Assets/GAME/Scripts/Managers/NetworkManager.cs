@@ -28,10 +28,10 @@ namespace Pinatatane
 
         private void Start()
         {
-            PhotonNetwork.GameVersion = GameSettings.Instance.GameVersion;
-            PhotonNetwork.NickName = "Guest" + Random.Range(0, 999).ToString();
-            PhotonNetwork.ConnectUsingSettings();
+            InitServer();
         }
+
+        #region Photon CallBack
 
         public override void OnConnectedToMaster()
         {
@@ -66,26 +66,6 @@ namespace Pinatatane
             Debug.Log("Room creation failed : " + message);
         }
 
-        public void CreateRoom()
-        {
-            if (!PhotonNetwork.IsConnected)
-                return;
-
-            RoomOptions roomOptions = new RoomOptions();
-            roomOptions.MaxPlayers = networkSettings.playerCountMax;
-            PhotonNetwork.JoinOrCreateRoom(creationRoomText.text, roomOptions, TypedLobby.Default);
-        }
-
-        public void CreateRoom(string _roomName)
-        {
-            if (!PhotonNetwork.IsConnected)
-                return;
-
-            RoomOptions roomOptions = new RoomOptions();
-            roomOptions.MaxPlayers = networkSettings.playerCountMax;
-            PhotonNetwork.JoinOrCreateRoom(_roomName, roomOptions, TypedLobby.Default);
-        }
-
         public override void OnJoinedRoom()
         {
             base.OnJoinedRoom();
@@ -94,6 +74,45 @@ namespace Pinatatane
             offlineCamera?.gameObject.SetActive(false);
             UIManager.Instance?.FindMenu("RoomCreationMenu").Hide();
             PlayerManager.Instance.CreatePlayer();
+
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            {
+                UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(PhotonNetwork.PlayerList[i].UserId);
+            }
+        }
+
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            base.OnPlayerEnteredRoom(newPlayer);
+            Debug.Log(newPlayer.NickName + " est entré dans la room.");
+            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(newPlayer.UserId);
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            base.OnPlayerLeftRoom(otherPlayer);
+            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").RemoveListingElement(otherPlayer.UserId);
+        }
+
+        #endregion
+
+        public void InitServer()
+        {
+            PhotonNetwork.GameVersion = GameSettings.Instance.GameVersion;
+            PhotonNetwork.ConnectUsingSettings();
+        }
+
+        public void CreateRoom() => CreateRoom(creationRoomText.text);
+
+        public void CreateRoom(string _roomName)
+        {
+            if (!PhotonNetwork.IsConnected)
+                return;
+
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = networkSettings.playerCountMax;
+            roomOptions.PublishUserId = true;
+            PhotonNetwork.JoinOrCreateRoom(_roomName, roomOptions, TypedLobby.Default);
         }
     }
 }

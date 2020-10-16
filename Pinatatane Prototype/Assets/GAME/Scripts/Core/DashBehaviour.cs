@@ -28,7 +28,7 @@ namespace Pinatatane
 
         IEnumerator StartDash() {
             data.movementSpeed *= data.dashSpeed;
-            if (rigidBody.velocity == Vector3.zero) {
+            if (rigidBody.velocity.x == 0 && rigidBody.velocity.z == 0) {
                 movement.enabled = false;
                 rigidBody.velocity = transform.forward * data.movementSpeed * Time.deltaTime;
             }

@@ -9,25 +9,9 @@ namespace Pinatatane
     {
         public static PartyManager Instance;
 
-        public StateMachine stateMachine;
-
-        [SerializeField] State[] gameStates;
-
-        public Condition_Timer timerCondition;
-
         private void Awake()
         {
             Instance = this;
-
-            timerCondition?.Reset();
-
-            stateMachine = new StateMachine(gameStates);
-        }
-
-        [Button]
-        void TestCurrentCondition()
-        {
-            stateMachine.TestCurrentStateCondition();
         }
     }
 }
