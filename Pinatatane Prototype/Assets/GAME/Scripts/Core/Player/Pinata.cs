@@ -8,6 +8,7 @@ using UnityEngine;
 using TMPro;
 using Sirenix.OdinInspector;
 using Photon.Pun.UtilityScripts;
+using System.Runtime.CompilerServices;
 
 namespace Pinatatane
 {
@@ -87,6 +88,25 @@ namespace Pinatatane
         public void SetReady(string _playerID)
         {
 
+        }
+
+        public void Grab(string _cible, string _attaquant)
+        {
+            photonView.RPC("GrabNetwork", RpcTarget.All, _cible, _attaquant);
+            Debug.Log(string.Format("GRAB => cible = {0} | attaquant = {1}", _cible, _attaquant));
+        }
+
+        [PunRPC]
+        public void GrabNetwork(string _cible, string _attaquant)
+        {
+            if(ID == _cible)
+            {
+                //comportement de la cible
+            }
+            else if(ID == _attaquant)
+            {
+                //comportement de l'attaquant
+            }
         }
         #endregion
     }

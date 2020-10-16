@@ -36,6 +36,8 @@ namespace Pinatatane
         CharacterMovementBehaviour cc => PlayerManager.Instance.LocalPlayer.characterMovementBehaviour;
         AnimatorBehaviour animator => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
 
+        [SerializeField] Pinata pinata;
+
         private void Start()
         {
             links = new GameObject[numberOfLink + 1];
@@ -123,9 +125,14 @@ namespace Pinatatane
 
                 grabedObjects = Physics.OverlapSphere(links[cptLink].transform.position, links[cptLink].GetComponent<SphereCollider>().radius);
                 for (int i = 0; i < grabedObjects.Length; i++) {
-                    if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet e etait grab
+                    if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet a etait grab
                         Debug.Log(grabedObjects[i].gameObject.name);
                         yield return WaitForInput(grabedObjects[i].gameObject);
+                        // Tester e type de la cible
+                        if (grabedObjects[i].gameObject.GetComponent<Pinata>())
+                        {
+                            GetGrabInfo(grabedObjects[i].gameObject.GetComponent<Pinata>().ID, pinata.ID);
+                        }
                         break;
                     }
                 }
@@ -166,9 +173,9 @@ namespace Pinatatane
             objectGrabed = o;
         }
 
-        public void GetGrabInfo(string playerId)
+        public void GetGrabInfo(string targetId, string attackerId)
         {
-            Debug.Log("+" + playerId);
+            pinata.Grab(targetId, attackerId);
         }
     }
 }
