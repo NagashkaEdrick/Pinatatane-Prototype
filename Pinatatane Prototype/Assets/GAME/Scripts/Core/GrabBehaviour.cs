@@ -123,15 +123,13 @@ namespace Pinatatane
 
                 grabedObjects = Physics.OverlapSphere(links[cptLink].transform.position, links[cptLink].GetComponent<SphereCollider>().radius);
                 for (int i = 0; i < grabedObjects.Length; i++) {
-                    if (grabedObjects[i].GetComponent(typeof(IGrabable))) {
-                        // On a grab un objet, lancement de la fct qui wait les input
+                    if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet e etait grab
                         Debug.Log(grabedObjects[i].gameObject.name);
                         yield return WaitForInput(grabedObjects[i].gameObject);
                         break;
                     }
                 }
             }
-
             yield return RetractGrab();
         }
 
@@ -148,9 +146,19 @@ namespace Pinatatane
 
         IEnumerator WaitForInput(GameObject o) {
             float t = Time.time;
-            yield return new WaitWhile(() => ((Time.time - t) < 1f && InputManagerQ.Instance.GetAxis("Vertical") >= 0));
+            yield return new WaitWhile(() => ((Time.time - t) < 1f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f));
             // En fonction de quel façon on est sortie du while on lance differentes coroutine
-            if (InputManagerQ.Instance.GetAxis("Vertical") < 0) objectGrabed = o;
+            if (InputManagerQ.Instance.GetAxis("Vertical") <= -0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) objectGrabed = o;
+            else if (InputManagerQ.Instance.GetAxis("Vertical") >= 0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                        && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) Debug.Log("On va vers la cible");
+            else if (InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la gauche");
+            else if (InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                          && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la droite");
         }
 
         public void SetObjectGrabed(GameObject o)
