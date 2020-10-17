@@ -79,6 +79,8 @@ namespace Pinatatane
             {
                 UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(PhotonNetwork.PlayerList[i].UserId);
             }
+
+            PlayerManager.Instance.FindAllPinatas();
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -86,12 +88,16 @@ namespace Pinatatane
             base.OnPlayerEnteredRoom(newPlayer);
             Debug.Log(newPlayer.NickName + " est entré dans la room.");
             UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(newPlayer.UserId);
+
+            PlayerManager.Instance.FindAllPinatas();
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
             base.OnPlayerLeftRoom(otherPlayer);
             UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").RemoveListingElement(otherPlayer.UserId);
+
+            PlayerManager.Instance.FindAllPinatas();
         }
 
         #endregion

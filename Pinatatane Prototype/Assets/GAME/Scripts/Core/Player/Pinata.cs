@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 
 namespace Pinatatane
 {
-    public class Pinata : MonoBehaviour
+    public class Pinata : MonoBehaviour, IGrabable
     {
         [FoldoutGroup("References", order: 0)]
         public CharacterMovementBehaviour characterMovementBehaviour;
@@ -36,9 +36,11 @@ namespace Pinatatane
         public void InitPlayer()
         {
             PhotonNetwork.NickName = "Guest" + Random.Range(0, 999).ToString();
-            Debug.Log("Init Player -> " + player.NickName);
             player = PhotonNetwork.LocalPlayer;
+            Debug.Log("Init Player -> " + player.NickName);
             ID = player.UserId;
+
+            PlayerManager.Instance.FindAllPinatas();
 
             cameraController.target = cameraTarget;
             pinataUI?.InitPlayerUI();
@@ -101,11 +103,11 @@ namespace Pinatatane
         {
             if(ID == _cible)
             {
-                //comportement de la cible
+                NetworkInfoManager.Instance.isgrab.text = "Grab : CIBLE";
             }
             else if(ID == _attaquant)
             {
-                //comportement de l'attaquant
+                NetworkInfoManager.Instance.isgrab.text = "Grab : ATTAQUANT";
             }
         }
         #endregion

@@ -14,6 +14,8 @@ namespace Pinatatane
 
         [SerializeField] Transform playerParent;
 
+        public List<Pinata> pinatas = new List<Pinata>();
+
         [SerializeField] Pinata localPlayer;
         public Pinata LocalPlayer
         {
@@ -38,6 +40,36 @@ namespace Pinatatane
 
             localPlayer = player;
             player.InitPlayer();
+        }
+
+        [Button]
+        public void FindAllPinatas()
+        {
+            pinatas.Clear();
+            Pinata[] _pinatas = FindObjectsOfType<Pinata>();
+
+            for (int i = 0; i < _pinatas.Length; i++)
+                pinatas.Add(_pinatas[i]);
+        }
+
+        public Pinata GetPinata(string _playerID)
+        {
+            for (int i = 0; i < pinatas.Count; i++)
+            {
+                if(pinatas[i].ID == _playerID)
+                    return pinatas[i];
+            }
+
+            return null;
+        }
+
+        [Button]
+        void DebugAllPlayers()
+        {
+            for (int i = 0; i < pinatas.Count; i++)
+            {
+                Debug.Log(pinatas[i].ID);
+            }
         }
     }
 }

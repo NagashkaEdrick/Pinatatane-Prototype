@@ -22,13 +22,13 @@ namespace Pinatatane
         [PunRPC]
         public void AddPlayerNetworking(string _playerID)
         {
-            GameObject go = PhotonNetwork.Instantiate("PlayerListingElementPrefab", transform.position, Quaternion.identity);
-            go.transform.parent = container;
+            //GameObject go = PhotonNetwork.Instantiate("PlayerListingElementPrefab", transform.position, Quaternion.identity);
+            //go.transform.parent = container;
 
-            PlayerListingElement newListingElement = go.GetComponent<PlayerListingElement>(); /*Instantiate(PlayerListingElementPrefab, container);*/
-            playerListingElements.Add(newListingElement);
+            //PlayerListingElement newListingElement = go.GetComponent<PlayerListingElement>(); /*Instantiate(PlayerListingElementPrefab, container);*/
+            //playerListingElements.Add(newListingElement);
 
-            newListingElement.Build(_playerID);
+            //newListingElement.Build(_playerID);
         }
 
         public override void Refresh()

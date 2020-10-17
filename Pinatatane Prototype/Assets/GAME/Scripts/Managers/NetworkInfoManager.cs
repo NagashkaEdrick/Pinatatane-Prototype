@@ -12,7 +12,8 @@ namespace Pinatatane
         public TextMeshProUGUI
             playerName,
             isReady,
-            score;
+            score,
+            isgrab;
 
         bool isOpen = false;
 
