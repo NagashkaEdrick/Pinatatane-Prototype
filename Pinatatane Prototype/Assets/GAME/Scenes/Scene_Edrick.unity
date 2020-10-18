@@ -882,7 +882,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792979321}
-  m_LocalRotation: {x: -0.42972, y: -0.1138299, z: 0.05470946, w: -0.89408636}
+  m_LocalRotation: {x: 0.4297201, y: 0.11382973, z: -0.054709405, w: 0.8940863}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -949,7 +949,7 @@ MonoBehaviour:
     m_MaxSpeed: 2
     m_AccelTime: 0.2
     m_DecelTime: 0.1
-    m_InputAxisName: Mouse Y
+    m_InputAxisName: RotationY
     m_InputAxisValue: 0
     m_InvertInput: 0
     m_MinValue: 0
@@ -973,7 +973,7 @@ MonoBehaviour:
     m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.1
-    m_InputAxisName: Mouse X
+    m_InputAxisName: RotationX
     m_InputAxisValue: 0
     m_InvertInput: 0
     m_MinValue: -180
@@ -1053,8 +1053,8 @@ MonoBehaviour:
   m_Strategy: 0
   m_MaximumEffort: 4
   m_SmoothingTime: 0
-  m_Damping: 0
-  m_DampingWhenOccluded: 0
+  m_Damping: 5
+  m_DampingWhenOccluded: 2
   m_OptimalTargetDistance: 0
 --- !u!1 &904442414
 GameObject:
@@ -1293,7 +1293,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.46117905, y: 0.1118165, z: -0.058714572, w: 0.87827307}
+  m_LocalRotation: {x: 0.46117902, y: 0.11181649, z: -0.05871456, w: 0.87827307}
   m_LocalPosition: {x: 0.606, y: 4.587, z: -21.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1743,7 +1743,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217215526}
-  m_LocalRotation: {x: 0.42075905, y: 0.11437104, z: -0.05356852, w: 0.8983382}
+  m_LocalRotation: {x: 0.42075908, y: 0.11437104, z: -0.05356852, w: 0.8983382}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2134,7 +2134,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629482415}
-  m_LocalRotation: {x: 0.46117905, y: 0.11181648, z: -0.05871456, w: 0.87827307}
+  m_LocalRotation: {x: 0.46117905, y: 0.111816466, z: -0.058714554, w: 0.87827307}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2486,7 +2486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: crossHairPosition
-      value: 0.6
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: debug
