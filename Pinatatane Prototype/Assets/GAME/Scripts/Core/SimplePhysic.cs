@@ -28,7 +28,6 @@ public class SimplePhysic : MonoBehaviour
 
     public void AddForce(Vector3 force) {
         // Ajoute une force à la liste des forces
-        Debug.Log(Vector3.Angle(force, transform.forward));
         if (force != Vector3.zero) {
             forces.Add(force);
             forcesFrictionTime.Add(0f);

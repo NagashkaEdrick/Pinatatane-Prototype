@@ -1859,11 +1859,11 @@ PrefabInstance:
     - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: _camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 963194227}
     - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: crossHair
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1102709283}
     - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: numberOfSegment
       value: 15
@@ -1894,7 +1894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5976657549863522325, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8023129707333244102, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: m_IsActive
