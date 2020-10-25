@@ -20,11 +20,13 @@ namespace Pinatatane
         [BoxGroup("Fix")]
         public Transform cameraTarget; // Reference sur la cible de la camera
         [BoxGroup("Fix")]
-        [SerializeField] public Rigidbody rigidBody;
+        [SerializeField] private SimplePhysic body;
 
         float rightJoyX;
         bool movementActive = true;
         bool rotationActive = true;
+
+        Coroutine movementCor = null;
 
         CharacterMovementBehaviour cc => PlayerManager.Instance.LocalPlayer.characterMovementBehaviour;
         AnimatorBehaviour ab => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
@@ -32,26 +34,30 @@ namespace Pinatatane
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (movementActive) PlayerMovement();
-            else cc.rigidBody.velocity = Vector3.zero;
+            if (movementActive && movementCor == null) movementCor = StartCoroutine(PlayerMovement());
             if (rotationActive) PlayerRotation();
         }
 
         // Gere les mouvement du joueur en fonction du joystick gauche
-        void PlayerMovement() {
+        IEnumerator PlayerMovement() {
             float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-            cc.rigidBody.velocity = new Vector3(horizontal, -data.gravity, vertical).normalized * data.movementSpeed * Time.deltaTime;
+            Vector3 movementVector = new Vector3(horizontal, 0, vertical)* data.movementSpeed;
+
+            cc.body.AddDirectForce(movementVector);
 
             ab.SetFloat("vertical", vertical);
             ab.SetFloat("horizontal", horizontal);
+
+            yield return new WaitForEndOfFrame();
+
+            movementCor = null;
         }
         
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation() {
             cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration);
             cc.transform.rotation = smoothRotation(cc.transform.rotation, data.rotationAcceleration);
-            cc.rigidBody.velocity = Quaternion.Euler(0, rightJoyX, 0) * cc.rigidBody.velocity;
         }
 
         // Realise une rotation par acceleration

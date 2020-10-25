@@ -10,10 +10,11 @@ namespace Pinatatane
     {
         [BoxGroup("Tweaking")]
         public CharacterControllerData data;
+        public float dashForce;
 
         [BoxGroup("Fix")]
         [SerializeField]
-        Rigidbody rigidBody;
+        SimplePhysic body;
         [BoxGroup("Fix")]
         [SerializeField]
         CharacterMovementBehaviour movement;
@@ -27,14 +28,14 @@ namespace Pinatatane
         }
 
         IEnumerator StartDash() {
-            data.movementSpeed *= data.dashSpeed;
-            if (rigidBody.velocity.x == 0 && rigidBody.velocity.z == 0) {
-                movement.enabled = false;
-                rigidBody.velocity = transform.forward * data.movementSpeed * Time.deltaTime;
+            if (body.GetVelocity() == Vector3.zero) {
+                body.AddForce(Vector3.forward * dashForce);
+            } else {
+                float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
+                float vertical = InputManagerQ.Instance.GetAxis("Vertical");
+                Vector3 movementVector = new Vector3(horizontal, 0, vertical) * dashForce;
+                body.AddForce(movementVector);
             }
-            yield return new WaitForSeconds(data.dashDuration);
-            movement.enabled = true;
-            data.movementSpeed /= data.dashSpeed;
             yield return new WaitForSeconds(data.dashCooldown);
             dashCor = null;
         }
