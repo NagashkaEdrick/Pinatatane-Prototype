@@ -395,6 +395,8 @@ GameObject:
   - component: {fileID: 1036201251849547691}
   - component: {fileID: 8229129332693452808}
   - component: {fileID: 1057187152}
+  - component: {fileID: 987754853}
+  - component: {fileID: 987754854}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -458,7 +460,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 12b5ac602ecd7e343b7b6e40d910b992, type: 2}
   _camera: {fileID: 0}
   cameraTarget: {fileID: 1756521561467449151}
-  rigidBody: {fileID: 0}
+  body: {fileID: 987754853}
 --- !u!114 &4212750106791532742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,7 +502,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 12b5ac602ecd7e343b7b6e40d910b992, type: 2}
-  rigidBody: {fileID: 0}
+  dashForce: 100
+  body: {fileID: 987754853}
   movement: {fileID: 1756521561635941210}
 --- !u!114 &3415627638194251138
 MonoBehaviour:
@@ -522,7 +525,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 1036201251849547691}
-  viewIdField: 0
+  viewIdField: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1036201251849547691
@@ -572,6 +575,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8229129332693452808}
+--- !u!114 &987754853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756521561635941208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de72c62033da7154d9204cd4a111aee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 10
+  frictionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -4.9679284
+      outSlope: -4.9679284
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.15462406
+      value: 0.23183876
+      inSlope: -0.88846576
+      outSlope: -1.0800358
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.066154554
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.03653761
+      outSlope: -0.03653761
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.22132665
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  frictionForce: 0.1
+  testForce: {x: 5, y: 0, z: 10}
+--- !u!114 &987754854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756521561635941208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9efc555ffe5815d418138dbcc29438e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grab: {fileID: 1756521561885402342}
 --- !u!1 &3640134136872730849
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +647,7 @@ GameObject:
   - component: {fileID: 9204600488647809211}
   - component: {fileID: 5331391971547049110}
   - component: {fileID: 6610699814918594360}
+  - component: {fileID: 632230638}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -653,6 +718,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &632230638
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640134136872730849}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Center: {x: 0.00000011920929, y: -0.000000059604645, z: 0}
 --- !u!1 &4786872700945464348
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4844049886212091233
 Transform:
   m_ObjectHideFlags: 0
@@ -779,12 +857,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d72f6e5de9f22a408ba1377f54570ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
-  crossHairPosition: 0.55
-  length: 15
+  duration: 0.1
+  crossHairPosition: 0.63
+  length: 20
   numberOfLink: 10
   debug: 0
-  attractionForce: 50
+  attractionForce: 10
   _camera: {fileID: 0}
   crossHair: {fileID: 0}
   objectGrabed: {fileID: 0}
@@ -888,7 +966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1105254857622813279
 RectTransform:
   m_ObjectHideFlags: 0
