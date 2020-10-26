@@ -51,6 +51,10 @@ MonoBehaviour:
   - Rfsh
   - Rfr
   - SetReady
+<<<<<<< HEAD
+=======
+  - Grab
+>>>>>>> origin/Lorenzo
   - GrabNetwork
   DisableAutoOpenWizard: 1
   ShowSettings: 1

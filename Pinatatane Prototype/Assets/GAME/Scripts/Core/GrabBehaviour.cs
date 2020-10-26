@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*** A FAIRE :
+ * - Refaire au propre toutes les references d'objet, tous les GetComponent fait en RunTime à changer
+ *          -> Faire les references dans le gameManager et acceder a ses references par son instance ??
+ */
+
 namespace Pinatatane
 {
     public class GrabBehaviour : MonoBehaviour
@@ -63,11 +68,6 @@ namespace Pinatatane
                     Debug.DrawRay(transform.position, dest - transform.position, Color.blue);
                 }
             }
-
-            if(objectGrabed != null)
-            {
-                objectGrabed.GetComponent<Rigidbody>().AddForce((links[cptLink].transform.position - objectGrabed.transform.position) * attractionForce);
-            }
         }
 
         public void GrabAnime()
@@ -80,7 +80,7 @@ namespace Pinatatane
             if (grabCoroutine == null)
             {
                 grabCoroutine = StartCoroutine(StartGrab());
-                // a terme, separer en 2 script le mouvement et la rotation et desactiver le mouvement durant toutes la durée du dash et la rotation uniquement durant l'aller
+                // A terme, separer en 2 script le mouvement et la rotation et desactiver le mouvement durant toutes la durée du dash et la rotation uniquement durant l'aller
                 cc.setMovementActive(false);
                 cc.setRotationActive(false);
             }
@@ -128,30 +128,19 @@ namespace Pinatatane
                     if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet a etait grab
                         Debug.Log(grabedObjects[i].gameObject.name);
                         yield return WaitForInput(grabedObjects[i].gameObject);
-                        // Tester e type de la cible
+                        // Tester le type de la cible
                         if (grabedObjects[i].gameObject.GetComponent<Pinata>())
                         {
                             GetGrabInfo(grabedObjects[i].gameObject.GetComponent<Pinata>().ID, pinata.ID);
                         }
-                        break;
+                        yield break;
                     }
                 }
             }
             yield return RetractGrab();
         }
 
-        IEnumerator RetractGrab()
-        {
-            cc.setRotationActive(true);
-            while (cptLink > 0)
-            {
-                yield return new WaitForSeconds(duration / numberOfLink);
-                Destroy(links[cptLink--]);
-            }
-            objectGrabed = null;
-        }
-
-        IEnumerator WaitForInput(GameObject o) {
+        IEnumerator WaitForInput(GameObject objectGrabbed) {
             float t = Time.time;
             yield return new WaitWhile(() => ((Time.time - t) < 1f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
                                                                    && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f
@@ -159,13 +148,37 @@ namespace Pinatatane
                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f));
             // En fonction de quel façon on est sortie du while on lance differentes coroutine
             if (InputManagerQ.Instance.GetAxis("Vertical") <= -0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
-                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) objectGrabed = o;
+                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) yield return AttractTarget(objectGrabbed);
             else if (InputManagerQ.Instance.GetAxis("Vertical") >= 0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
-                                                                        && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) Debug.Log("On va vers la cible");
+                                                                        && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) yield return GoToTarget(objectGrabbed);
             else if (InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
                                                                            && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la gauche");
             else if (InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la droite");
+            else yield return RetractGrab();
+        }
+
+        IEnumerator RetractGrab() {
+            cc.setRotationActive(true);
+            while (cptLink > 0) {
+                yield return new WaitForSeconds(duration / numberOfLink);
+                Destroy(links[cptLink--]);
+            }
+        }
+
+        IEnumerator AttractTarget(GameObject target) {
+            cc.setRotationActive(true);
+            while (cptLink > 0) {
+                Vector3 grabHeadPosiiton = links[cptLink].transform.position; 
+                Destroy(links[cptLink--]);
+                target.GetComponent<SimplePhysic>().AddForce((grabHeadPosiiton - target.transform.position).normalized * attractionForce);
+                yield return new WaitForSeconds(duration / numberOfLink);
+            }
+        }
+
+        IEnumerator GoToTarget(GameObject target) {
+            // to do
+            yield return RetractGrab();
         }
 
         public void SetObjectGrabed(GameObject o)
