@@ -12,6 +12,11 @@ namespace Pinatatane
 {
     public class NetworkManager : MonoBehaviourPunCallbacks
     {
+        /*
+         * Gère l'initialisation du server
+         * Gère la connexion des joueurs
+         */ 
+
         public static NetworkManager Instance;
 
         public GameSettings gameSettings;

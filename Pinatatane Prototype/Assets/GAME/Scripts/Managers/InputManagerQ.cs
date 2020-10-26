@@ -8,7 +8,10 @@ using Sirenix.OdinInspector;
 
 namespace Pinatatane {
     public class InputManagerQ : SerializedMonoBehaviour {
-        //Systeme Input avec Action call par string.
+        
+        /*
+         * Retravailler pour qu'il soit en SO
+         */ 
 
         public static InputManagerQ Instance;
 

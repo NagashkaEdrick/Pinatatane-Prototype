@@ -8,6 +8,11 @@ namespace Pinatatane
 {
     public class PinataUI : MonoBehaviour
     {
+        /*
+         * Gère l'UI de la pinata
+         * Amener à disparaitre
+         */
+
         [FoldoutGroup("References", order: 0)]
         public UIElement[] playerUIelements;
         [FoldoutGroup("References", order: 0)]

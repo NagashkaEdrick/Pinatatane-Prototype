@@ -17,7 +17,6 @@ namespace Pinatatane
         [BoxGroup("Fix")]
         public Transform target;
 
-        // Update is called once per frame
         void Update()
         {
             transform.position = target.position - data.cameraDistance * target.forward + data.cameraHeight * Vector3.up;

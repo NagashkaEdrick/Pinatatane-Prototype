@@ -28,8 +28,7 @@ namespace Pinatatane
 
         Coroutine movementCor = null;
 
-        CharacterMovementBehaviour cc => PlayerManager.Instance.LocalPlayer.characterMovementBehaviour;
-        AnimatorBehaviour ab => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
+        [SerializeField] Pinata myPinata;
 
         // Update is called once per frame
         void FixedUpdate()
@@ -44,10 +43,10 @@ namespace Pinatatane
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
             Vector3 movementVector = new Vector3(horizontal, 0, vertical)* data.movementSpeed;
 
-            cc.body.AddDirectForce(movementVector);
+            myPinata.characterMovementBehaviour.body.AddDirectForce(movementVector);
 
-            ab.SetFloat("vertical", vertical);
-            ab.SetFloat("horizontal", horizontal);
+            myPinata.animatorBehaviour.SetFloat("vertical", vertical);
+            myPinata.animatorBehaviour.SetFloat("horizontal", horizontal);
 
             yield return new WaitForEndOfFrame();
 
@@ -57,7 +56,7 @@ namespace Pinatatane
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation() {
             cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration);
-            cc.transform.rotation = smoothRotation(cc.transform.rotation, data.rotationAcceleration);
+            myPinata.characterMovementBehaviour.transform.rotation = smoothRotation(myPinata.characterMovementBehaviour.transform.rotation, data.rotationAcceleration);
         }
 
         // Realise une rotation par acceleration

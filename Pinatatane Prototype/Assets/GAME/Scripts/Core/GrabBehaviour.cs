@@ -38,13 +38,15 @@ namespace Pinatatane
 
         int cptLink;
 
-        CharacterMovementBehaviour cc => PlayerManager.Instance.LocalPlayer.characterMovementBehaviour;
+        [SerializeField] CharacterMovementBehaviour characterController;
+
         AnimatorBehaviour animator => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
 
         [SerializeField] Pinata pinata;
 
         private void Start()
         {
+            crossHair = UIManager.Instance.crossHair;
             links = new GameObject[numberOfLink + 1];
         }
 
@@ -81,8 +83,8 @@ namespace Pinatatane
             {
                 grabCoroutine = StartCoroutine(StartGrab());
                 // A terme, separer en 2 script le mouvement et la rotation et desactiver le mouvement durant toutes la durée du dash et la rotation uniquement durant l'aller
-                cc.setMovementActive(false);
-                cc.setRotationActive(false);
+                characterController.setMovementActive(false);
+                characterController.setRotationActive(false);
             }
         }
 
@@ -104,7 +106,7 @@ namespace Pinatatane
             }
             grabCoroutine = null;
             animator.SetBool("grab", false);
-            cc.setMovementActive(true);
+            characterController.setMovementActive(true);
             yield break;
         }
 
@@ -159,7 +161,7 @@ namespace Pinatatane
         }
 
         IEnumerator RetractGrab() {
-            cc.setRotationActive(true);
+            characterController.setRotationActive(true);
             while (cptLink > 0) {
                 yield return new WaitForSeconds(duration / numberOfLink);
                 Destroy(links[cptLink--]);
@@ -167,7 +169,7 @@ namespace Pinatatane
         }
 
         IEnumerator AttractTarget(GameObject target) {
-            cc.setRotationActive(true);
+            characterController.setRotationActive(true);
             while (cptLink > 0) {
                 Vector3 grabHeadPosiiton = links[cptLink].transform.position; 
                 Destroy(links[cptLink--]);

@@ -7,6 +7,11 @@ namespace Pinatatane
 {
     public class NetworkInfoManager : UIMenu
     {
+        /*
+         * Ne sera pas dans le build final
+         * Sert de debug
+         */ 
+
         public static NetworkInfoManager Instance;
 
         public TextMeshProUGUI
@@ -32,6 +37,16 @@ namespace Pinatatane
 
                 isOpen = !isOpen;
             }
+        }
+
+        public void Debug() //Uniquement le joueur local recoit ce debug
+        {
+
+        }
+
+        public void DebugNetwork() //Tous les joueurs recoivent ce debug
+        {
+
         }
     }
 }

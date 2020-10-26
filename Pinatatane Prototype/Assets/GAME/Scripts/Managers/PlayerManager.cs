@@ -8,6 +8,12 @@ namespace Pinatatane
 {
     public class PlayerManager : MonoBehaviour
     {
+        /*
+         * Créé le joueur local
+         * Gère aussi les autres joueurs si tu es l'hôte
+         * Sa création
+         */
+
         public static PlayerManager Instance;
 
         public CameraController camPrefab = default;
@@ -33,8 +39,8 @@ namespace Pinatatane
 
             Pinata player = newPlayerGO.GetComponent<Pinata>();
 
-            CameraController c = Instantiate(camPrefab, transform.position, Quaternion.identity);
-            player.cameraController = c;
+            CameraController _camController = Instantiate(camPrefab, transform.position, Quaternion.identity);
+            player.cameraController = _camController;
 
             localPlayer = player;
             player.InitPlayer();
