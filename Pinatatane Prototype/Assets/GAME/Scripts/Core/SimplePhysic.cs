@@ -9,22 +9,14 @@ public class SimplePhysic : MonoBehaviour
     public float gravity;
     public AnimationCurve frictionCurve;
     [Range(0.0001f, 1f)] public float frictionForce;
-    public Vector3 testForce;
     #endregion
     #region private
-    Vector3 forceApplication;
-    List<Vector3> forces;
-    List<Vector3> directForces;
-    List<float> forcesFrictionTime;
+    Vector3 forceApplication = Vector3.zero;
+    List<Vector3> forces = new List<Vector3>();
+    List<Vector3> directForces = new List<Vector3>();
+    List<float> forcesFrictionTime = new List<float>();
     Collider[] collisions;
     #endregion
-
-    private void Start() {
-        forceApplication = Vector3.zero;
-        forces = new List<Vector3>();
-        directForces = new List<Vector3>();
-        forcesFrictionTime = new List<float>();
-    }
 
     public void AddForce(Vector3 force) {
         // Ajoute une force à la liste des forces
