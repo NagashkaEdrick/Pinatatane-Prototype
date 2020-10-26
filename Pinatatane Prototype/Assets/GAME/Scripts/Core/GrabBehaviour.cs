@@ -38,10 +38,6 @@ namespace Pinatatane
 
         int cptLink;
 
-        [SerializeField] CharacterMovementBehaviour characterController;
-
-        AnimatorBehaviour animator => PlayerManager.Instance.LocalPlayer.animatorBehaviour;
-
         [SerializeField] Pinata pinata;
 
         private void Start()
@@ -74,7 +70,7 @@ namespace Pinatatane
 
         public void GrabAnime()
         {
-            animator.SetBool("grab", true);
+            pinata.animatorBehaviour.SetBool("grab", true);
         }
 
         public void GrabAction()
@@ -83,8 +79,8 @@ namespace Pinatatane
             {
                 grabCoroutine = StartCoroutine(StartGrab());
                 // A terme, separer en 2 script le mouvement et la rotation et desactiver le mouvement durant toutes la durée du dash et la rotation uniquement durant l'aller
-                characterController.setMovementActive(false);
-                characterController.setRotationActive(false);
+                pinata.characterMovementBehaviour.setMovementActive(false);
+                pinata.characterMovementBehaviour.setRotationActive(false);
             }
         }
 
@@ -105,8 +101,8 @@ namespace Pinatatane
                 yield return LaunchGrab(ray.origin + ray.direction.normalized * length);
             }
             grabCoroutine = null;
-            animator.SetBool("grab", false);
-            characterController.setMovementActive(true);
+            pinata.animatorBehaviour.SetBool("grab", false);
+            pinata.characterMovementBehaviour.setMovementActive(true);
             yield break;
         }
 
@@ -161,7 +157,7 @@ namespace Pinatatane
         }
 
         IEnumerator RetractGrab() {
-            characterController.setRotationActive(true);
+            pinata.characterMovementBehaviour.setRotationActive(true);
             while (cptLink > 0) {
                 yield return new WaitForSeconds(duration / numberOfLink);
                 Destroy(links[cptLink--]);
@@ -169,7 +165,7 @@ namespace Pinatatane
         }
 
         IEnumerator AttractTarget(GameObject target) {
-            characterController.setRotationActive(true);
+            pinata.characterMovementBehaviour.setRotationActive(true);
             while (cptLink > 0) {
                 Vector3 grabHeadPosiiton = links[cptLink].transform.position; 
                 Destroy(links[cptLink--]);
