@@ -11,12 +11,17 @@ public class SimplePhysic : MonoBehaviour
     [Range(0.0001f, 1f)] public float frictionForce;
     #endregion
     #region private
+    Transform self;
     Vector3 forceApplication = Vector3.zero;
     List<Vector3> forces = new List<Vector3>();
     List<Vector3> directForces = new List<Vector3>();
     List<float> forcesFrictionTime = new List<float>();
     Collider[] collisions;
     #endregion
+
+    private void Awake() {
+        self = transform;
+    }
 
     public void AddForce(Vector3 force) {
         // Ajoute une force à la liste des forces
@@ -33,12 +38,29 @@ public class SimplePhysic : MonoBehaviour
 
     public void ApplyGravity() {
         // Applique la force de gravite s'il n'y à pas de collision avec le sol
-        Collider collider = GetCollider("Ground");
-        if (collider == null) forceApplication.y -= gravity;
-        else {
-            Vector3 pointofCollision = collider.ClosestPointOnBounds(transform.position);
-            transform.position = pointofCollision + new Vector3(0, GetComponent<Collider>().bounds.size.y / 2, 0);
+        float radius = GetComponent<Collider>().bounds.size.x;
+        Vector3 positionAfterGravity = new Vector3(self.position.x, self.position.y - (gravity * Time.deltaTime), self.position.z);
+        collisions = Physics.OverlapSphere(positionAfterGravity, radius);
+        for (int i = 0; i < collisions.Length; i++) {
+            //if (LayerMask.LayerToName(collisions[i].gameObject.layer) == "Ground") {
+            if (collisions[i].gameObject.name.Contains("Ground")) {
+                Debug.Log("Collision avec le sol je le remet a ras du sol");
+                Vector3 pointofCollision = collisions[i].ClosestPointOnBounds(self.position);
+                self.position = pointofCollision + new Vector3(0, GetComponent<Collider>().bounds.size.y / 2, 0);
+                return;
+            }
         }
+        forceApplication.y -= gravity;
+        Debug.Log("J'applique la gravite a : " + gameObject.name);
+
+        /*if (collider == null) {
+            forceApplication.y -= gravity;
+            Debug.Log("J'applique la gravite a : " + gameObject.name);
+        } else {
+            Debug.Log("Collision avec le sol je le remet a ras du sol");
+            Vector3 pointofCollision = collider.ClosestPointOnBounds(self.position);
+            self.position = pointofCollision + new Vector3(0, GetComponent<Collider>().bounds.size.y / 2, 0);
+        }*/
     }
 
     public void ApplyFriction() {
@@ -83,7 +105,7 @@ public class SimplePhysic : MonoBehaviour
     private void Update() {
         forceApplication = Vector3.zero;
         float radius = GetComponent<Collider>().bounds.size.x / 2;
-        collisions = Physics.OverlapSphere(transform.position, radius);
+        collisions = Physics.OverlapSphere(self.position, radius);
 
         ApplyGravity();
         ApplyDirectForces();
@@ -92,12 +114,11 @@ public class SimplePhysic : MonoBehaviour
 
         directForces.Clear(); // Ce sont des forces instantanée qui disparaisse immediatement
 
-        transform.Translate(forceApplication * Time.deltaTime);
-        //transform.position = Vector3.Lerp(transform.position, transform.position + forceApplication, Time.deltaTime);
+        self.Translate(forceApplication * Time.deltaTime);
+        //self.position = Vector3.Lerp(self.position, self.position + forceApplication, Time.deltaTime);
         #region debug
         // Dans le futur dessiner un hundler qui draw la sphere dans la scene view
-        /*Debug.DrawLine(transform.position, transform.position + new Vector3(radius, 0, 0), Color.red);
-        DebugColliders();*/
+        /*DebugColliders();*/
         #endregion
     }
 
