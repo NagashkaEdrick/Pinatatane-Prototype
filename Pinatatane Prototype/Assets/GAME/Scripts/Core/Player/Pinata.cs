@@ -30,6 +30,10 @@ namespace Pinatatane
         public Transform cameraTarget;
         [FoldoutGroup("References", order: 0)]
         [SerializeField] PinataUI pinataUI;
+        [FoldoutGroup("References", order: 0)]
+        [SerializeField] DashBehaviour dashBehaviour;
+        [FoldoutGroup("References", order: 0)]
+        [SerializeField] GrabBehaviour grabBehaviour;
 
         [HideInInspector] public Player player;
 
@@ -50,6 +54,16 @@ namespace Pinatatane
             cameraController.target = cameraTarget;
             pinataUI?.InitPlayerUI();
             SetPlayerName();
+
+            InitInputs();
+        }
+
+        public void InitInputs()
+        {
+            TriggerAction left = InputManagerQ.Instance.GetTriggerWithName("LeftTrigger") as TriggerAction;
+            left.onTrigger.AddListener(dashBehaviour.DashAction);
+            TriggerAction right = InputManagerQ.Instance.GetTriggerWithName("RightTrigger") as TriggerAction;
+            right.onTrigger.AddListener(grabBehaviour.GrabAction);
         }
 
         private void Update()
