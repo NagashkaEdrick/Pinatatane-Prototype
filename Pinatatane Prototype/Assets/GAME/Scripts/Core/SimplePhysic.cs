@@ -74,9 +74,9 @@ public class SimplePhysic : MonoBehaviour
         }
     }
 
-    public Collider GetCollider(string colliderName) {
+    public Collider GetCollider(string layerName) {
         // A terme tester avec des layers ou des tags
-        var collisionTest = from collision in collisions where collision.gameObject.name == colliderName select collision;
+        var collisionTest = from collision in collisions where LayerMask.LayerToName(collision.gameObject.layer) == layerName select collision;
         return collisionTest.Count() > 0? collisionTest.First(): null;
     }
 
