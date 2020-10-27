@@ -16,7 +16,7 @@ namespace Pinatatane {
         public static InputManagerQ Instance;
 
         [Title("Inputs")]
-        public InputAction[] inputs;
+        public List<InputAction> inputs = new List<InputAction>();
         [Title("Axis")]
         public AxisAction[] axis;
         public TriggerAction[] triggers;
@@ -27,7 +27,7 @@ namespace Pinatatane {
 
         private void Update() {
             if (inputs != null) {
-                for (int i = 0; i < inputs.Length; i++) {
+                for (int i = 0; i < inputs.Count; i++) {
                     inputs[i].CheckInput();
                 }
             }
@@ -51,9 +51,23 @@ namespace Pinatatane {
         }
 
         public QInput GetInput(string _inputName) {
-            for (int i = 0; i < inputs.Length; i++) {
+            for (int i = 0; i < inputs.Count; i++) {
                 if (inputs[i].inputName == _inputName)
                     return inputs[i];
+            }
+
+            return null;
+        }
+
+        public QInput GetTriggerWithName(string _inputName)
+        {
+            for (int i = 0; i < triggers.Length; i++)
+            {
+                if (triggers[i].inputName == _inputName)
+                {
+                    Debug.Log(triggers[i].inputName);
+                    return triggers[i];
+                }
             }
 
             return null;
@@ -102,7 +116,7 @@ namespace Pinatatane {
         [TitleGroup("Details")]
         public InputType inputType = InputType.DOWN;
         [TitleGroup("Details")]
-        public UnityEvent onInput;
+        public UnityEvent onInput = new UnityEvent();
 
         public override void CheckInput()
         {
