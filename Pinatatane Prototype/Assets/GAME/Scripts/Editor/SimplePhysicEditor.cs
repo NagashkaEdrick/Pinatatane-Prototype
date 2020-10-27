@@ -15,6 +15,6 @@ public class SimplePhysicEditor : Editor
     }
 
     private void OnSceneGUI() {
-        Handles.FreeMoveHandle(t.position, t.rotation, c.bounds.size.y / 2, Vector3.zero, Handles.SphereHandleCap);
+        Handles.FreeMoveHandle(t.position, t.rotation, c.bounds.size.y, Vector3.zero, Handles.SphereHandleCap);
     }
 }
