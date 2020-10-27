@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Pinatatane
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : MonoBehaviourPunCallbacks
     {
         /*
          * Créé le joueur local
@@ -27,6 +28,8 @@ namespace Pinatatane
             private set => localPlayer = value;
         }
 
+        public List<Pinata> pinatas = new List<Pinata>();
+
         private void Awake()
         {
             Instance = this;
@@ -42,8 +45,23 @@ namespace Pinatatane
             CameraController _camController = Instantiate(camPrefab, transform.position, Quaternion.identity);
             player.cameraController = _camController;
 
-            localPlayer = player;
+            LocalPlayer = player;
             player.InitPlayer();
+        }
+
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            
+        }
+
+        public override void OnJoinedRoom()
+        {
+            
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            
         }
     }
 }

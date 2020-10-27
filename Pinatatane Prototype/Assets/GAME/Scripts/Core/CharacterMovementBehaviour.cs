@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using Pinatatane;
+using Photon.Pun;
 
 namespace Pinatatane
 {
@@ -39,6 +40,10 @@ namespace Pinatatane
 
         // Gere les mouvement du joueur en fonction du joystick gauche
         IEnumerator PlayerMovement() {
+
+            if (myPinata.player != PhotonNetwork.LocalPlayer)
+                yield break;
+
             float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
             Vector3 movementVector = new Vector3(horizontal, 0, vertical)* data.movementSpeed;

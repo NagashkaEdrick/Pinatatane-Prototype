@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 using Sirenix.OdinInspector;
+using Photon.Pun;
 
 namespace Pinatatane {
     public class InputManagerQ : SerializedMonoBehaviour {

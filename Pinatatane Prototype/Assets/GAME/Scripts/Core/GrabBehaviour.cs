@@ -129,7 +129,7 @@ namespace Pinatatane
                         // Tester le type de la cible
                         if (grabedObjects[i].gameObject.GetComponent<Pinata>())
                         {
-                            GetGrabInfo(grabedObjects[i].gameObject.GetComponent<Pinata>().ID, pinata.ID);
+                            GetGrabInfo(grabedObjects[i].gameObject.GetComponent<Pinata>().photonView.Owner.NickName, pinata.photonView.Owner.NickName);
                         }
                         yield break;
                     }
@@ -186,7 +186,7 @@ namespace Pinatatane
 
         public void GetGrabInfo(string targetId, string attackerId)
         {
-            pinata.Grab(targetId, attackerId);
+            //pinata.Grab(targetId, attackerId);
         }
     }
 }
