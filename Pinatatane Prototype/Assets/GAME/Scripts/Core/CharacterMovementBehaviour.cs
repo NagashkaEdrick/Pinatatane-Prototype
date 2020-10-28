@@ -48,7 +48,7 @@ namespace Pinatatane
             float vertical = InputManagerQ.Instance.GetAxis("Vertical");
             Vector3 movementVector = new Vector3(horizontal, 0, vertical)* data.movementSpeed;
 
-            myPinata.characterMovementBehaviour.body.AddDirectForce(movementVector);
+            myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
 
             myPinata.animatorBehaviour.SetFloat("vertical", vertical);
             myPinata.animatorBehaviour.SetFloat("horizontal", horizontal);

@@ -146,9 +146,9 @@ namespace Pinatatane
                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f));
             // En fonction de quel façon on est sortie du while on lance differentes coroutine
             if (InputManagerQ.Instance.GetAxis("Vertical") <= -0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
-                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) yield return AttractTarget(objectGrabbed);
+                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) AttractTarget(objectGrabbed);
             else if (InputManagerQ.Instance.GetAxis("Vertical") >= 0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
-                                                                        && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) yield return GoToTarget(objectGrabbed);
+                                                                        && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) GoToTarget(objectGrabbed);
             else if (InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
                                                                            && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la gauche");
             else if (InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
@@ -164,19 +164,15 @@ namespace Pinatatane
             }
         }
 
-        IEnumerator AttractTarget(GameObject target) {
+        void AttractTarget(GameObject target) {
             pinata.characterMovementBehaviour.setRotationActive(true);
-            while (cptLink > 0) {
-                Vector3 grabHeadPosiiton = links[cptLink].transform.position; 
-                Destroy(links[cptLink--]);
-                target.GetComponent<SimplePhysic>().AddForce((grabHeadPosiiton - target.transform.position).normalized * attractionForce);
-                yield return new WaitForSeconds(duration / numberOfLink);
-            }
+            StartCoroutine(RetractGrab());
+            target.GetComponent<SimplePhysic>().AddForce((pinata.transform.position - target.transform.position).normalized * attractionForce);
         }
 
-        IEnumerator GoToTarget(GameObject target) {
-            // to do
-            yield return RetractGrab();
+        void GoToTarget(GameObject target) {
+            StartCoroutine(RetractGrab());
+            pinata.GetComponent<SimplePhysic>().AddForce((target.transform.position - pinata.transform.position).normalized * attractionForce);
         }
 
         public void SetObjectGrabed(GameObject o)

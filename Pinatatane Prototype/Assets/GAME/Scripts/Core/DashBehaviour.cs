@@ -29,12 +29,12 @@ namespace Pinatatane
 
         IEnumerator StartDash() {
             if (body.GetVelocity() == Vector3.zero) {
-                body.AddForce(Vector3.forward * dashForce);
+                body.AddForce(transform.forward * dashForce);
             } else {
                 float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
                 float vertical = InputManagerQ.Instance.GetAxis("Vertical");
                 Vector3 movementVector = new Vector3(horizontal, 0, vertical) * dashForce;
-                body.AddForce(movementVector);
+                body.AddForce(transform.TransformVector(movementVector));
             }
             yield return new WaitForSeconds(data.dashCooldown);
             dashCor = null;

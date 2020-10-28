@@ -68,7 +68,7 @@ namespace Pinatatane
             TriggerAction left = InputManagerQ.Instance.GetTriggerWithName("LeftTrigger") as TriggerAction;
             left.onTrigger.AddListener(dashBehaviour.DashAction);
             TriggerAction right = InputManagerQ.Instance.GetTriggerWithName("RightTrigger") as TriggerAction;
-            right.onTrigger.AddListener(grabBehaviour.GrabAction);
+            right.onTrigger.AddListener(grabBehaviour.GrabAnime);
         }
 
         private void Update()
