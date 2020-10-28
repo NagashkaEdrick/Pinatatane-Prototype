@@ -166,8 +166,8 @@ namespace Pinatatane
                 Debug.Log("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString());
                 UIManager.Instance.networkStatutElement.SetText("attaquant");
 
-                PhotonNetwork.GetPhotonView(_cible).transform.localScale *= 2;
-                PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
+                //PhotonNetwork.GetPhotonView(_cible).transform.localScale *= 2;
+                //PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
             }
         }
 
