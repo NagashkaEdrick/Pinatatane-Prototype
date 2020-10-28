@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class SimplePhysic : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class SimplePhysic : MonoBehaviour
     public float gravity;
     public AnimationCurve frictionCurve;
     [Range(0.0001f, 1f)] public float frictionForce;
+    public bool debug;
     #endregion
     #region private
     Transform self;
@@ -109,8 +111,23 @@ public class SimplePhysic : MonoBehaviour
         ApplyDirectForces();
         ApplyForces();
 
+        if (debug) {
+            Debug.Log("Velocity : " + forceApplication);
+            Debug.Log("Direct Forces : ");
+            for (int i = 0; i < directForces.Count; i++) {
+                Debug.Log("  " + directForces[i]);
+            }
+            Debug.Log("Forces : ");
+            for (int i = 0; i < forces.Count; i++) {
+                Debug.Log("  " + forces[i]);
+            }
+        }
+
+
         // Reduction des forces pour la prochaine frame
         ApplyFriction();
+
+        
 
         directForces.Clear(); // Ce sont des forces instantanée qui disparaisse immediatement
 
