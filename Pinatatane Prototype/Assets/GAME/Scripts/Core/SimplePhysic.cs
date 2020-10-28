@@ -69,20 +69,32 @@ public class SimplePhysic : MonoBehaviour
     }
 
     public void ApplyForces() {
-        forces.ForEach(force => forceApplication += transform.InverseTransformVector(force));
-        // A finir faire comme avec la gravite
-        /*for (int i = 0; i < forces.Count; i++) {
-            Collider collider = GetCollider(self.InverseTransformVector(forces[i]));
-            if (collider != null) {
-                Vector3 pointofCollision = collider.ClosestPointOnBounds(self.position);
-                self.position = pointofCollision + new Vector3(0, box.bounds.extents.y, 0);
-                return;
-            }
-        }*/
+        //forces.ForEach(force => forceApplication += transform.InverseTransformVector(force));
+        for (int i = 0; i < forces.Count; i++) {
+            Collider collider = GetCollider(forces[i], "Other");
+            if (collider != null && collider.gameObject.name != gameObject.name) {
+                Debug.Log(gameObject.name + " aura collision avec " + collider.gameObject.name + ", force non appliquer");
+                // Calcul de la nouvelle position en fonction de la force qui s'exerce
+                /*Vector3 pointofCollision = collider.ClosestPointOnBounds(self.position);
+                self.position = pointofCollision - (self.InverseTransformDirection(forces[i]).normalized * box.bounds.extents.y);*/
+            } else forceApplication += transform.InverseTransformVector(forces[i]);
+        }
+        
     }
 
     public void ApplyDirectForces() {
-        directForces.ForEach(force => forceApplication += transform.InverseTransformVector(force));
+        //directForces.ForEach(force => forceApplication += transform.InverseTransformVector(force));
+        for (int i = 0; i < directForces.Count; i++) {
+            Collider collider = GetCollider(directForces[i], "Other");
+            if (collider != null && collider.gameObject.name != gameObject.name) {
+                Debug.Log(gameObject.name + " aura collision avec " + collider.gameObject.name + ", force non appliquer");
+                // Calcul de la nouvelle position en fonction de la force qui s'exerce
+                /*Vector3 pointofCollision = collider.ClosestPointOnBounds(self.position);
+                Debug.DrawLine(pointofCollision, pointofCollision + new Vector3(0, 0.1f, 0), Color.red);
+                //Debug.Break();
+                self.position = pointofCollision - (self.InverseTransformDirection(directForces[i]).normalized * box.bounds.extents.y);*/
+            } else forceApplication += transform.InverseTransformVector(directForces[i]);
+        }
     }
 
     public Vector3 GetVelocity() {
