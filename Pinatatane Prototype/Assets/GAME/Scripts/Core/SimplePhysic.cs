@@ -40,6 +40,23 @@ public class SimplePhysic : MonoBehaviour
         if (force != Vector3.zero) directForces.Add(force);
     }
 
+    public void ApplyGravityWithRay()
+    {
+        // Applique la force de gravite s'il n'y a pas de collision avec le sol
+
+        //Test de collision avec gravite appliquer
+        Vector3 gravity = new Vector3(0, -this.gravity, 0);
+        Vector3 hitPoint = GetCollider(gravity, "Ground");
+        if (hitPoint != Vector3.zero)
+        {
+            //Si collision avec le sol il y a on remet l'objet a ras du sol
+            self.position = hitPoint + new Vector3(0, box.bounds.extents.y, 0);
+            return;
+        }
+        //Sinon s'il n'y a pas de collision avec le sol on applique la gravite
+        forceApplication += gravity;
+    }
+
     public void ApplyGravity() {
         // Applique la force de gravite s'il n'y a pas de collision avec le sol
 
@@ -70,21 +87,21 @@ public class SimplePhysic : MonoBehaviour
 
     public void ApplyForces() {
         //forces.ForEach(force => forceApplication += transform.InverseTransformVector(force));
-        for (int i = 0; i < forces.Count; i++) {
+        /*for (int i = 0; i < forces.Count; i++) {
             Collider collider = GetCollider(forces[i], "Other");
             if (collider != null && collider.gameObject.name != gameObject.name) {
                 Debug.Log(gameObject.name + " aura collision avec " + collider.gameObject.name + ", force non appliquer");
                 // Calcul de la nouvelle position en fonction de la force qui s'exerce
                 /*Vector3 pointofCollision = collider.ClosestPointOnBounds(self.position);
                 self.position = pointofCollision - (self.InverseTransformDirection(forces[i]).normalized * box.bounds.extents.y);*/
-            } else forceApplication += transform.InverseTransformVector(forces[i]);
-        }
+        /*    } else forceApplication += transform.InverseTransformVector(forces[i]);
+        }*/
         
     }
 
     public void ApplyDirectForces() {
         //directForces.ForEach(force => forceApplication += transform.InverseTransformVector(force));
-        for (int i = 0; i < directForces.Count; i++) {
+        /*for (int i = 0; i < directForces.Count; i++) {
             Collider collider = GetCollider(directForces[i], "Other");
             if (collider != null && collider.gameObject.name != gameObject.name) {
                 Debug.Log(gameObject.name + " aura collision avec " + collider.gameObject.name + ", force non appliquer");
@@ -93,8 +110,8 @@ public class SimplePhysic : MonoBehaviour
                 Debug.DrawLine(pointofCollision, pointofCollision + new Vector3(0, 0.1f, 0), Color.red);
                 //Debug.Break();
                 self.position = pointofCollision - (self.InverseTransformDirection(directForces[i]).normalized * box.bounds.extents.y);*/
-            } else forceApplication += transform.InverseTransformVector(directForces[i]);
-        }
+        /*    } else forceApplication += transform.InverseTransformVector(directForces[i]);
+        }*/
     }
 
     public Vector3 GetVelocity() {
@@ -104,15 +121,20 @@ public class SimplePhysic : MonoBehaviour
         return velocity;
     }
 
-    public Collider GetCollider(Vector3 force, string layerName = "") {
+    public Vector3 GetCollider(Vector3 force, string layerName = "") {
         // Test s'il y aura une collision si une force est appliquer
         float radius = box.bounds.extents.x;
-        collisions = Physics.OverlapSphere(self.position + (force * Time.deltaTime), radius);
+        //collisions = Physics.OverlapSphere(self.position + (force * Time.deltaTime), radius);
 
-        for (int i = 0; i < collisions.Length; i++) {
+        RaycastHit hit;
+        Debug.Break();
+        Physics.SphereCast(self.position + self.InverseTransformVector(force * Time.deltaTime), radius, force, out hit, (force * Time.deltaTime).magnitude);
+        return hit.point;
+
+        /*for (int i = 0; i < collisions.Length; i++) {
             if (layerName == string.Empty || LayerMask.LayerToName(collisions[i].gameObject.layer) == layerName) return collisions[i];
-        }
-        return null;
+        }*/
+        //return null;
     }
 
     private void Update() {
