@@ -34,6 +34,8 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         [SerializeField] GrabBehaviour grabBehaviour;
 
+        public PinataOverrideControl pinataOverrideControl;
+
         [HideInInspector] public Player player;
 
         [BoxGroup("Player Infos", order: 1)]
@@ -138,22 +140,14 @@ namespace Pinatatane
         public void SetReady(string _playerID)
         {
 
-        }        
+        }
 
+        #region Grab
         [PunRPC]
         public void GrabNetwork(int _cible, int _attaquant)
         {
-            //if(photonView.ViewID == _cible)
-            //{
-            //    //comportement de la cible
-            //    Debug.Log("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString());
-            //    UIManager.Instance.networkStatutElement.SetText("cible");
-            //}
-           // else 
             if(photonView.ViewID == _attaquant)
             {
-                //comportement de l'attaquant
-                //Debug.Log("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString());
                 UIManager.Instance.networkStatutElement.SetText("attaquant");
 
                 NetworkDebugger.Instance.Debug("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString(), DebugType.NETWORK);
@@ -162,6 +156,41 @@ namespace Pinatatane
                 //PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
             }
         }
+
+        [PunRPC]
+        public void ChangePos(int _targetID, Vector3 _pos)
+        {
+            if (photonView.ViewID == _targetID)
+            {
+                transform.position = _pos;
+            }
+        }
+
+        [PunRPC]
+        public void ChangeRot(int _targetID, Vector3 _rot)
+        {
+            if (photonView.ViewID == _targetID)
+            {
+                transform.rotation = Quaternion.Euler(_rot);
+            }
+        }
+
+        /* Exemple
+        private IEnumerator ChangePositionInCoroutine()
+        {
+            WaitForSeconds t = new WaitForSeconds(3.0f);
+
+            while (true)
+            {
+                Vector3 _pos = [...];
+
+                photonView.RPC("ChangePos", RpcTarget.All, _pos);
+
+                yield return t;
+            }
+        }
+        */
+        #endregion
 
         [PunRPC]
         public void InitAllPlayer()
