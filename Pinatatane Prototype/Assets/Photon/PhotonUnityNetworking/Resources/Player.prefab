@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 987754853}
   - component: {fileID: 987754854}
   - component: {fileID: 1447357251}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 1036201251849547691}
-  viewIdField: 0
+  viewIdField: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1036201251849547691
@@ -625,7 +625,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionForce: 0.1
-  debug: 1
+  debug: 0
 --- !u!114 &987754854
 MonoBehaviour:
   m_ObjectHideFlags: 0
