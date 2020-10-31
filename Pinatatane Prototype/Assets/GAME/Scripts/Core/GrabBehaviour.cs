@@ -124,7 +124,7 @@ namespace Pinatatane
                 grabedObjects = Physics.OverlapSphere(links[cptLink].transform.position, links[cptLink].GetComponent<SphereCollider>().radius);
                 for (int i = 0; i < grabedObjects.Length; i++) {
                     if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet a etait grab
-                        Debug.Log(grabedObjects[i].gameObject.name);
+                        Debug.Log(pinata.gameObject.name + " a saisi " + grabedObjects[i].gameObject.name);
                         yield return WaitForInput(grabedObjects[i].gameObject);
                         // Tester le type de la cible
                         if (grabedObjects[i].gameObject.GetComponent<Pinata>())
@@ -150,9 +150,9 @@ namespace Pinatatane
             else if (InputManagerQ.Instance.GetAxis("Vertical") >= 0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
                                                                         && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) GoToTarget(objectGrabbed);
             else if (InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
-                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la gauche");
+                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) { Debug.Log("On tourne la cible vers la gauche"); yield return RetractGrab(); }
             else if (InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
-                                                                          && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la droite");
+                                                                          && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) { Debug.Log("On tourne la cible vers la droite"); yield return RetractGrab(); }
             else yield return RetractGrab();
         }
 
@@ -182,7 +182,7 @@ namespace Pinatatane
 
         public void GetGrabInfo(string targetId, string attackerId)
         {
-            pinata.Grab(targetId, attackerId);
+            //pinata.Grab(targetId, attackerId);
         }
     }
 }
