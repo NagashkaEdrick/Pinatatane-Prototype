@@ -626,6 +626,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   frictionForce: 0.1
   debug: 1
+<<<<<<< HEAD
+=======
+--- !u!114 &987754854
+>>>>>>> parent of 28d7e80... Update Player.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
