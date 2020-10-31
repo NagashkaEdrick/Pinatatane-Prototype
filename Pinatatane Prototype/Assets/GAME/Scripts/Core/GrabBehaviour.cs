@@ -87,8 +87,8 @@ namespace Pinatatane
             {
                 grabCoroutine = StartCoroutine(StartGrab());
                 // A terme, separer en 2 script le mouvement et la rotation et desactiver le mouvement durant toutes la durée du dash et la rotation uniquement durant l'aller
-                pinata.characterMovementBehaviour.setMovementActive(false);
-                pinata.characterMovementBehaviour.setRotationActive(false);
+                //pinata.characterMovementBehaviour.setMovementActive(false);
+                //pinata.characterMovementBehaviour.setRotationActive(false);
             }
         }
 
@@ -110,7 +110,7 @@ namespace Pinatatane
             }
             grabCoroutine = null;
             pinata.animatorBehaviour.SetBool("grab", false);
-            pinata.characterMovementBehaviour.setMovementActive(true);
+            //pinata.characterMovementBehaviour.setMovementActive(true);
             yield break;
         }
 
@@ -171,7 +171,7 @@ namespace Pinatatane
         }
 
         IEnumerator RetractGrab() {
-            pinata.characterMovementBehaviour.setRotationActive(true);
+            //pinata.characterMovementBehaviour.setRotationActive(true);
             while (cptLink > 0) {
                 yield return new WaitForSeconds(duration / numberOfLink);
                 Destroy(links[cptLink--]);
@@ -179,7 +179,7 @@ namespace Pinatatane
         }
 
         void AttractTarget(GameObject target) {
-            pinata.characterMovementBehaviour.setRotationActive(true);
+            //pinata.characterMovementBehaviour.setRotationActive(true);
             StartCoroutine(RetractGrab());
             target.GetComponent<SimplePhysic>().AddForce((pinata.transform.position - target.transform.position).normalized * attractionForce);
         }

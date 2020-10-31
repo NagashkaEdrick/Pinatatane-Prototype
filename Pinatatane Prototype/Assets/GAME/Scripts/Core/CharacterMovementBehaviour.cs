@@ -25,8 +25,6 @@ namespace Pinatatane
         [SerializeField] private SimplePhysic body;
 
         float rightJoyX;
-        bool movementActive = true;
-        bool rotationActive = true;
 
         Coroutine movementCor = null;
 
@@ -103,19 +101,6 @@ namespace Pinatatane
             rightJoyX %= 360;
             Quaternion endRotationVector = Quaternion.Euler(0, rightJoyX, 0);
             return Quaternion.Slerp(startRotationVector, endRotationVector, smoothSpeed);
-        }
-
-        public bool isMovementActive() {
-            return movementActive;
-        }
-
-        public void setMovementActive(bool value) {
-            movementActive = value;
-        }
-
-        public void setRotationActive(bool value)
-        {
-            rotationActive = value;
         }
 
         public float getRotationAngle()
