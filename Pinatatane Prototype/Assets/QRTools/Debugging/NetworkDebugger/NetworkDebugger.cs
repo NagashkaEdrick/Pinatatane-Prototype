@@ -31,13 +31,13 @@ namespace QRTools.Debugging
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.A))
-                Debugger("salut local", DebugType.LOCAL);
+                Debug("salut local", DebugType.LOCAL);
 
             if (Input.GetKeyDown(KeyCode.Z))
-                Debugger("salut online", DebugType.NETWORK);
+                Debug("salut online", DebugType.NETWORK);
         }
 
-        public void Debugger(object message, DebugType debugType = DebugType.NETWORK)
+        public void Debug(object message, DebugType debugType = DebugType.NETWORK)
         {
             switch (debugType)
             {

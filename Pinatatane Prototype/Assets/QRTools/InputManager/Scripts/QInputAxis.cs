@@ -16,18 +16,21 @@ namespace QRTools.Inputs
             onJoystickMove = new FloatEvent();
 
         [SerializeField, BoxGroup("Debug", order: 100), ReadOnly] float joystickValue;
+        public float JoystickValue
+        {
+            get => joystickValue;
+            set => joystickValue = value;
+        }
 
         public override float TestAxis()
         {
-            onJoystickMove?.AddListener(DebugJoystickValue);
-
             switch (axisType)
             {
                 case AxisType.GETAXIS:
-                    joystickValue = Input.GetAxis(axisName);
+                    JoystickValue = Input.GetAxis(axisName);
                     break;
                 case AxisType.GETAXISRAW:
-                    joystickValue = Input.GetAxisRaw(axisName);
+                    JoystickValue = Input.GetAxisRaw(axisName);
                     break;
             }
 
@@ -38,11 +41,6 @@ namespace QRTools.Inputs
         public override void TestInput()
         {
             TestAxis();
-        }
-
-        public void DebugJoystickValue(float value)
-        {
-            Debug.Log(value);
         }
     }
 

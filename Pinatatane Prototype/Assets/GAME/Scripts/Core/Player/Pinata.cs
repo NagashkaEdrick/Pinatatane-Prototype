@@ -54,22 +54,12 @@ namespace Pinatatane
             grabBehaviour._camera = cameraController.GetComponent<Camera>();
             pinataUI?.InitPlayerUI();
             SetPlayerName();
-                        
-            InitInputs();
         }
 
         void SetID()
         {
             player = photonView.Owner;
             ID = photonView.ViewID;
-        }
-
-        public void InitInputs()
-        {
-            TriggerAction left = InputManagerQ.Instance.GetTriggerWithName("LeftTrigger") as TriggerAction;
-            left.onTrigger.AddListener(dashBehaviour.DashAction);
-            TriggerAction right = InputManagerQ.Instance.GetTriggerWithName("RightTrigger") as TriggerAction;
-            right.onTrigger.AddListener(grabBehaviour.GrabAnime);
         }
 
         private void Update()
