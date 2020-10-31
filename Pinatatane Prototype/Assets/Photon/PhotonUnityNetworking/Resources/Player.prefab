@@ -445,7 +445,7 @@ MonoBehaviour:
   pinataUI: {fileID: 4212750106791532742}
   dashBehaviour: {fileID: 1756521561635941156}
   grabBehaviour: {fileID: 1756521561885402342}
-  ID: 
+  ID: 0
   isGrabbed: 0
 --- !u!114 &1756521561635941210
 MonoBehaviour:
@@ -528,7 +528,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 1036201251849547691}
-  viewIdField: 1
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1036201251849547691
@@ -625,7 +625,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionForce: 0.1
-  debug: 0
 --- !u!114 &987754854
 MonoBehaviour:
   m_ObjectHideFlags: 0
