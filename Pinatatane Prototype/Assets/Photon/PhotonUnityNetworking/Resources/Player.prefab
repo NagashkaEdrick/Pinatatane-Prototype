@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 987754853}
   - component: {fileID: 987754854}
   - component: {fileID: 1447357251}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -625,6 +625,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionForce: 0.1
+<<<<<<< HEAD
+=======
+  debug: 1
+>>>>>>> parent of 28d7e80... Update Player.prefab
 --- !u!114 &987754854
 MonoBehaviour:
   m_ObjectHideFlags: 0
