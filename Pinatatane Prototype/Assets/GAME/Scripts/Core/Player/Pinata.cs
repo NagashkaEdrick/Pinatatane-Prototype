@@ -37,6 +37,7 @@ namespace Pinatatane
 
         [HideInInspector] public Player player;
 
+        [BoxGroup("Player Infos", order: 1)]
         public int ID;
 
         [BoxGroup("Player Infos", order: 1)]
