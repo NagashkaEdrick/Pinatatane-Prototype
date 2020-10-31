@@ -625,11 +625,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionForce: 0.1
-<<<<<<< HEAD
-=======
   debug: 1
->>>>>>> parent of 28d7e80... Update Player.prefab
---- !u!114 &987754854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
