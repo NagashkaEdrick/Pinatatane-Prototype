@@ -120,7 +120,7 @@ namespace Pinatatane
             float lenghtBetweenLink = distance / numberOfLink;
             Collider[] grabedObjects;
 
-            while (cptLink < numberOfLink && InputManagerQ.Instance.GetTrigger("RightTrigger"))
+            while (cptLink < numberOfLink && grabButton.IsTrigger)
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
 
@@ -153,14 +153,20 @@ namespace Pinatatane
                                                                    && grabX.JoystickValue < 0.5f
                                                                    && grabX.JoystickValue > -0.5f));
             // En fonction de quel façon on est sortie du while on lance differentes coroutine
-            if (grabY.JoystickValue <= -0.5f && grabRotX.JoystickValue < 0.5f
-                                                                    && grabRotX.JoystickValue > -0.5f) AttractTarget(objectGrabbed);
-            else if (grabY.JoystickValue >= 0.5f && grabRotX.JoystickValue < 0.5f
-                                                                        && grabRotX.JoystickValue > -0.5f) GoToTarget(objectGrabbed);
-            else if (grabRotX.JoystickValue <= -0.5f && grabY.JoystickValue < 0.5f
-                                                                           && grabY.JoystickValue > -0.5f) Debug.Log("On tourne la cible vers la gauche");
-            else if (grabRotX.JoystickValue >= 0.5f && grabY.JoystickValue < 0.5f
-                                                                          && grabY.JoystickValue > -0.5f) Debug.Log("On tourne la cible vers la droite");
+            if (grabY.JoystickValue <= -0.5f && grabRotX.JoystickValue < 0.5f && grabRotX.JoystickValue > -0.5f)
+                AttractTarget(objectGrabbed);
+            else if (grabY.JoystickValue >= 0.5f && grabRotX.JoystickValue < 0.5f && grabRotX.JoystickValue > -0.5f)
+                GoToTarget(objectGrabbed);
+            else if (grabRotX.JoystickValue <= -0.5f && grabY.JoystickValue < 0.5f && grabY.JoystickValue > -0.5f)
+            {
+                Debug.Log("On tourne la cible vers la gauche");
+                yield return RetractGrab();
+            }
+            else if (grabRotX.JoystickValue >= 0.5f && grabY.JoystickValue < 0.5f && grabY.JoystickValue > -0.5f)
+            {
+                Debug.Log("On tourne la cible vers la droite");
+                yield return RetractGrab();
+            }
             else yield return RetractGrab();
         }
 

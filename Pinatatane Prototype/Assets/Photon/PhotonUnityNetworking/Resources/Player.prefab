@@ -511,6 +511,9 @@ MonoBehaviour:
   dashForce: 100
   body: {fileID: 987754853}
   movement: {fileID: 1756521561635941210}
+  dashButton: {fileID: 11400000, guid: 2e57aeac053dcf6438c6f5986cb864f6, type: 2}
+  moveX: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+  moveY: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
 --- !u!114 &3415627638194251138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,6 +631,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionForce: 0.1
+  debug: 0
 --- !u!114 &987754854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,7 +892,6 @@ MonoBehaviour:
   grabX: {fileID: 11400000, guid: e08c25b2745d6b946abc3003d212ebb5, type: 2}
   grabY: {fileID: 11400000, guid: 52dfc2fe5b67fea44b7bc2f155ed57d8, type: 2}
   grabRotX: {fileID: 11400000, guid: 8136249ff7442ed45a6854a84c6b3ee7, type: 2}
-  grabRotY: {fileID: 11400000, guid: 08d41eb47a5eeff44b8410e332766681, type: 2}
 --- !u!1 &7745438528019224365
 GameObject:
   m_ObjectHideFlags: 0
