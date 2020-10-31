@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using QRTools.Inputs;
 
 /*** A FAIRE :
  * - Refaire au propre toutes les references d'objet, tous les GetComponent fait en RunTime à changer
@@ -40,10 +41,17 @@ namespace Pinatatane
 
         [SerializeField] Pinata pinata;
 
+        [BoxGroup("Inputs", order: 1)]
+        [SerializeField] QInputXBOXTouch grabButton = default;
+        [BoxGroup("Inputs", order: 1)]
+        [SerializeField] QInputXBOXAxis grabX, grabY, grabRotX;
+
         private void Start()
         {
             crossHair = UIManager.Instance.crossHair;
             links = new GameObject[numberOfLink + 1];
+
+            grabButton.onDown.AddListener(OnGrab);
         }
 
         private void Update() {
@@ -68,7 +76,7 @@ namespace Pinatatane
             }
         }
 
-        public void GrabAnime()
+        public void OnGrab()
         {
             pinata.animatorBehaviour.SetBool("grab", true);
         }
@@ -112,7 +120,7 @@ namespace Pinatatane
             float lenghtBetweenLink = distance / numberOfLink;
             Collider[] grabedObjects;
 
-            while (cptLink < numberOfLink && InputManagerQ.Instance.GetTrigger("RightTrigger"))
+            while (cptLink < numberOfLink && grabButton.IsTrigger)
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
 
@@ -140,19 +148,25 @@ namespace Pinatatane
 
         IEnumerator WaitForInput(GameObject objectGrabbed) {
             float t = Time.time;
-            yield return new WaitWhile(() => ((Time.time - t) < 1f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
-                                                                   && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f
-                                                                   && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
-                                                                   && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f));
+            yield return new WaitWhile(() => ((Time.time - t) < 1f && grabY.JoystickValue < 0.5f
+                                                                   && grabY.JoystickValue > -0.5f
+                                                                   && grabX.JoystickValue < 0.5f
+                                                                   && grabX.JoystickValue > -0.5f));
             // En fonction de quel façon on est sortie du while on lance differentes coroutine
-            if (InputManagerQ.Instance.GetAxis("Vertical") <= -0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
-                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) AttractTarget(objectGrabbed);
-            else if (InputManagerQ.Instance.GetAxis("Vertical") >= 0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
-                                                                        && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) GoToTarget(objectGrabbed);
-            else if (InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
-                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la gauche");
-            else if (InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
-                                                                          && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) Debug.Log("On tourne la cible vers la droite");
+            if (grabY.JoystickValue <= -0.5f && grabRotX.JoystickValue < 0.5f && grabRotX.JoystickValue > -0.5f)
+                AttractTarget(objectGrabbed);
+            else if (grabY.JoystickValue >= 0.5f && grabRotX.JoystickValue < 0.5f && grabRotX.JoystickValue > -0.5f)
+                GoToTarget(objectGrabbed);
+            else if (grabRotX.JoystickValue <= -0.5f && grabY.JoystickValue < 0.5f && grabY.JoystickValue > -0.5f)
+            {
+                Debug.Log("On tourne la cible vers la gauche");
+                yield return RetractGrab();
+            }
+            else if (grabRotX.JoystickValue >= 0.5f && grabY.JoystickValue < 0.5f && grabY.JoystickValue > -0.5f)
+            {
+                Debug.Log("On tourne la cible vers la droite");
+                yield return RetractGrab();
+            }
             else yield return RetractGrab();
         }
 

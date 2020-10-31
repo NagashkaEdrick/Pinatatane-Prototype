@@ -464,6 +464,9 @@ MonoBehaviour:
   cameraTarget: {fileID: 1756521561467449151}
   body: {fileID: 987754853}
   myPinata: {fileID: 1343214553653338882}
+  horizontal: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+  vertical: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
+  rotationX: {fileID: 11400000, guid: da591934dfd4d3545b2575db5e6141d9, type: 2}
 --- !u!114 &4212750106791532742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,6 +511,9 @@ MonoBehaviour:
   dashForce: 100
   body: {fileID: 987754853}
   movement: {fileID: 1756521561635941210}
+  dashButton: {fileID: 11400000, guid: 2e57aeac053dcf6438c6f5986cb864f6, type: 2}
+  moveX: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+  moveY: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
 --- !u!114 &3415627638194251138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,11 +631,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   frictionForce: 0.1
-  debug: 1
-<<<<<<< HEAD
-=======
---- !u!114 &987754854
->>>>>>> parent of 28d7e80... Update Player.prefab
+  debug: 0
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -885,6 +887,10 @@ MonoBehaviour:
   crossHair: {fileID: 0}
   objectGrabed: {fileID: 0}
   pinata: {fileID: 1343214553653338882}
+  grabButton: {fileID: 11400000, guid: 776c951287eb6a445946221eafee6ba0, type: 2}
+  grabX: {fileID: 11400000, guid: e08c25b2745d6b946abc3003d212ebb5, type: 2}
+  grabY: {fileID: 11400000, guid: 52dfc2fe5b67fea44b7bc2f155ed57d8, type: 2}
+  grabRotX: {fileID: 11400000, guid: 8136249ff7442ed45a6854a84c6b3ee7, type: 2}
 --- !u!1 &7745438528019224365
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a6962be2a9bcab42882922766a898fa, type: 3}
-  m_Name: Move
+  m_Name: Grab_Rot_X
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,11 +22,33 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: onJoystickMove
-      Entry: 6
+      Entry: 7
+      Data: 0|QRTools.Inputs.FloatEvent, Assembly-CSharp
+    - Name: m_PersistentCalls
+      Entry: 7
+      Data: 1|UnityEngine.Events.PersistentCallGroup, UnityEngine.CoreModule
+    - Name: m_Calls
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[UnityEngine.Events.PersistentCall,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
   description: 
-  _inputName: Move
+  _inputName: RotationX
   isActive: 1
-  axisName: Horizontal
-  axisType: 0
+  axisName: RotationX
+  axisType: 1
   joystickValue: 0

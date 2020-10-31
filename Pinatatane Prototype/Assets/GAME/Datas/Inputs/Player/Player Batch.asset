@@ -25,5 +25,11 @@ MonoBehaviour:
   _inputName: 
   isActive: 1
   inputs:
-  - {fileID: 11400000, guid: a7d476e3434f8fe4dadede3d8afe533d, type: 2}
-  - {fileID: 11400000, guid: d983a58fe40d31848a28d8de73ef4014, type: 2}
+  - {fileID: 11400000, guid: 776c951287eb6a445946221eafee6ba0, type: 2}
+  - {fileID: 11400000, guid: 2e57aeac053dcf6438c6f5986cb864f6, type: 2}
+  - {fileID: 11400000, guid: da591934dfd4d3545b2575db5e6141d9, type: 2}
+  - {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
+  - {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+  - {fileID: 11400000, guid: 52dfc2fe5b67fea44b7bc2f155ed57d8, type: 2}
+  - {fileID: 11400000, guid: e08c25b2745d6b946abc3003d212ebb5, type: 2}
+  - {fileID: 11400000, guid: 8136249ff7442ed45a6854a84c6b3ee7, type: 2}

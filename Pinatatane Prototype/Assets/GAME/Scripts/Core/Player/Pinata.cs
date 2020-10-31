@@ -8,7 +8,6 @@ using UnityEngine;
 using TMPro;
 using Sirenix.OdinInspector;
 using Photon.Pun.UtilityScripts;
-using System.Runtime.CompilerServices;
 
 namespace Pinatatane
 {
@@ -54,22 +53,12 @@ namespace Pinatatane
             grabBehaviour._camera = cameraController.GetComponent<Camera>();
             pinataUI?.InitPlayerUI();
             SetPlayerName();
-                        
-            InitInputs();
         }
 
         void SetID()
         {
             player = photonView.Owner;
             ID = photonView.ViewID;
-        }
-
-        public void InitInputs()
-        {
-            TriggerAction left = InputManagerQ.Instance.GetTriggerWithName("LeftTrigger") as TriggerAction;
-            left.onTrigger.AddListener(dashBehaviour.DashAction);
-            TriggerAction right = InputManagerQ.Instance.GetTriggerWithName("RightTrigger") as TriggerAction;
-            right.onTrigger.AddListener(grabBehaviour.GrabAnime);
         }
 
         private void Update()
@@ -164,8 +153,10 @@ namespace Pinatatane
             if(photonView.ViewID == _attaquant)
             {
                 //comportement de l'attaquant
-                Debug.Log("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString());
+                //Debug.Log("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString());
                 UIManager.Instance.networkStatutElement.SetText("attaquant");
+
+                NetworkDebugger.Instance.Debug("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString(), DebugType.NETWORK);
 
                 //PhotonNetwork.GetPhotonView(_cible).transform.localScale *= 2;
                 //PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
