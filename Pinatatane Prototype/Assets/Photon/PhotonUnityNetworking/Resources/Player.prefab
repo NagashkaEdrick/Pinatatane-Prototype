@@ -446,8 +446,10 @@ MonoBehaviour:
   pinataUI: {fileID: 4212750106791532742}
   dashBehaviour: {fileID: 1756521561635941156}
   grabBehaviour: {fileID: 1756521561885402342}
+  pinataOverrideControl: {fileID: 0}
   ID: 0
   isGrabbed: 0
+  isReady: 0
 --- !u!114 &1756521561635941210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +674,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPinata: {fileID: 1343214553653338882}
   pinatatControlledByViewID: -100
+  myEventTest:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3640134136872730849
 GameObject:
   m_ObjectHideFlags: 0

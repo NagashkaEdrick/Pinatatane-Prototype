@@ -3047,6 +3047,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1875301314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7464525732888955551, guid: 752540c4ab7652946bebf13d96657298, type: 3}
+  m_PrefabInstance: {fileID: 80637992099603652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1875301316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875301314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b798450ee78e8844b43a2810a5d611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: InRoom
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  conditions:
+  - {fileID: 1875301317}
+--- !u!114 &1875301317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875301314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c541b78fdb1fabb4cab87cdb321fb7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2099990945
 GameObject:
   m_ObjectHideFlags: 0
@@ -3258,6 +3296,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1621485425}
     m_Modifications:
+    - target: {fileID: 7464525732888955549, guid: 752540c4ab7652946bebf13d96657298, type: 3}
+      propertyPath: states.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464525732888955549, guid: 752540c4ab7652946bebf13d96657298, type: 3}
+      propertyPath: states.Array.data[0]
+      value: 
+      objectReference: {fileID: 1875301316}
     - target: {fileID: 7464525732888955550, guid: 752540c4ab7652946bebf13d96657298, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

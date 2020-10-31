@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Pinatatane
 {
-    public class PartyManager : MonoBehaviour
+    public class PartyManager : MonoBehaviourStateMachine
     {
         /*
          * Gèrer les différentes phases de jeu et leurs transition (une genre de state machine)
@@ -16,6 +16,12 @@ namespace Pinatatane
         private void Awake()
         {
             Instance = this;
+        }
+
+        public void OnJoinGame()
+        {
+            if (PlayerManager.Instance.hostID != 0)
+                StartStateMachine();
         }
     }
 }

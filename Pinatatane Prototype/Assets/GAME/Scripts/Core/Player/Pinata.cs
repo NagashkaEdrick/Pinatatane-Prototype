@@ -43,6 +43,8 @@ namespace Pinatatane
 
         [BoxGroup("Player Infos", order: 1)]
         public bool isGrabbed = false;
+        [BoxGroup("Player Infos", order: 1)]
+        public bool isReady = false;
 
         #region Publics
         public void InitPlayer()
@@ -73,6 +75,14 @@ namespace Pinatatane
                     MyGrab();
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (photonView.IsMine)
+                {
+                    SetPlayerReady();
+                }
+            }
             #endregion //Input M pour des tests
         }
 
@@ -86,7 +96,7 @@ namespace Pinatatane
 
         public void SetPlayerReady()
         {
-            photonView.RPC("SetReady", RpcTarget.AllBuffered, player.NickName);
+            photonView.RPC("SetReady", RpcTarget.All, photonView.ViewID, !isReady);
         }
 
         public void Grab(int _cible, int _attaquant)
@@ -137,9 +147,12 @@ namespace Pinatatane
         }
 
         [PunRPC]
-        public void SetReady(string _playerID)
+        public void SetReady(int _targetID, bool _state)
         {
-
+            if (photonView.ViewID == _targetID)
+            {
+                isReady = _state;
+            }
         }
 
         #region Grab
@@ -175,21 +188,28 @@ namespace Pinatatane
             }
         }
 
-        /* Exemple
-        private IEnumerator ChangePositionInCoroutine()
+        //Exemple
+        //private IEnumerator ChangePositionInCoroutine()
+        //{
+        //    WaitForSeconds t = new WaitForSeconds(3.0f);
+
+        //    while (true)
+        //    {
+        //        Vector3 _pos = [...];
+
+        //        photonView.RPC("ChangePos", RpcTarget.All, _pos);
+
+        //        yield return t;
+        //    }
+        //}
+
+        [PunRPC]
+        public void SetHostForAll(int _hostID)
         {
-            WaitForSeconds t = new WaitForSeconds(3.0f);
-
-            while (true)
-            {
-                Vector3 _pos = [...];
-
-                photonView.RPC("ChangePos", RpcTarget.All, _pos);
-
-                yield return t;
-            }
+            PlayerManager.Instance.hostID = _hostID;
+            NetworkDebugger.Instance.Debug("Host ID = " + _hostID, DebugType.LOCAL);
         }
-        */
+
         #endregion
 
         [PunRPC]

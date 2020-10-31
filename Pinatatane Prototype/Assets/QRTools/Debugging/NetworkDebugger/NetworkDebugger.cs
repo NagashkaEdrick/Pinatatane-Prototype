@@ -27,15 +27,6 @@ public class NetworkDebugger : MonoBehaviour
         Instance = this;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-            Debug("salut local", DebugType.LOCAL);
-
-        if (Input.GetKeyDown(KeyCode.Z))
-            Debug("salut online", DebugType.NETWORK);
-    }
-
     public void Debug(object message, DebugType debugType = DebugType.NETWORK)
     {
         switch (debugType)
