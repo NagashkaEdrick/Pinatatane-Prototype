@@ -57,6 +57,7 @@ namespace Pinatatane
             grabBehaviour._camera = cameraController.GetComponent<Camera>();
             pinataUI?.InitPlayerUI();
             SetPlayerName();
+            Respawn();
         }
 
         void SetID()
@@ -85,7 +86,6 @@ namespace Pinatatane
             }
             #endregion //Input M pour des tests
         }
-
 
         #region Call Network
 
@@ -124,6 +124,8 @@ namespace Pinatatane
                 }
             }
         }
+
+        public void Respawn() => PartyManager.Instance.SpawnToAFreePoint(transform);
         #endregion
 
         #endregion

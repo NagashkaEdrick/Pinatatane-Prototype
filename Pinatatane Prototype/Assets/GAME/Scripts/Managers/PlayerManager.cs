@@ -89,5 +89,13 @@ namespace Pinatatane
 
             return null;
         }
+
+        public bool IsHosting()
+        {
+            if (LocalPlayer.photonView.ViewID == hostID)
+                return true;
+            else
+                return false;
+        }
     }
 }
