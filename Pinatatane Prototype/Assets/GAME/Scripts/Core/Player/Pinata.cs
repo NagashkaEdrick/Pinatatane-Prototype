@@ -34,6 +34,8 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         [SerializeField] GrabBehaviour grabBehaviour;
 
+        public PinataOverrideControl pinataOverrideControl;
+
         [HideInInspector] public Player player;
 
         [BoxGroup("Player Infos", order: 1)]
@@ -41,6 +43,8 @@ namespace Pinatatane
 
         [BoxGroup("Player Infos", order: 1)]
         public bool isGrabbed = false;
+        [BoxGroup("Player Infos", order: 1)]
+        public bool isReady = false;
 
         #region Publics
         public void InitPlayer()
@@ -53,6 +57,7 @@ namespace Pinatatane
             grabBehaviour._camera = cameraController.GetComponent<Camera>();
             pinataUI?.InitPlayerUI();
             SetPlayerName();
+            Respawn();
         }
 
         void SetID()
@@ -71,9 +76,16 @@ namespace Pinatatane
                     MyGrab();
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (photonView.IsMine)
+                {
+                    SetPlayerReady();
+                }
+            }
             #endregion //Input M pour des tests
         }
-
 
         #region Call Network
 
@@ -84,7 +96,7 @@ namespace Pinatatane
 
         public void SetPlayerReady()
         {
-            photonView.RPC("SetReady", RpcTarget.AllBuffered, player.NickName);
+            photonView.RPC("SetReady", RpcTarget.All, photonView.ViewID, !isReady);
         }
 
         public void Grab(int _cible, int _attaquant)
@@ -112,6 +124,8 @@ namespace Pinatatane
                 }
             }
         }
+
+        public void Respawn() => PartyManager.Instance.SpawnToAFreePoint(transform);
         #endregion
 
         #endregion
@@ -135,25 +149,20 @@ namespace Pinatatane
         }
 
         [PunRPC]
-        public void SetReady(string _playerID)
+        public void SetReady(int _targetID, bool _state)
         {
+            if (photonView.ViewID == _targetID)
+            {
+                isReady = _state;
+            }
+        }
 
-        }        
-
+        #region Grab
         [PunRPC]
         public void GrabNetwork(int _cible, int _attaquant)
         {
-            //if(photonView.ViewID == _cible)
-            //{
-            //    //comportement de la cible
-            //    Debug.Log("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString());
-            //    UIManager.Instance.networkStatutElement.SetText("cible");
-            //}
-           // else 
             if(photonView.ViewID == _attaquant)
             {
-                //comportement de l'attaquant
-                //Debug.Log("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString());
                 UIManager.Instance.networkStatutElement.SetText("attaquant");
 
                 NetworkDebugger.Instance.Debug("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString(), DebugType.NETWORK);
@@ -162,6 +171,48 @@ namespace Pinatatane
                 //PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
             }
         }
+
+        [PunRPC]
+        public void ChangePos(int _targetID, Vector3 _pos)
+        {
+            if (photonView.ViewID == _targetID)
+            {
+                transform.position = _pos;
+            }
+        }
+
+        [PunRPC]
+        public void ChangeRot(int _targetID, Vector3 _rot)
+        {
+            if (photonView.ViewID == _targetID)
+            {
+                transform.rotation = Quaternion.Euler(_rot);
+            }
+        }
+
+        //Exemple
+        //private IEnumerator ChangePositionInCoroutine()
+        //{
+        //    WaitForSeconds t = new WaitForSeconds(3.0f);
+
+        //    while (true)
+        //    {
+        //        Vector3 _pos = [...];
+
+        //        photonView.RPC("ChangePos", RpcTarget.All, _pos);
+
+        //        yield return t;
+        //    }
+        //}
+
+        [PunRPC]
+        public void SetHostForAll(int _hostID)
+        {
+            PlayerManager.Instance.hostID = _hostID;
+            NetworkDebugger.Instance.Debug("Host ID = " + _hostID, DebugType.LOCAL);
+        }
+
+        #endregion
 
         [PunRPC]
         public void InitAllPlayer()

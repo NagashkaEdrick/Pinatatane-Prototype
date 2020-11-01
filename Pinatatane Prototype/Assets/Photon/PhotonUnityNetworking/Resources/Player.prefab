@@ -398,7 +398,8 @@ GameObject:
   - component: {fileID: 987754853}
   - component: {fileID: 987754854}
   - component: {fileID: 1447357251}
-  m_Layer: 0
+  - component: {fileID: 5892748840347078639}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,8 +446,10 @@ MonoBehaviour:
   pinataUI: {fileID: 4212750106791532742}
   dashBehaviour: {fileID: 1756521561635941156}
   grabBehaviour: {fileID: 1756521561885402342}
+  pinataOverrideControl: {fileID: 0}
   ID: 0
   isGrabbed: 0
+  isReady: 0
 --- !u!114 &1756521561635941210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,6 +659,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3fd05e6ece45049919c61b361dc138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5892748840347078639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756521561635941208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6393cb99a10bdd2469ef151150105703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myPinata: {fileID: 1343214553653338882}
+  pinatatControlledByViewID: -100
+  myEventTest:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3640134136872730849
 GameObject:
   m_ObjectHideFlags: 0

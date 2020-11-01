@@ -55,6 +55,13 @@ MonoBehaviour:
   - GrabNetwork
   - InitAllPlayer
   - DebuggerNetwork
+  - AddEventToPinata
+  - CallOverrideControl
+  - ChangePos
+  - ChangeRot
+  - RemoveEventToPinata
+  - SetHostForAll
+  - SetSpawnPointFreedomState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
