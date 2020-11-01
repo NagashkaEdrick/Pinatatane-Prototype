@@ -528,7 +528,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 1036201251849547691}
-  viewIdField: 1
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1036201251849547691
@@ -838,6 +838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4844049886212091233}
   - component: {fileID: 1756521561885402342}
+  - component: {fileID: 144355143}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -882,6 +883,19 @@ MonoBehaviour:
   crossHair: {fileID: 0}
   objectGrabed: {fileID: 0}
   pinata: {fileID: 1343214553653338882}
+--- !u!114 &144355143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976657549863522325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1dd81a9759e40b4bb916c5eec3a210b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationForce: 50
 --- !u!1 &7745438528019224365
 GameObject:
   m_ObjectHideFlags: 0
