@@ -71,7 +71,7 @@ namespace Pinatatane
 
         void MoveHorizontal(float value)
         {
-            if (myPinata.player != PhotonNetwork.LocalPlayer)
+            if (myPinata != PlayerManager.Instance.LocalPlayer)
                 return;
 
             Vector3 movementVector = new Vector3(value, 0, 0) * data.movementSpeed;
@@ -82,7 +82,7 @@ namespace Pinatatane
 
         void MoveVertical(float value)
         {
-            if (myPinata.player != PhotonNetwork.LocalPlayer)
+            if (myPinata != PlayerManager.Instance.LocalPlayer)
                 return;
 
             Vector3 movementVector = new Vector3(0, 0, value) * data.movementSpeed;
