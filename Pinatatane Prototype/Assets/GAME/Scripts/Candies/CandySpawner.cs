@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Pinatatane
 {
@@ -11,13 +12,16 @@ namespace Pinatatane
 
         private void Awake()
         {
-            StartCoroutine(SpawnCandies());
+            StartCoroutine(SpawnCandies()); // Quand la partie se lance...
         }
 
         IEnumerator SpawnCandies()
-        {
+        {            
             yield return new WaitForSeconds(timer);
-            CandiesBatch.Instance.Pool(5, transform.position);
+            if (PlayerManager.Instance.IsHosting() && PhotonNetwork.IsConnected)
+                CandiesBatch.Instance.Pool(5, transform.position);
+            else
+                yield break;
             StartCoroutine(SpawnCandies());
             yield break;
         }
