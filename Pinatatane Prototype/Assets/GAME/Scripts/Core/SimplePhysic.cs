@@ -44,24 +44,6 @@ public class SimplePhysic : MonoBehaviour
         if (force != Vector3.zero) directForces.Add(force);
     }
 
-    public void ApplyGravityWithRay()
-    {
-        // Applique la force de gravite s'il n'y a pas de collision avec le sol
-
-        //Test de collision avec gravite appliquer
-        Debug.Break();
-        Vector3 gravity = new Vector3(0, -this.gravity, 0);
-        Vector3 hitPoint = GetHitPoint(gravity);
-        if (hitPoint != Vector3.zero)
-        {
-            //Si collision avec le sol il y a on remet l'objet a ras du sol
-            self.position = hitPoint + new Vector3(0, box.bounds.extents.y, 0);
-            return;
-        }
-        //Sinon s'il n'y a pas de collision avec le sol on applique la gravite
-        forceApplication += gravity;
-    }
-
     public void ApplyGravity()
     {
         // Applique la force de gravite s'il n'y a pas de collision avec le sol
@@ -149,26 +131,6 @@ public class SimplePhysic : MonoBehaviour
             if (gameObject.name != collisions[i].gameObject.name && (layerName == string.Empty || LayerMask.LayerToName(collisions[i].gameObject.layer) == layerName)) return collisions[i];
         }
         return null;
-    }
-
-    public Vector3 GetHitPoint(Vector3 force)
-    {
-        // Test s'il y aura une collision si une force est appliquer
-        RaycastHit hit;
-        Vector3 start = self.position + self.InverseTransformVector(force * Time.deltaTime);
-        float radius = box.bounds.extents.x;
-        float lenght = (force * Time.deltaTime).magnitude;
-
-        if (Physics.SphereCast(start, radius, force, out hit, lenght))
-        {
-            Debug.DrawLine(start, start + force.normalized * (radius + lenght), Color.red);
-            return hit.point;
-        }
-        else
-        {
-            Debug.DrawLine(start, start + force.normalized * (radius + lenght), Color.yellow);
-            return Vector3.zero;
-        }
     }
 
     private void Update()
