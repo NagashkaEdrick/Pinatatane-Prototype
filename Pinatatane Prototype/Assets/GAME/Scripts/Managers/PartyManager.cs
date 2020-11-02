@@ -76,6 +76,7 @@ namespace Pinatatane
         [Button]
         void FindSpawnPoints()
         {
+            //COMMENTAIRES
             spawnPoints = new SpawnPoint[transform.GetChild(0).childCount];
 
             for (int i = 0; i < transform.GetChild(0).childCount; i++)
