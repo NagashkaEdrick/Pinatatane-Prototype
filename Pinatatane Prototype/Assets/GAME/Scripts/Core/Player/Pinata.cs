@@ -8,15 +8,14 @@ using UnityEngine;
 using TMPro;
 using Sirenix.OdinInspector;
 using Photon.Pun.UtilityScripts;
-using System.Runtime.CompilerServices;
 
 namespace Pinatatane
 {
-    public class Pinata : MonoBehaviour
+    public class Pinata : MonoBehaviourPunCallbacks
     {
         /*
          * Le joueur + ses comportements
-         */ 
+         */
 
         [FoldoutGroup("References", order: 0)]
         public CharacterMovementBehaviour characterMovementBehaviour;
@@ -25,7 +24,7 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         public AnimatorBehaviour animatorBehaviour;
         [FoldoutGroup("References", order: 0)]
-        public PhotonView photonView;
+        public PhotonView photonView = default;
         [FoldoutGroup("References", order: 0)]
         public Transform cameraTarget;
         [FoldoutGroup("References", order: 0)]
@@ -35,35 +34,36 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         [SerializeField] GrabBehaviour grabBehaviour;
 
+        public PinataOverrideControl pinataOverrideControl;
+
         [HideInInspector] public Player player;
 
         [BoxGroup("Player Infos", order: 1)]
-        public string ID;
+        public int ID;
+
         [BoxGroup("Player Infos", order: 1)]
         public bool isGrabbed = false;
+        [BoxGroup("Player Infos", order: 1)]
+        public bool isReady = false;
 
         #region Publics
         public void InitPlayer()
         {
-            PhotonNetwork.NickName = "Guest" + Random.Range(0, 999).ToString();
-            player = PhotonNetwork.LocalPlayer;
-            Debug.Log("Init Player -> " + player.NickName);
+            photonView.RPC("InitAllPlayer", RpcTarget.All);
 
-            ID = player.UserId;
+            SetID();
 
             cameraController.target = cameraTarget;
+            grabBehaviour._camera = cameraController.GetComponent<Camera>();
             pinataUI?.InitPlayerUI();
             SetPlayerName();
-
-            InitInputs();
+            Respawn();
         }
 
-        public void InitInputs()
+        void SetID()
         {
-            TriggerAction left = InputManagerQ.Instance.GetTriggerWithName("LeftTrigger") as TriggerAction;
-            left.onTrigger.AddListener(dashBehaviour.DashAction);
-            TriggerAction right = InputManagerQ.Instance.GetTriggerWithName("RightTrigger") as TriggerAction;
-            right.onTrigger.AddListener(grabBehaviour.GrabAnime);
+            player = photonView.Owner;
+            ID = photonView.ViewID;
         }
 
         private void Update()
@@ -71,11 +71,21 @@ namespace Pinatatane
             #region Test
             if (Input.GetKeyDown(KeyCode.M))
             {
-                photonView.RPC("IncrementeScore", RpcTarget.AllBuffered, 50, ID);
+                if (photonView.IsMine)
+                {
+                    MyGrab();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (photonView.IsMine)
+                {
+                    SetPlayerReady();
+                }
             }
             #endregion //Input M pour des tests
         }
-
 
         #region Call Network
 
@@ -86,14 +96,36 @@ namespace Pinatatane
 
         public void SetPlayerReady()
         {
-            photonView.RPC("SetReady", RpcTarget.AllBuffered, player.NickName);
+            photonView.RPC("SetReady", RpcTarget.All, photonView.ViewID, !isReady);
         }
 
-        public void Grab(string _cible, string _attaquant)
+        public void Grab(int _cible, int _attaquant)
         {
-            photonView.RPC("GrabNetwork", RpcTarget.All, _cible, _attaquant);
-            Debug.Log(string.Format("GRAB => cible = {0} | attaquant = {1}", _cible, _attaquant));
+            photonView.RPC("GrabNetwork", RpcTarget.AllBuffered, _cible, _attaquant);
         }
+
+        public void MyGrab()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 4f))
+            {
+                Debug.DrawRay(transform.position, transform.forward * 4f, Color.red);
+
+                if (hit.collider.GetComponent<Pinata>())
+                {
+                    Pinata p = hit.collider.GetComponent<Pinata>();
+                    //Debug.Log("MyGrab => " + p.gameObject.name);
+
+                    if (p != this)
+                    {
+                        Grab(p.photonView.ViewID, photonView.ViewID);
+                        UIManager.Instance.networkStatutElement.SetText(p.ID.ToString());
+                    }
+                }
+            }
+        }
+
+        public void Respawn() => PartyManager.Instance.SpawnToAFreePoint(transform);
         #endregion
 
         #endregion
@@ -103,7 +135,7 @@ namespace Pinatatane
         [PunRPC]
         public void IncrementeScore(int _increment, string _id)
         {
-            if (ID == _id)
+            if (player.UserId == _id)
             {
                 player.AddScore(50);
                 UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").Refresh();
@@ -117,22 +149,85 @@ namespace Pinatatane
         }
 
         [PunRPC]
-        public void SetReady(string _playerID)
+        public void SetReady(int _targetID, bool _state)
         {
+            if (photonView.ViewID == _targetID)
+            {
+                isReady = _state;
+            }
+        }
 
-        }        
+        #region Grab
+        [PunRPC]
+        public void GrabNetwork(int _cible, int _attaquant)
+        {
+            if (photonView.ViewID == _attaquant)
+            {
+                UIManager.Instance.networkStatutElement.SetText("attaquant");
+
+                NetworkDebugger.Instance.Debug("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString(), DebugType.NETWORK);
+
+                //PhotonNetwork.GetPhotonView(_cible).transform.localScale *= 2;
+                //PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
+            }
+        }
 
         [PunRPC]
-        public void GrabNetwork(string _cible, string _attaquant)
+        public void ChangePos(int _targetID, Vector3 _pos)
         {
-            if(ID == _cible)
+            if (photonView.ViewID == _targetID)
             {
-                //comportement de la cible
+                transform.position = _pos;
             }
-            else if(ID == _attaquant)
+        }
+
+        [PunRPC]
+        public void ChangeRot(int _targetID, Vector3 _rot)
+        {
+            if (photonView.ViewID == _targetID)
             {
-                //comportement de l'attaquant
+                transform.rotation = Quaternion.Euler(_rot);
             }
+        }
+
+        //Exemple
+        //private IEnumerator ChangePositionInCoroutine()
+        //{
+        //    WaitForSeconds t = new WaitForSeconds(3.0f);
+
+        //    while (true)
+        //    {
+        //        Vector3 _pos = [...];
+
+        //        photonView.RPC("ChangePos", RpcTarget.All, _pos);
+
+        //        yield return t;
+        //    }
+        //}
+
+        [PunRPC]
+        public void SetHostForAll(int _hostID)
+        {
+            PlayerManager.Instance.hostID = _hostID;
+            NetworkDebugger.Instance.Debug("Host ID = " + _hostID, DebugType.LOCAL);
+        }
+
+        #endregion
+
+        [PunRPC]
+        public void InitAllPlayer()
+        {
+            player = photonView.Owner;
+
+            var obj = FindObjectsOfType<Pinata>();
+            for (int i = 0; i < obj.Length; i++)
+            {
+                obj[i].SetID();
+                obj[i].pinataUI.playerName.SetText(obj[i].ID.ToString());
+            }
+
+            PhotonNetwork.NickName = "Guest" + Random.Range(0, 999).ToString();
+            Debug.Log("Init Player -> " + player.NickName);
         }
         #endregion
     }
