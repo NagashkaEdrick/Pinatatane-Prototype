@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using QRTools.Inputs;
 
 /*** A FAIRE :
  * - Refaire au propre toutes les references d'objet, tous les GetComponent fait en RunTime à changer
@@ -41,17 +40,10 @@ namespace Pinatatane
 
         [SerializeField] Pinata pinata;
 
-        [BoxGroup("Inputs", order: 1)]
-        [SerializeField] QInputXBOXTouch grabButton = default;
-        [BoxGroup("Inputs", order: 1)]
-        [SerializeField] QInputXBOXAxis grabX, grabY, grabRotX;
-
         private void Start()
         {
             crossHair = UIManager.Instance.crossHair;
             links = new GameObject[numberOfLink + 1];
-
-            grabButton.onDown.AddListener(OnGrab);
         }
 
         private void Update() {
@@ -76,7 +68,7 @@ namespace Pinatatane
             }
         }
 
-        public void OnGrab()
+        public void GrabAnime()
         {
             pinata.animatorBehaviour.SetBool("grab", true);
         }
@@ -120,7 +112,7 @@ namespace Pinatatane
             float lenghtBetweenLink = distance / numberOfLink;
             Collider[] grabedObjects;
 
-            while (cptLink < numberOfLink && grabButton.IsTrigger)
+            while (cptLink < numberOfLink && InputManagerQ.Instance.GetTrigger("RightTrigger"))
             {
                 yield return new WaitForSeconds(duration / numberOfLink);
 
@@ -132,12 +124,13 @@ namespace Pinatatane
                 grabedObjects = Physics.OverlapSphere(links[cptLink].transform.position, links[cptLink].GetComponent<SphereCollider>().radius);
                 for (int i = 0; i < grabedObjects.Length; i++) {
                     if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet a etait grab
-                        Debug.Log(grabedObjects[i].gameObject.name);
+                        Debug.Log(pinata.gameObject.name + " a saisi " + grabedObjects[i].gameObject.name);
+                        pinata.characterMovementBehaviour.setRotationActive(true);
                         yield return WaitForInput(grabedObjects[i].gameObject);
                         // Tester le type de la cible
                         if (grabedObjects[i].gameObject.GetComponent<Pinata>())
                         {
-                            GetGrabInfo(grabedObjects[i].gameObject.GetComponent<Pinata>().photonView.ViewID);
+                            GetGrabInfo(grabedObjects[i].gameObject.GetComponent<Pinata>().ID, pinata.ID);
                         }
                         yield break;
                     }
@@ -148,25 +141,19 @@ namespace Pinatatane
 
         IEnumerator WaitForInput(GameObject objectGrabbed) {
             float t = Time.time;
-            yield return new WaitWhile(() => ((Time.time - t) < 1f && grabY.JoystickValue < 0.5f
-                                                                   && grabY.JoystickValue > -0.5f
-                                                                   && grabX.JoystickValue < 0.5f
-                                                                   && grabX.JoystickValue > -0.5f));
+            yield return new WaitWhile(() => ((Time.time - t) < 1f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                   && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f));
             // En fonction de quel façon on est sortie du while on lance differentes coroutine
-            if (grabY.JoystickValue <= -0.5f && grabRotX.JoystickValue < 0.5f && grabRotX.JoystickValue > -0.5f)
-                AttractTarget(objectGrabbed);
-            else if (grabY.JoystickValue >= 0.5f && grabRotX.JoystickValue < 0.5f && grabRotX.JoystickValue > -0.5f)
-                GoToTarget(objectGrabbed);
-            else if (grabRotX.JoystickValue <= -0.5f && grabY.JoystickValue < 0.5f && grabY.JoystickValue > -0.5f)
-            {
-                Debug.Log("On tourne la cible vers la gauche");
-                yield return RetractGrab();
-            }
-            else if (grabRotX.JoystickValue >= 0.5f && grabY.JoystickValue < 0.5f && grabY.JoystickValue > -0.5f)
-            {
-                Debug.Log("On tourne la cible vers la droite");
-                yield return RetractGrab();
-            }
+            if (InputManagerQ.Instance.GetAxis("Vertical") <= -0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                    && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) AttractTarget(objectGrabbed);
+            else if (InputManagerQ.Instance.GetAxis("Vertical") >= 0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
+                                                                        && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) GoToTarget(objectGrabbed);
+            else if (InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) yield return RotateTargetLeft(objectGrabbed);
+            else if (InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
+                                                                          && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) yield return RotateTargetRight(objectGrabbed);
             else yield return RetractGrab();
         }
 
@@ -179,7 +166,6 @@ namespace Pinatatane
         }
 
         void AttractTarget(GameObject target) {
-            pinata.characterMovementBehaviour.setRotationActive(true);
             StartCoroutine(RetractGrab());
             target.GetComponent<SimplePhysic>().AddForce((pinata.transform.position - target.transform.position).normalized * attractionForce);
         }
@@ -189,14 +175,25 @@ namespace Pinatatane
             pinata.GetComponent<SimplePhysic>().AddForce((target.transform.position - pinata.transform.position).normalized * attractionForce);
         }
 
-        public void SetObjectGrabed(GameObject o)
+        IEnumerator RotateTargetRight(GameObject target)
         {
-            objectGrabed = o;
+            GetComponent<GrabRotation>().Link(pinata.transform, target.transform);
+            yield return new WaitWhile(() => InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f); // si le temps de rotation est timer rajouter ici
+            GetComponent<GrabRotation>().ReleaseRight();
+            yield return RetractGrab();
+        }
+        IEnumerator RotateTargetLeft(GameObject target)
+        {
+            GetComponent<GrabRotation>().Link(pinata.transform, target.transform);
+            yield return new WaitWhile(() => InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f); // si le temps de rotation est timer rajouter ici
+            GetComponent<GrabRotation>().ReleaseLeft();
+            yield return RetractGrab();
         }
 
-        public void GetGrabInfo(int _cible)
+
+        public void GetGrabInfo(string targetId, string attackerId)
         {
-            pinata.Grab(_cible, pinata.photonView.ViewID);
+            //pinata.Grab(targetId, attackerId);
         }
     }
 }

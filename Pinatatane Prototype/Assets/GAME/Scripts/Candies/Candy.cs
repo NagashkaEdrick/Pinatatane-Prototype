@@ -1,13 +1,21 @@
+<<<<<<< HEAD
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using DG.Tweening;
+=======
+﻿using Photon.Pun;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+>>>>>>> origin/Lorenzo
 
 namespace Pinatatane
 {
     public class Candy : MonoBehaviour
     {
+<<<<<<< HEAD
         [SerializeField] bool isPool = false;
         public bool IsPool
         {
@@ -72,6 +80,17 @@ namespace Pinatatane
 
                     transform.position += dir * Time.deltaTime * data.attireSpeed * (1/Vector3.Distance(hitCollider.GetComponent<Pinata>().transform.position, transform.position));
                 }
+=======
+        public PhotonView photonView;
+        [SerializeField] int candyValue = 5;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.GetComponent<Pinata>())
+            {
+                Debug.Log("touch");
+                PhotonNetwork.Destroy(gameObject);
+>>>>>>> origin/Lorenzo
             }
         }
     }
