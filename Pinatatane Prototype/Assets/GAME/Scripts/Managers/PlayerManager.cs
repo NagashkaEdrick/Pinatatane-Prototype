@@ -92,6 +92,8 @@ namespace Pinatatane
 
         public bool IsHosting()
         {
+            //Commentaire
+
             if (LocalPlayer.photonView.ViewID == hostID)
                 return true;
             else
