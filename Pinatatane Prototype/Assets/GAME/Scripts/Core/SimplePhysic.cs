@@ -103,6 +103,7 @@ public class SimplePhysic : MonoBehaviour
     public void ApplyDirectForces() {
         for (int i = 0; i < directForces.Count; i++) {
             Collider collider = GetCollider(directForces[i], "Other");
+            if (gameObject.name.Contains("Player")) Debug.Log(collider != null);
             if (collider != null) {
                 Debug.Log(gameObject.name + " aura collision avec " + collider.gameObject.name + ", force non appliquer");
                 directForces.RemoveAt(i);

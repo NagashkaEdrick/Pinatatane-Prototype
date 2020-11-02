@@ -1,22 +1,31 @@
+<<<<<<< HEAD
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Photon.Pun;
+using DG.Tweening;
+=======
+﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+>>>>>>> origin/Lorenzo
 
 namespace Pinatatane
 {
     public class Candy : MonoBehaviour
     {
+<<<<<<< HEAD
         [SerializeField] bool isPool = false;
         public bool IsPool
         {
             get => isPool;
             set
             {
-                if (value)
-                    gameObject.SetActive(true);
-                else
-                    gameObject.SetActive(false);
+                //if (value)
+                //    gameObject.SetActive(true);
+                //else
+                //    gameObject.SetActive(false);
 
                 isPool = value;
             }
@@ -42,20 +51,22 @@ namespace Pinatatane
         public void Push()
         {
             transform.position = new Vector3(500, 500, 500);
-            IsPool = false;
+            //IsPool = false;
+            PhotonNetwork.Destroy(GetComponent<PhotonView>());
         }
 
         private void Update()
         {
-            if(NetworkManager.Instance.isConnected)
-                CandiesBatch.Instance.MoveCandie(ID, transform.position);
+            //if(NetworkManager.Instance.isConnected)
+            //    CandiesBatch.Instance.MoveCandie(ID, transform.position);
 
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, data.touchRadius);
             foreach (var hitCollider in hitColliders)
             {
                 if (hitCollider.GetComponent<Pinata>())
                 {
-                    CandiesBatch.Instance.Push(ID);
+                    Push();
+                    //CandiesBatch.Instance.Push(ID);
                 }
             }
 
@@ -69,6 +80,17 @@ namespace Pinatatane
 
                     transform.position += dir * Time.deltaTime * data.attireSpeed * (1/Vector3.Distance(hitCollider.GetComponent<Pinata>().transform.position, transform.position));
                 }
+=======
+        public PhotonView photonView;
+        [SerializeField] int candyValue = 5;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.GetComponent<Pinata>())
+            {
+                Debug.Log("touch");
+                PhotonNetwork.Destroy(gameObject);
+>>>>>>> origin/Lorenzo
             }
         }
     }

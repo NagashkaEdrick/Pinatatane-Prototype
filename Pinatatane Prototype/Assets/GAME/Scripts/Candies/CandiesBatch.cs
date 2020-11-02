@@ -37,13 +37,17 @@ namespace Pinatatane
         {
             for (int i = 0; i < _qte; i++)
             {
-                if (!candies[i].IsPool)
-                {
-                    candies[i].IsPool = true;
-                    candies[i].transform.parent = inGame;
-                    candies[i].Pool(_pos);
-                    photonView.RPC("PoolRPC", RpcTarget.All, i, _pos);
-                }
+                GameObject go = PhotonNetwork.Instantiate("Candy", _pos, Quaternion.identity);
+                Candy c = go.GetComponent<Candy>();
+                c.Pool(_pos);
+
+                //if (!candies[i].IsPool)
+                //{
+                //    candies[i].IsPool = true;
+                //    candies[i].transform.parent = inGame;
+                //    candies[i].Pool(_pos);
+                //    photonView.RPC("PoolRPC", RpcTarget.All, i, _pos);
+                //}
             }
         }
 

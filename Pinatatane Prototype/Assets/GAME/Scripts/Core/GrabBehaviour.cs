@@ -125,7 +125,6 @@ namespace Pinatatane
                 for (int i = 0; i < grabedObjects.Length; i++) {
                     if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet a etait grab
                         Debug.Log(pinata.gameObject.name + " a saisi " + grabedObjects[i].gameObject.name);
-                        pinata.characterMovementBehaviour.setRotationActive(true);
                         yield return WaitForInput(grabedObjects[i].gameObject);
                         // Tester le type de la cible
                         if (grabedObjects[i].gameObject.GetComponent<Pinata>())
@@ -151,9 +150,9 @@ namespace Pinatatane
             else if (InputManagerQ.Instance.GetAxis("Vertical") >= 0.5f && InputManagerQ.Instance.GetAxis("RotationX") < 0.5f
                                                                         && InputManagerQ.Instance.GetAxis("RotationX") > -0.5f) GoToTarget(objectGrabbed);
             else if (InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
-                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) yield return RotateTargetLeft(objectGrabbed);
+                                                                           && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) { Debug.Log("On tourne la cible vers la gauche"); yield return RetractGrab(); }
             else if (InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f && InputManagerQ.Instance.GetAxis("Vertical") < 0.5f
-                                                                          && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) yield return RotateTargetRight(objectGrabbed);
+                                                                          && InputManagerQ.Instance.GetAxis("Vertical") > -0.5f) { Debug.Log("On tourne la cible vers la droite"); yield return RetractGrab(); }
             else yield return RetractGrab();
         }
 
@@ -166,6 +165,7 @@ namespace Pinatatane
         }
 
         void AttractTarget(GameObject target) {
+            pinata.characterMovementBehaviour.setRotationActive(true);
             StartCoroutine(RetractGrab());
             target.GetComponent<SimplePhysic>().AddForce((pinata.transform.position - target.transform.position).normalized * attractionForce);
         }
@@ -175,21 +175,10 @@ namespace Pinatatane
             pinata.GetComponent<SimplePhysic>().AddForce((target.transform.position - pinata.transform.position).normalized * attractionForce);
         }
 
-        IEnumerator RotateTargetRight(GameObject target)
+        public void SetObjectGrabed(GameObject o)
         {
-            GetComponent<GrabRotation>().Link(pinata.transform, target.transform);
-            yield return new WaitWhile(() => InputManagerQ.Instance.GetAxis("RotationX") >= 0.5f); // si le temps de rotation est timer rajouter ici
-            GetComponent<GrabRotation>().ReleaseRight();
-            yield return RetractGrab();
+            objectGrabed = o;
         }
-        IEnumerator RotateTargetLeft(GameObject target)
-        {
-            GetComponent<GrabRotation>().Link(pinata.transform, target.transform);
-            yield return new WaitWhile(() => InputManagerQ.Instance.GetAxis("RotationX") <= -0.5f); // si le temps de rotation est timer rajouter ici
-            GetComponent<GrabRotation>().ReleaseLeft();
-            yield return RetractGrab();
-        }
-
 
         public void GetGrabInfo(string targetId, string attackerId)
         {
