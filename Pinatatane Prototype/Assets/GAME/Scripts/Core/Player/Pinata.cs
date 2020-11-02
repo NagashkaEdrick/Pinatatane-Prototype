@@ -14,6 +14,10 @@ namespace Pinatatane
 {
     public class Pinata : MonoBehaviour
     {
+        /*
+         * Le joueur + ses comportements
+         */ 
+
         [FoldoutGroup("References", order: 0)]
         public CharacterMovementBehaviour characterMovementBehaviour;
         [FoldoutGroup("References", order: 0)]
@@ -26,23 +30,40 @@ namespace Pinatatane
         public Transform cameraTarget;
         [FoldoutGroup("References", order: 0)]
         [SerializeField] PinataUI pinataUI;
+        [FoldoutGroup("References", order: 0)]
+        [SerializeField] DashBehaviour dashBehaviour;
+        [FoldoutGroup("References", order: 0)]
+        [SerializeField] GrabBehaviour grabBehaviour;
 
-        public Player player;
+        [HideInInspector] public Player player;
+
+        [BoxGroup("Player Infos", order: 1)]
         public string ID;
-        public bool isReady = false;
-        public bool isCatch = false;
+        [BoxGroup("Player Infos", order: 1)]
+        public bool isGrabbed = false;
 
         #region Publics
         public void InitPlayer()
         {
             PhotonNetwork.NickName = "Guest" + Random.Range(0, 999).ToString();
-            Debug.Log("Init Player -> " + player.NickName);
             player = PhotonNetwork.LocalPlayer;
+            Debug.Log("Init Player -> " + player.NickName);
+
             ID = player.UserId;
 
             cameraController.target = cameraTarget;
             pinataUI?.InitPlayerUI();
             SetPlayerName();
+
+            InitInputs();
+        }
+
+        public void InitInputs()
+        {
+            TriggerAction left = InputManagerQ.Instance.GetTriggerWithName("LeftTrigger") as TriggerAction;
+            left.onTrigger.AddListener(dashBehaviour.DashAction);
+            TriggerAction right = InputManagerQ.Instance.GetTriggerWithName("RightTrigger") as TriggerAction;
+            right.onTrigger.AddListener(grabBehaviour.GrabAnime);
         }
 
         private void Update()
@@ -55,15 +76,8 @@ namespace Pinatatane
             #endregion //Input M pour des tests
         }
 
-        [PunRPC]
-        public void IncrementeScore(int _increment, string _id)
-        {
-            if (ID == _id)
-            {
-                player.AddScore(50);
-                UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").Refresh();
-            }
-        }
+
+        #region Call Network
 
         public void SetPlayerName()
         {
@@ -75,9 +89,27 @@ namespace Pinatatane
             photonView.RPC("SetReady", RpcTarget.AllBuffered, player.NickName);
         }
 
+        public void Grab(string _cible, string _attaquant)
+        {
+            photonView.RPC("GrabNetwork", RpcTarget.All, _cible, _attaquant);
+            Debug.Log(string.Format("GRAB => cible = {0} | attaquant = {1}", _cible, _attaquant));
+        }
+        #endregion
+
         #endregion
 
         #region Network
+
+        [PunRPC]
+        public void IncrementeScore(int _increment, string _id)
+        {
+            if (ID == _id)
+            {
+                player.AddScore(50);
+                UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").Refresh();
+            }
+        }
+
         [PunRPC]
         public void SetName(string _name)
         {
@@ -88,13 +120,7 @@ namespace Pinatatane
         public void SetReady(string _playerID)
         {
 
-        }
-
-        public void Grab(string _cible, string _attaquant)
-        {
-            photonView.RPC("GrabNetwork", RpcTarget.All, _cible, _attaquant);
-            Debug.Log(string.Format("GRAB => cible = {0} | attaquant = {1}", _cible, _attaquant));
-        }
+        }        
 
         [PunRPC]
         public void GrabNetwork(string _cible, string _attaquant)

@@ -6,7 +6,10 @@ namespace Pinatatane
 {
     public class ReferenceSO : MonoBehaviour
     {
-        public GameSettings gameSettings;
-        public NetworkSettings networkSettings;
+        /*
+         * Reference de tous les scriptables obj
+         */
+
+        public List<ScriptableObject> scriptableObjects = new List<ScriptableObject>();
     }
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   rotationAcceleration: 1
   gravity: 0.05
   rotationSpeed: 1
-  movementSpeed: 1000
+  movementSpeed: 25
   dashSpeed: 2.5
   dashDuration: 0.15
   dashCooldown: 0.5
