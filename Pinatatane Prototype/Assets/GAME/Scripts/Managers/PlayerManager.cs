@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
-using Photon.Realtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Pinatatane
 {
-    public class PlayerManager : MonoBehaviourPunCallbacks
+    public class PlayerManager : MonoBehaviour
     {
         /*
          * Créé le joueur local
@@ -15,20 +14,18 @@ namespace Pinatatane
          * Sa création
          */
 
-        [BoxGroup("References", order: 1)] public static PlayerManager Instance;
-        [BoxGroup("References", order: 1)] public CameraController camPrefab = default;
-        [BoxGroup("References", order: 1), SerializeField] Transform playerParent;
+        public static PlayerManager Instance;
 
-        [SerializeField][ReadOnly, BoxGroup("Infos", order: 5)] Pinata localPlayer;
+        public CameraController camPrefab = default;
+
+        [SerializeField] Transform playerParent;
+
+        [SerializeField] Pinata localPlayer;
         public Pinata LocalPlayer
         {
             get => localPlayer;
             private set => localPlayer = value;
         }
-
-        [SerializeField, ReadOnly, BoxGroup("Infos", order: 5)] public List<Pinata> pinatas = new List<Pinata>();
-
-        [SerializeField, ReadOnly, BoxGroup("Infos", order: 5)] public int hostID;
 
         private void Awake()
         {
@@ -45,57 +42,8 @@ namespace Pinatatane
             CameraController _camController = Instantiate(camPrefab, transform.position, Quaternion.identity);
             player.cameraController = _camController;
 
-            LocalPlayer = player;
+            localPlayer = player;
             player.InitPlayer();
-
-            StartCoroutine(Gestion());
-        }
-
-        IEnumerator Gestion()
-        {
-            yield return new WaitForSeconds(.05f);
-            FindAllPinata();
-            SetHost();
-            PartyManager.Instance.OnJoinGame();
-            yield break;
-        }
-
-        public void FindAllPinata()
-        {
-            pinatas.Clear();
-            for (int i = 0; i < PhotonNetwork.PhotonViews.Length; i++)
-            {
-                if (PhotonNetwork.PhotonViews[i].GetComponent<Pinata>())
-                    pinatas.Add(PhotonNetwork.PhotonViews[i].GetComponent<Pinata>());
-            }
-        }
-
-        void SetHost()
-        {
-            if(pinatas.Count <= 1)
-            {
-                hostID = LocalPlayer.photonView.ViewID;
-                LocalPlayer.photonView.RPC("SetHostForAll", RpcTarget.AllBuffered, hostID);
-            }
-        }        
-
-        public Pinata FindPinata(int viewID)
-        {
-            for (int i = 0; i < PhotonNetwork.PhotonViews.Length; i++)
-            {
-                if (PhotonNetwork.PhotonViews[i].ViewID == viewID)
-                    return PhotonNetwork.PhotonViews[i].GetComponent<Pinata>();
-            }
-
-            return null;
-        }
-
-        public bool IsHosting()
-        {
-            if (LocalPlayer.photonView.ViewID == hostID)
-                return true;
-            else
-                return false;
         }
     }
 }

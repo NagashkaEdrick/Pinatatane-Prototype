@@ -7,7 +7,6 @@ using Photon.Realtime;
 using UnityEngine;
 
 using TMPro;
-using Photon.Pun.Demo.PunBasics;
 
 namespace Pinatatane
 {
@@ -93,14 +92,12 @@ namespace Pinatatane
         {
             base.OnPlayerEnteredRoom(newPlayer);
             Debug.Log(newPlayer.NickName + " est entré dans la room.");
-
             UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(newPlayer.UserId);
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
             base.OnPlayerLeftRoom(otherPlayer);
-
             UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").RemoveListingElement(otherPlayer.UserId);
         }
 
