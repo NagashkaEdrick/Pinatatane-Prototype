@@ -26,6 +26,8 @@ namespace Pinatatane
 
         public Camera offlineCamera;
 
+        public bool isConnected => PhotonNetwork.IsConnected;
+
         private void Awake()
         {
             Instance = this;
