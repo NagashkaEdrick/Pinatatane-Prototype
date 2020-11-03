@@ -512,7 +512,7 @@ InputManager:
     gravity: 1
     dead: 0.2
     sensitivity: 1
-    snap: 0
+    snap: 1
     invert: 0
     type: 2
     axis: 3

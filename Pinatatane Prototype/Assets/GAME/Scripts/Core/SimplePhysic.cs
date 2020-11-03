@@ -101,6 +101,7 @@ public class SimplePhysic : MonoBehaviour
     }
 
     public void ApplyDirectForces() {
+        Debug.Log(directForces.Count);
         for (int i = 0; i < directForces.Count; i++) {
             Collider collider = GetCollider(directForces[i], "Other");
             if (collider != null) {

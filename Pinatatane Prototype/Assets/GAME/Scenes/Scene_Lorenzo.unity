@@ -1834,7 +1834,7 @@ PrefabInstance:
     - target: {fileID: 1058824957175967015, guid: 30824cb06cea22046b42118d3b8449f9, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1058824957175967015, guid: 30824cb06cea22046b42118d3b8449f9, type: 3}
     - target: {fileID: 1058824957175967015, guid: 30824cb06cea22046b42118d3b8449f9, type: 3}
       propertyPath: crossHair
       value: 
@@ -2110,6 +2110,18 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 963194228}
+    - target: {fileID: 1756521561635941210, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: horizontal
+      value: 
+      objectReference: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+    - target: {fileID: 1756521561635941210, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: vertical
+      value: 
+      objectReference: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
+    - target: {fileID: 1756521561635941210, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: rotationX
+      value: 
+      objectReference: {fileID: 11400000, guid: da591934dfd4d3545b2575db5e6141d9, type: 2}
     - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: _camera
       value: 
@@ -2118,6 +2130,22 @@ PrefabInstance:
       propertyPath: crossHair
       value: 
       objectReference: {fileID: 1102709283}
+    - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: grabButton
+      value: 
+      objectReference: {fileID: 11400000, guid: 776c951287eb6a445946221eafee6ba0, type: 2}
+    - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: grabX
+      value: 
+      objectReference: {fileID: 11400000, guid: e08c25b2745d6b946abc3003d212ebb5, type: 2}
+    - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: grabY
+      value: 
+      objectReference: {fileID: 11400000, guid: 52dfc2fe5b67fea44b7bc2f155ed57d8, type: 2}
+    - target: {fileID: 1756521561885402342, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
+      propertyPath: grabRotX
+      value: 
+      objectReference: {fileID: 11400000, guid: da591934dfd4d3545b2575db5e6141d9, type: 2}
     - target: {fileID: 3415627638194251138, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
       propertyPath: viewIdField
       value: 1
