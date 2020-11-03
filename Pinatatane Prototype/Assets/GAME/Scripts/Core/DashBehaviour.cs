@@ -22,6 +22,7 @@ namespace Pinatatane
         private Coroutine dashCor = null;
 
         public void DashAction() {
+            Debug.Log("Dash");
             if (dashCor == null) {
                 dashCor = StartCoroutine(StartDash());
             }
