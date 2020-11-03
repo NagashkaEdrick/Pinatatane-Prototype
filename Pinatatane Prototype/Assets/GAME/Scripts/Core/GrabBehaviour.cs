@@ -91,7 +91,6 @@ namespace Pinatatane
             if (grabCoroutine == null)
             {
                 grabCoroutine = StartCoroutine(StartGrab());
-                // A terme, separer en 2 script le mouvement et la rotation et desactiver le mouvement durant toutes la durée du dash et la rotation uniquement durant l'aller
                 pinata.characterMovementBehaviour.setMovementActive(false);
                 pinata.characterMovementBehaviour.setRotationActive(false);
             }

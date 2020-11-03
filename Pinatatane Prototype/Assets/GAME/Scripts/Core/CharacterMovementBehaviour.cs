@@ -25,10 +25,6 @@ namespace Pinatatane
         [SerializeField] private SimplePhysic body;
 
         float rightJoyX;
-        bool movementActive = true;
-        bool rotationActive = true;
-
-        Coroutine movementCor = null;
 
         [SerializeField] Pinata myPinata;
 
@@ -77,7 +73,7 @@ namespace Pinatatane
             Vector3 movementVector = new Vector3(value, 0, 0) * data.movementSpeed;
             myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
             myPinata.animatorBehaviour.SetFloat("horizontal", value);
-            movementCor = null;
+            //movementCor = null;
         }
 
         void MoveVertical(float value)
@@ -88,7 +84,7 @@ namespace Pinatatane
             Vector3 movementVector = new Vector3(0, 0, value) * data.movementSpeed;
             myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
             myPinata.animatorBehaviour.SetFloat("vertical", value);
-            movementCor = null;
+            //movementCor = null;
         }
 
         // Gere la rotation du joueur en fonction du joystick droit
@@ -107,19 +103,17 @@ namespace Pinatatane
             return Quaternion.Slerp(startRotationVector, endRotationVector, smoothSpeed);
         }
 
-        public bool isMovementActive()
-        {
-            return movementActive;
-        }
-
         public void setMovementActive(bool value)
         {
-            movementActive = value;
+            Debug.Log("Mouvements set to " + value);
+            /*horizontal.IsActive = value;
+            vertical.IsActive = value;*/
         }
 
         public void setRotationActive(bool value)
         {
-            rotationActive = value;
+            Debug.Log("Rotation set to " + value);
+            //rotationX.IsActive = value;
         }
 
         public float getRotationAngle()
