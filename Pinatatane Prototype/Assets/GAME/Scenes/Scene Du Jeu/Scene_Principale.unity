@@ -7267,6 +7267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1963100ae5b0aff439d909a3a70f11ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  photonView: {fileID: 0}
 --- !u!4 &585271408
 Transform:
   m_ObjectHideFlags: 0
@@ -22759,17 +22760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 035ee057ee4b0e04fa1a917bac47eafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1875301315 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1891840223387657000, guid: 752540c4ab7652946bebf13d96657298, type: 3}
-  m_PrefabInstance: {fileID: 80637992099603652}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1878630744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25191,14 +25181,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1621485425}
     m_Modifications:
-    - target: {fileID: 1891840223387657000, guid: 752540c4ab7652946bebf13d96657298, type: 3}
+    - target: {fileID: 7336462308405488483, guid: 752540c4ab7652946bebf13d96657298, type: 3}
       propertyPath: viewIdField
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 7464525732888955549, guid: 752540c4ab7652946bebf13d96657298, type: 3}
-      propertyPath: photonView
-      value: 
-      objectReference: {fileID: 1875301315}
     - target: {fileID: 7464525732888955550, guid: 752540c4ab7652946bebf13d96657298, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
