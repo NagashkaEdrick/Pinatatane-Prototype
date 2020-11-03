@@ -38,6 +38,23 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - AddEventToPinata
+  - AddPlayerNetworking
+  - CallOverrideControl
+  - ChangePos
+  - ChangeRot
+  - DebuggerNetwork
+  - GrabNetwork
+  - IncrementeScore
+  - InitAllPlayer
+  - MoveCandieRPC
+  - PoolRPC
+  - RemoveEventToPinata
+  - Rfr
+  - SetHostForAll
+  - SetName
+  - SetReady
+  - SetSpawnPointFreedomState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
