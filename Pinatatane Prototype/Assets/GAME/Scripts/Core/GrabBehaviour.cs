@@ -182,6 +182,7 @@ namespace Pinatatane
             GetComponent<GrabRotation>().ReleaseRight();
             yield return RetractGrab();
         }
+
         IEnumerator RotateTargetLeft(GameObject target)
         {
             GetComponent<GrabRotation>().Link(pinata.transform, target.transform);
