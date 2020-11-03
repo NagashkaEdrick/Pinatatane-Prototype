@@ -71,24 +71,28 @@ namespace Pinatatane
 
         void MoveHorizontal(float value)
         {
-            /*if (myPinata.player != PlayerManager.Instance.LocalPlayer.player)
-                return;*/
-
-            Vector3 movementVector = new Vector3(value, 0, 0) * data.movementSpeed;
-            myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
-            myPinata.animatorBehaviour.SetFloat("horizontal", value);
-            movementCor = null;
+            if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
+                return;
+            else
+            {
+                Vector3 movementVector = new Vector3(value, 0, 0) * data.movementSpeed;
+                myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
+                myPinata.animatorBehaviour.SetFloat("horizontal", value);
+                movementCor = null;
+            }
         }
 
         void MoveVertical(float value)
         {
-            /*if (myPinata.player != PlayerManager.Instance.LocalPlayer.player)
-                return;*/
-
-            Vector3 movementVector = new Vector3(0, 0, value) * data.movementSpeed;
-            myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
-            myPinata.animatorBehaviour.SetFloat("vertical", value);
-            movementCor = null;
+            if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
+                return;
+            else
+            {
+                Vector3 movementVector = new Vector3(0, 0, value) * data.movementSpeed;
+                myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
+                myPinata.animatorBehaviour.SetFloat("vertical", value);
+                movementCor = null;
+            }
         }
 
         // Gere la rotation du joueur en fonction du joystick droit

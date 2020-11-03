@@ -167,6 +167,8 @@ namespace Pinatatane
 
                 NetworkDebugger.Instance.Debug("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString(), DebugType.NETWORK);
 
+                photonView.RPC("ChangePos", RpcTarget.All, _cible, Vector3.zero);
+
                 //PhotonNetwork.GetPhotonView(_cible).transform.localScale *= 2;
                 //PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
             }
@@ -175,35 +177,31 @@ namespace Pinatatane
         [PunRPC]
         public void ChangePos(int _targetID, Vector3 _pos)
         {
-            if (photonView.ViewID == _targetID)
-            {
-                transform.position = _pos;
-            }
+            PhotonNetwork.GetPhotonView(_targetID).transform.position = _pos;
+            NetworkDebugger.Instance.Debug("targetID : " + _targetID + " POS : " + _pos, DebugType.LOCAL);
         }
 
         [PunRPC]
         public void ChangeRot(int _targetID, Vector3 _rot)
         {
-            if (photonView.ViewID == _targetID)
-            {
-                transform.rotation = Quaternion.Euler(_rot);
-            }
+            Quaternion q = Quaternion.Euler(_rot);
+            PhotonNetwork.GetPhotonView(_targetID).transform.rotation = q;
         }
 
         //Exemple
-        //private IEnumerator ChangePositionInCoroutine()
-        //{
-        //    WaitForSeconds t = new WaitForSeconds(3.0f);
+        private IEnumerator ChangePositionInCoroutine(int id)
+        {
+            WaitForSeconds t = new WaitForSeconds(3.0f);
 
-        //    while (true)
-        //    {
-        //        Vector3 _pos = [...];
+            while (true)
+            {
+                Vector3 pos = Vector3.zero;
 
-        //        photonView.RPC("ChangePos", RpcTarget.All, _pos);
+                photonView.RPC("ChangePos", RpcTarget.All, id, pos);
 
-        //        yield return t;
-        //    }
-        //}
+                yield return t;
+            }
+        }
 
         [PunRPC]
         public void SetHostForAll(int _hostID)
