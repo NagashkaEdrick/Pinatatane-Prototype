@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationAcceleration: 1
   gravity: 0.05
-  rotationSpeed: 1
+  rotationSpeed: 0.2
   movementSpeed: 25
   dashSpeed: 2.5
   dashDuration: 0.15
