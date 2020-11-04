@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using QRTools.Inputs;
 
 namespace Pinatatane
 {
@@ -19,10 +20,17 @@ namespace Pinatatane
         [SerializeField]
         CharacterMovementBehaviour movement;
 
+        [SerializeField] QInputXBOXTouch dashAction;  
+
         private Coroutine dashCor = null;
 
+        private void Start()
+        {
+            dashAction.onDown.AddListener(DashAction);
+        }
+
         public void DashAction() {
-            Debug.Log("Dash");
+            //Debug.Log("Dash");
             if (dashCor == null) {
                 dashCor = StartCoroutine(StartDash());
             }

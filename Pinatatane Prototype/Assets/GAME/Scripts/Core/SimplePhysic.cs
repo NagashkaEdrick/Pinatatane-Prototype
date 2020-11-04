@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Photon.Pun;
+using UnityEngine.Events;
+using Pinatatane;
 
 public class SimplePhysic : MonoBehaviour
 {
@@ -20,6 +23,9 @@ public class SimplePhysic : MonoBehaviour
     List<float> forcesFrictionTime = new List<float>();
     Collider[] collisions;
     Collider box;
+
+    //Pas générique
+    public PhotonView view;
     #endregion
 
     private void Awake() {
@@ -175,11 +181,18 @@ public class SimplePhysic : MonoBehaviour
         // Reduction des forces pour la prochaine frame
         ApplyFriction();
 
-        
-
         directForces.Clear(); // Ce sont des forces instantanée qui disparaisse immediatement
 
-        self.Translate(forceApplication * Time.deltaTime);
+        if(PhotonNetwork.IsConnected)
+            view.RPC("RPCApplyAllForce", RpcTarget.All, view.ViewID, forceApplication);
+        else
+            self.Translate(forceApplication * Time.deltaTime);
+    }
+
+    [PunRPC]
+    public void RPCApplyAllForce(int _targetID, Vector3 _force)
+    {
+        PhotonNetwork.GetPhotonView(_targetID).transform.Translate(_force * Time.deltaTime);
     }
 
 }

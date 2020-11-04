@@ -20,7 +20,7 @@ namespace Pinatatane
 
             billboard.camTransform = pinata.cameraController.transform;
 
-            if (pinata.photonView.IsMine)
+            if (pinata.PhotonView.IsMine)
             {
                 Hide();
             }

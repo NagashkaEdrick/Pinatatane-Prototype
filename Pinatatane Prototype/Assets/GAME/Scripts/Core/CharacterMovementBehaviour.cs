@@ -92,8 +92,13 @@ namespace Pinatatane
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation(float value)
         {
-            cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration, value);
-            myPinata.characterMovementBehaviour.transform.rotation = smoothRotation(myPinata.characterMovementBehaviour.transform.rotation, data.rotationAcceleration, value);
+            if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
+                return;
+            else
+            {
+                cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration, value);
+                myPinata.characterMovementBehaviour.transform.rotation = smoothRotation(myPinata.characterMovementBehaviour.transform.rotation, data.rotationAcceleration, value);
+            }
         }
 
         // Realise une rotation par acceleration

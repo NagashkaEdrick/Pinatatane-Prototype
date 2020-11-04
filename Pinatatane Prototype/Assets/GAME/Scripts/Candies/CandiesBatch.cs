@@ -39,12 +39,13 @@ namespace Pinatatane
 
         public void Pool(int _qte, Vector3 _pos)
         {
-            //for (int i = 0; i < _qte; i++)
-            //{
-            //    GameObject go = PhotonNetwork.Instantiate("Candy", _pos, Quaternion.identity);
-            //    Candy c = go.GetComponent<Candy>();
-            //    c.name = "RPC Candy";
-            //}
+            for (int i = 0; i < _qte; i++)
+            {
+                GameObject go = PhotonNetwork.Instantiate("Candy", _pos, Quaternion.identity);
+                Candy c = go.GetComponent<Candy>();
+                c.Pool(_pos);
+                c.name = "RPC Candy";
+            }
         }
 
         [PunRPC]
@@ -58,7 +59,8 @@ namespace Pinatatane
                     Candy c = go.GetComponent<Candy>();
                     candies.Add(c);
                     c.name = "RPC Candy";
-                    c.gameObject.SetActive(false);
+                    c.Pool(Vector3.zero);
+                    //c.gameObject.SetActive(false);
                 }
             }
         }

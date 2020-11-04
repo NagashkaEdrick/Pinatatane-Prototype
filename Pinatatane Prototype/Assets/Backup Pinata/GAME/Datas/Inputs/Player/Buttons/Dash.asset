@@ -26,25 +26,13 @@ MonoBehaviour:
   isActive: 1
   onDown:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1756521561635941156, guid: 7c617bedb4a076c429a4b2f89f62681a, type: 3}
-        m_TargetAssemblyTypeName: Pinatatane.DashBehaviour, Assembly-CSharp
-        m_MethodName: DashAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onCurrent:
     m_PersistentCalls:
       m_Calls: []
   onUp:
     m_PersistentCalls:
       m_Calls: []
-  isTrigger: 1
+  isTrigger: 0
   xboxButtons: 11
   triggerSensibility: 0.95

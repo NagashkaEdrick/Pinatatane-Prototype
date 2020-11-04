@@ -11,7 +11,7 @@ using Photon.Pun.UtilityScripts;
 
 namespace Pinatatane
 {
-    public class Pinata : MonoBehaviourPunCallbacks
+    public class Pinata : MonoBehaviourPunCallbacks, IGrabable
     {
         /*
          * Le joueur + ses comportements
@@ -24,7 +24,7 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         public AnimatorBehaviour animatorBehaviour;
         [FoldoutGroup("References", order: 0)]
-        public PhotonView photonView = default;
+        [SerializeField] private PhotonView photonView = default;
         [FoldoutGroup("References", order: 0)]
         public Transform cameraTarget;
         [FoldoutGroup("References", order: 0)]
@@ -33,6 +33,8 @@ namespace Pinatatane
         [SerializeField] DashBehaviour dashBehaviour;
         [FoldoutGroup("References", order: 0)]
         [SerializeField] GrabBehaviour grabBehaviour;
+        [FoldoutGroup("References", order: 0)]
+        [SerializeField] SimplePhysic simplePhysic;
 
         public PinataOverrideControl pinataOverrideControl;
 
@@ -46,13 +48,15 @@ namespace Pinatatane
         [BoxGroup("Player Infos", order: 1)]
         public bool isReady = false;
 
+        public PhotonView PhotonView { get => photonView; set => photonView = value; }
+
         #region Publics
         /// <summary>
         /// Inititialisation du player
         /// </summary>
         public void InitPlayer()
         {
-            photonView.RPC("InitAllPlayer", RpcTarget.All);
+            PhotonView.RPC("InitAllPlayer", RpcTarget.All);
 
             SetID();
 
@@ -68,8 +72,8 @@ namespace Pinatatane
         /// </summary>
         void SetID()
         {
-            player = photonView.Owner;
-            ID = photonView.ViewID;
+            player = PhotonView.Owner;
+            ID = PhotonView.ViewID;
         }
 
         private void Update()
@@ -77,7 +81,7 @@ namespace Pinatatane
             #region Test
             if (Input.GetKeyDown(KeyCode.R))
             {
-                if (photonView.IsMine)
+                if (PhotonView.IsMine)
                 {
                     SetPlayerReady();
                 }
@@ -91,17 +95,27 @@ namespace Pinatatane
         #region Call Network
         public void SetPlayerName()
         {
-            photonView.RPC("SetName", RpcTarget.AllBuffered, player.NickName);
+            PhotonView.RPC("SetName", RpcTarget.AllBuffered, player.NickName);
         }
 
         public void SetPlayerReady()
         {
-            photonView.RPC("SetReady", RpcTarget.All, photonView.ViewID, !isReady);
+            PhotonView.RPC("SetReady", RpcTarget.All, PhotonView.ViewID, !isReady);
         }
 
-        public void Grab(int _cible, int _attaquant)
+        public void StartGrab(int _cible)
         {
-            photonView.RPC("GrabNetwork", RpcTarget.AllBuffered, _cible, _attaquant);
+
+        }
+
+        public void EndGrab(int _cible)
+        {
+
+        }
+
+        public void OnGrab(int _cible, int _attaquant)
+        {
+            PhotonView.RPC("GrabNetwork", RpcTarget.AllBuffered, _cible, _attaquant);
         }
         #endregion
 
@@ -138,7 +152,7 @@ namespace Pinatatane
         [PunRPC]
         public void SetReady(int _targetID, bool _state)
         {
-            if (photonView.ViewID == _targetID)
+            if (PhotonView.ViewID == _targetID)
             {
                 isReady = _state;
             }
@@ -153,13 +167,13 @@ namespace Pinatatane
         [PunRPC]
         public void GrabNetwork(int _cible, int _attaquant)
         {
-            if (photonView.ViewID == _attaquant)
+            if (PhotonView.ViewID == _attaquant)
             {
                 UIManager.Instance.networkStatutElement.SetText("attaquant");
 
                 NetworkDebugger.Instance.Debug("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString(), DebugType.NETWORK);
 
-                photonView.RPC("ChangePos", RpcTarget.All, _cible, Vector3.zero);
+                PhotonView.RPC("ChangePos", RpcTarget.All, _cible, Vector3.zero);
 
                 //PhotonNetwork.GetPhotonView(_cible).transform.localScale *= 2;
                 //PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
@@ -206,7 +220,7 @@ namespace Pinatatane
         [PunRPC]
         public void InitAllPlayer()
         {
-            player = photonView.Owner;
+            player = PhotonView.Owner;
 
             var obj = FindObjectsOfType<Pinata>();
             for (int i = 0; i < obj.Length; i++)

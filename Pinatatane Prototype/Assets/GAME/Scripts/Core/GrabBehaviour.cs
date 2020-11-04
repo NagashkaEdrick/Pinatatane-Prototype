@@ -136,14 +136,15 @@ namespace Pinatatane
                 grabedObjects = Physics.OverlapSphere(links[cptLink].transform.position, links[cptLink].GetComponent<SphereCollider>().radius);
                 for (int i = 0; i < grabedObjects.Length; i++) {
                     if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet a etait grab
-                        Debug.Log(pinata.gameObject.name + " a saisi " + grabedObjects[i].gameObject.name);
+                        //Debug.Log(pinata.gameObject.name + " a saisi " + grabedObjects[i].gameObject.name);
+
                         pinata.characterMovementBehaviour.setRotationActive(true);
+
                         yield return WaitForInput(grabedObjects[i].gameObject);
-                        // Tester le type de la cible
-                        if (grabedObjects[i].gameObject.GetComponent<Pinata>())
-                        {
-                            GetGrabInfo(grabedObjects[i].gameObject.GetComponent<Pinata>().photonView.ViewID);
-                        }
+
+                        IGrabable grabable = grabedObjects[i].GetComponent<IGrabable>();
+                        grabable.OnGrab(grabable.PhotonView.ViewID, pinata.PhotonView.ViewID);
+
                         yield break;
                     }
                 }
@@ -203,11 +204,6 @@ namespace Pinatatane
             yield return new WaitWhile(() => grabRotX.JoystickValue <= -0.5f); // si le temps de rotation est timer rajouter ici
             GetComponent<GrabRotation>().ReleaseLeft();
             yield return RetractGrab();
-        }
-
-        public void GetGrabInfo(int _cible)
-        {
-            pinata.Grab(_cible, pinata.photonView.ViewID);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Pinatatane
         [Button]
         public void RaiseEvent()
         {
-            myPinata.photonView.RPC("CallOverrideControl", RpcTarget.Others, PhotonNetwork.PhotonViews[1].ViewID);
+            myPinata.PhotonView.RPC("CallOverrideControl", RpcTarget.Others, PhotonNetwork.PhotonViews[1].ViewID);
         }
 
         [PunRPC]

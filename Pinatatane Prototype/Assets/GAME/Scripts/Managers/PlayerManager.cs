@@ -74,8 +74,8 @@ namespace Pinatatane
         {
             if(pinatas.Count <= 1)
             {
-                hostID = LocalPlayer.photonView.ViewID;
-                LocalPlayer.photonView.RPC("SetHostForAll", RpcTarget.AllBuffered, hostID);
+                hostID = LocalPlayer.PhotonView.ViewID;
+                LocalPlayer.PhotonView.RPC("SetHostForAll", RpcTarget.AllBuffered, hostID);
             }
         }        
 
@@ -94,7 +94,7 @@ namespace Pinatatane
         {
             //Commentaire
 
-            if (LocalPlayer.photonView.ViewID == hostID)
+            if (LocalPlayer.PhotonView.ViewID == hostID)
                 return true;
             else
                 return false;
