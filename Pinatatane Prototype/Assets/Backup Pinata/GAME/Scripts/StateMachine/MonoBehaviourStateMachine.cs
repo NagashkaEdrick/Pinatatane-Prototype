@@ -17,7 +17,9 @@ namespace Pinatatane
         public void StartStateMachine()
         {
             index = 0;
-            currentState = states[index];
+
+            if(states != null && states.Length > 0)
+                currentState = states[index];
         }
 
         private void Update()

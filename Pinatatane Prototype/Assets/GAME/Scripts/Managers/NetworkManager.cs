@@ -82,23 +82,23 @@ namespace Pinatatane
             UIManager.Instance?.FindMenu("RoomCreationMenu").Hide();
             PlayerManager.Instance.CreatePlayer();
 
-            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-            {
-                UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(PhotonNetwork.PlayerList[i].UserId);
-            }
+            //for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            //{
+            //    UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(PhotonNetwork.PlayerList[i].UserId);
+            //}
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             base.OnPlayerEnteredRoom(newPlayer);
             Debug.Log(newPlayer.NickName + " est entré dans la room.");
-            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(newPlayer.UserId);
+            //UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").AddPlayerNetworking(newPlayer.UserId);
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
             base.OnPlayerLeftRoom(otherPlayer);
-            UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").RemoveListingElement(otherPlayer.UserId);
+            //UIManager.Instance.FindMenu<ScoreTabMenu>("ScoreTabMenu").RemoveListingElement(otherPlayer.UserId);
         }
 
         #endregion

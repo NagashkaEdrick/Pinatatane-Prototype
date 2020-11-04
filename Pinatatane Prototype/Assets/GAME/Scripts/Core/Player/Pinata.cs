@@ -47,6 +47,9 @@ namespace Pinatatane
         public bool isReady = false;
 
         #region Publics
+        /// <summary>
+        /// Inititialisation du player
+        /// </summary>
         public void InitPlayer()
         {
             photonView.RPC("InitAllPlayer", RpcTarget.All);
@@ -60,6 +63,9 @@ namespace Pinatatane
             Respawn();
         }
 
+        /// <summary>
+        /// Creation de l'ID du joueur
+        /// </summary>
         void SetID()
         {
             player = photonView.Owner;
@@ -69,14 +75,6 @@ namespace Pinatatane
         private void Update()
         {
             #region Test
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                if (photonView.IsMine)
-                {
-                    MyGrab();
-                }
-            }
-
             if (Input.GetKeyDown(KeyCode.R))
             {
                 if (photonView.IsMine)
@@ -87,8 +85,10 @@ namespace Pinatatane
             #endregion //Input M pour des tests
         }
 
-        #region Call Network
+        public void Respawn() => PartyManager.Instance.SpawnToAFreePoint(transform);
 
+
+        #region Call Network
         public void SetPlayerName()
         {
             photonView.RPC("SetName", RpcTarget.AllBuffered, player.NickName);
@@ -103,35 +103,17 @@ namespace Pinatatane
         {
             photonView.RPC("GrabNetwork", RpcTarget.AllBuffered, _cible, _attaquant);
         }
-
-        public void MyGrab()
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 4f))
-            {
-                Debug.DrawRay(transform.position, transform.forward * 4f, Color.red);
-
-                if (hit.collider.GetComponent<Pinata>())
-                {
-                    Pinata p = hit.collider.GetComponent<Pinata>();
-                    //Debug.Log("MyGrab => " + p.gameObject.name);
-
-                    if (p != this)
-                    {
-                        Grab(p.photonView.ViewID, photonView.ViewID);
-                        UIManager.Instance.networkStatutElement.SetText(p.ID.ToString());
-                    }
-                }
-            }
-        }
-
-        public void Respawn() => PartyManager.Instance.SpawnToAFreePoint(transform);
         #endregion
 
         #endregion
 
         #region Network
 
+        /// <summary>
+        /// Ajoute du score au joueur ciblé
+        /// </summary>
+        /// <param name="_increment"></param>
+        /// <param name="_id"></param>
         [PunRPC]
         public void IncrementeScore(int _increment, string _id)
         {
@@ -142,11 +124,16 @@ namespace Pinatatane
             }
         }
 
+        /// <summary>
+        /// Modifie le nom du joueur au dessus de sa tête
+        /// </summary>
+        /// <param name="_name"></param>
         [PunRPC]
         public void SetName(string _name)
         {
             pinataUI.playerName.text = _name;
         }
+
 
         [PunRPC]
         public void SetReady(int _targetID, bool _state)
@@ -158,6 +145,11 @@ namespace Pinatatane
         }
 
         #region Grab
+        /// <summary>
+        /// RPC : Permet de grabber en réseau
+        /// </summary>
+        /// <param name="_cible"></param>
+        /// <param name="_attaquant"></param>
         [PunRPC]
         public void GrabNetwork(int _cible, int _attaquant)
         {
@@ -167,44 +159,41 @@ namespace Pinatatane
 
                 NetworkDebugger.Instance.Debug("CIBLE :" + _cible.ToString() + " || ATTAQUANT :" + _attaquant.ToString(), DebugType.NETWORK);
 
+                photonView.RPC("ChangePos", RpcTarget.All, _cible, Vector3.zero);
+
                 //PhotonNetwork.GetPhotonView(_cible).transform.localScale *= 2;
                 //PhotonNetwork.GetPhotonView(_attaquant).transform.localScale /= 2;
             }
         }
 
+        /// <summary>
+        /// RPC : Modifier la position d'un joueur ciblé en réseau 
+        /// </summary>
+        /// <param name="_targetID"></param>
+        /// <param name="_pos"></param>
         [PunRPC]
         public void ChangePos(int _targetID, Vector3 _pos)
         {
-            if (photonView.ViewID == _targetID)
-            {
-                transform.position = _pos;
-            }
+            PhotonNetwork.GetPhotonView(_targetID).transform.position = _pos;
+            NetworkDebugger.Instance.Debug("targetID : " + _targetID + " POS : " + _pos, DebugType.LOCAL);
         }
 
+        /// <summary>
+        /// RPC : Modifier la rotation d'un joueur ciblé en réseau
+        /// </summary>
+        /// <param name="_targetID"></param>
+        /// <param name="_rot"></param>
         [PunRPC]
         public void ChangeRot(int _targetID, Vector3 _rot)
         {
-            if (photonView.ViewID == _targetID)
-            {
-                transform.rotation = Quaternion.Euler(_rot);
-            }
+            Quaternion q = Quaternion.Euler(_rot);
+            PhotonNetwork.GetPhotonView(_targetID).transform.rotation = q;
         }
 
-        //Exemple
-        //private IEnumerator ChangePositionInCoroutine()
-        //{
-        //    WaitForSeconds t = new WaitForSeconds(3.0f);
-
-        //    while (true)
-        //    {
-        //        Vector3 _pos = [...];
-
-        //        photonView.RPC("ChangePos", RpcTarget.All, _pos);
-
-        //        yield return t;
-        //    }
-        //}
-
+        /// <summary>
+        /// Set un hote pour tout les joueurs (Le premier connecté à la room)
+        /// </summary>
+        /// <param name="_hostID"></param>
         [PunRPC]
         public void SetHostForAll(int _hostID)
         {
