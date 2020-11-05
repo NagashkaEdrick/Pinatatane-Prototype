@@ -200,6 +200,7 @@ namespace Pinatatane
             yield return new WaitWhile(() => grabRotX.JoystickValue >= 0.5f); // si le temps de rotation est timer rajouter ici
             GetComponent<GrabRotation>().ReleaseRight();
             pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
+
             yield return RetractGrab();
         }
 
@@ -209,6 +210,7 @@ namespace Pinatatane
             yield return new WaitWhile(() => grabRotX.JoystickValue <= -0.5f); // si le temps de rotation est timer rajouter ici
             GetComponent<GrabRotation>().ReleaseLeft();
             pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
+
             yield return RetractGrab();
         }
     }
