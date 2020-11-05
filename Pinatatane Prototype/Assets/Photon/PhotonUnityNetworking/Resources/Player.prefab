@@ -513,6 +513,7 @@ MonoBehaviour:
   dashForce: 100
   body: {fileID: 987754853}
   movement: {fileID: 1756521561635941210}
+  myPinata: {fileID: 1343214553653338882}
   dashAction: {fileID: 11400000, guid: 2e57aeac053dcf6438c6f5986cb864f6, type: 2}
 --- !u!114 &3415627638194251138
 MonoBehaviour:

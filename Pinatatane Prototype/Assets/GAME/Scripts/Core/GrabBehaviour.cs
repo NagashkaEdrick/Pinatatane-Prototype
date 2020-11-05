@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using QRTools.Inputs;
+using Photon.Pun;
 
 /*** A FAIRE :
  * - Refaire au propre toutes les references d'objet, tous les GetComponent fait en RunTime à changer
@@ -143,6 +144,7 @@ namespace Pinatatane
                         yield return WaitForInput(grabedObjects[i].gameObject);
 
                         IGrabable grabable = grabedObjects[i].GetComponent<IGrabable>();
+                        grabable.StartGrab(grabable.PhotonView.ViewID);
                         grabable.OnGrab(grabable.PhotonView.ViewID, pinata.PhotonView.ViewID);
 
                         yield break;
@@ -182,11 +184,13 @@ namespace Pinatatane
         void AttractTarget(GameObject target) {
             StartCoroutine(RetractGrab());
             target.GetComponent<SimplePhysic>().AddForce((pinata.transform.position - target.transform.position).normalized * attractionForce);
+            pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
         }
 
         void GoToTarget(GameObject target) {
             StartCoroutine(RetractGrab());
             pinata.GetComponent<SimplePhysic>().AddForce((target.transform.position - pinata.transform.position).normalized * attractionForce);
+            pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
         }
 
         IEnumerator RotateTargetRight(GameObject target)
@@ -195,6 +199,7 @@ namespace Pinatatane
             Debug.Log("rot droite");
             yield return new WaitWhile(() => grabRotX.JoystickValue >= 0.5f); // si le temps de rotation est timer rajouter ici
             GetComponent<GrabRotation>().ReleaseRight();
+            pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
             yield return RetractGrab();
         }
 
@@ -203,6 +208,7 @@ namespace Pinatatane
             GetComponent<GrabRotation>().Link(pinata.transform, target.transform);
             yield return new WaitWhile(() => grabRotX.JoystickValue <= -0.5f); // si le temps de rotation est timer rajouter ici
             GetComponent<GrabRotation>().ReleaseLeft();
+            pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
             yield return RetractGrab();
         }
     }

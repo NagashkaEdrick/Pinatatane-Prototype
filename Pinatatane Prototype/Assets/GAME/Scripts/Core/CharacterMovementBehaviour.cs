@@ -71,9 +71,12 @@ namespace Pinatatane
                 return;
             else
             {
-                Vector3 movementVector = new Vector3(value, 0, 0) * data.movementSpeed;
-                myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
-                myPinata.animatorBehaviour.SetFloat("horizontal", value);
+                if (!myPinata.pinataOverrideControl.isOverrided)
+                {
+                    Vector3 movementVector = new Vector3(value, 0, 0) * data.movementSpeed;
+                    myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
+                    myPinata.animatorBehaviour.SetFloat("horizontal", value);
+                }
             }
         }
 
@@ -83,9 +86,12 @@ namespace Pinatatane
                 return;
             else
             {
-                Vector3 movementVector = new Vector3(0, 0, value) * data.movementSpeed;
-                myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
-                myPinata.animatorBehaviour.SetFloat("vertical", value);
+                if (!myPinata.pinataOverrideControl.isOverrided)
+                {
+                    Vector3 movementVector = new Vector3(0, 0, value) * data.movementSpeed;
+                    myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
+                    myPinata.animatorBehaviour.SetFloat("vertical", value);
+                }
             }
         }
 
@@ -96,8 +102,11 @@ namespace Pinatatane
                 return;
             else
             {
-                cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration, value);
-                myPinata.characterMovementBehaviour.transform.rotation = smoothRotation(myPinata.characterMovementBehaviour.transform.rotation, data.rotationAcceleration, value);
+                if (!myPinata.pinataOverrideControl.isOverrided)
+                {
+                    cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration, value);
+                    myPinata.characterMovementBehaviour.transform.rotation = smoothRotation(myPinata.characterMovementBehaviour.transform.rotation, data.rotationAcceleration, value);
+                }
             }
         }
 

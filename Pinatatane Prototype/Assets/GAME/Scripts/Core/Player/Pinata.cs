@@ -113,7 +113,6 @@ namespace Pinatatane
 
         public void OnGrab(int _cible, int _attaquant)
         {
-            StartGrab(_cible);
             PhotonView.RPC("GrabNetwork", RpcTarget.AllBuffered, _cible, _attaquant);
         }
         #endregion

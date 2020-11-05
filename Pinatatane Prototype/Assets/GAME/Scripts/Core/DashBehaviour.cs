@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using QRTools.Inputs;
+using Photon.Pun;
 
 namespace Pinatatane
 {
@@ -19,6 +20,7 @@ namespace Pinatatane
         [BoxGroup("Fix")]
         [SerializeField]
         CharacterMovementBehaviour movement;
+        [SerializeField] Pinata myPinata;
 
         [SerializeField] QInputXBOXTouch dashAction;  
 
@@ -30,9 +32,14 @@ namespace Pinatatane
         }
 
         public void DashAction() {
-            //Debug.Log("Dash");
-            if (dashCor == null) {
-                dashCor = StartCoroutine(StartDash());
+            if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
+                return;
+            else
+            {
+                if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided)
+                {
+                    dashCor = StartCoroutine(StartDash());
+                }
             }
         }
 
