@@ -13,8 +13,8 @@ namespace Pinatatane
             {
                 for (int i = 0; i < PlayerManager.Instance.pinatas.Count; i++)
                 {
-                    if (!PlayerManager.Instance.pinatas[i].isReady)
-                        return false;
+                    /*if (!PlayerManager.Instance.pinatas[i].isReady)
+                        return false;*/
                 }
             }
             return true;
