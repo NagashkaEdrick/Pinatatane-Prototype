@@ -472,6 +472,7 @@ MonoBehaviour:
   horizontal: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
   vertical: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
   rotationX: {fileID: 11400000, guid: da591934dfd4d3545b2575db5e6141d9, type: 2}
+  aimLock: {fileID: 11400000, guid: 1b6c89e9d97ac1f419bff9a7f1bfe8e3, type: 2}
 --- !u!114 &4212750106791532742
 MonoBehaviour:
   m_ObjectHideFlags: 0

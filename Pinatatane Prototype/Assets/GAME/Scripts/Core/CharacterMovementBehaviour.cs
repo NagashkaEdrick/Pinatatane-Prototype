@@ -25,24 +25,92 @@ namespace Pinatatane
         [SerializeField] private SimplePhysic body;
 
         float rightJoyX;
+        Coroutine movementCor = null;
 
         [SerializeField] Pinata myPinata;
 
         [BoxGroup("Inputs", order: 2)]
         [SerializeField] QInputXBOXAxis horizontal, vertical, rotationX;
+        [BoxGroup("Inputs", order: 2)]
+        [SerializeField] QInputXBOXTouch aimLock;
+
+        bool isAiming = false;
+        float turnSmoothVelocity;
 
         private void Start()
         {
-            horizontal.onJoystickMove.AddListener(MoveHorizontal);
-            vertical.onJoystickMove.AddListener(MoveVertical);
+            /*horizontal.onJoystickMove.AddListener(MoveHorizontal);
+            vertical.onJoystickMove.AddListener(MoveVertical);*/
             rotationX.onJoystickMove.AddListener(PlayerRotation);
+            aimLock.onDown.AddListener(OnAim);
+            aimLock.onUp.AddListener(OnRealeaseAim);
         }
 
         /***
-         *  A TESTER : Est ce que les fonctions MoveHorizontal et MoveVertical ne sont pas appeler plusieurs fois par frame et donc ajoute plusieurs fois la meme force
-         */
+ *  A TESTER : Est ce que les fonctions MoveHorizontal et MoveVertical ne sont pas appeler plusieurs fois par frame et donc ajoute plusieurs fois la meme force
+ */
 
-        void MoveHorizontal(float value)
+        // Update is called once per frame
+        void FixedUpdate()
+        {
+            if (myPinata.isAllowedToMove && movementCor == null)
+            {
+                Debug.Log(isAiming);
+                if (isAiming) movementCor = StartCoroutine(PlayerMovement());
+                else movementCor = StartCoroutine(PlayerMovement2());
+            }
+            //if (myPinata.isAllowedToRotate) PlayerRotation();
+        }
+
+        // Gere les mouvement du joueur en fonction du joystick gauche
+        IEnumerator PlayerMovement()
+        {
+
+            if (myPinata.player != PhotonNetwork.LocalPlayer)
+                yield break;
+
+            Vector3 movementVector = new Vector3(horizontal.JoystickValue, 0, vertical.JoystickValue) * data.movementSpeed;
+
+            myPinata.body.AddDirectForce(transform.TransformVector(movementVector));
+
+            myPinata.animatorBehaviour.SetFloat("vertical", vertical.JoystickValue);
+            myPinata.animatorBehaviour.SetFloat("horizontal", horizontal.JoystickValue);
+
+            yield return new WaitForEndOfFrame();
+
+            movementCor = null;
+        }
+        IEnumerator PlayerMovement2()
+        {
+            // Comportement quand on ne vise pas
+            if (myPinata.player != PhotonNetwork.LocalPlayer)
+                yield break;
+
+            float horizontal = this.horizontal.JoystickValue;
+            float vertical = this.vertical.JoystickValue;
+
+            Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+            if (direction.magnitude >= 0.1f)
+            {
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + myPinata.cameraController.transform.eulerAngles.y ;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, 0.1f);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                myPinata.body.AddDirectForce(moveDir.normalized * data.movementSpeed);
+            }
+
+            myPinata.animatorBehaviour.SetFloat("vertical", vertical);
+            myPinata.animatorBehaviour.SetFloat("horizontal", horizontal);
+            
+            yield return new WaitForEndOfFrame();
+
+            movementCor = null;
+        }
+
+
+        /*void MoveHorizontal(float value)
         {
             if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
                 return;
@@ -70,7 +138,7 @@ namespace Pinatatane
                     myPinata.animatorBehaviour.SetFloat("vertical", value);
                 }
             }
-        }
+        }*/
 
         // Gere la rotation du joueur en fonction du joystick droit
         private void PlayerRotation(float value)
@@ -79,7 +147,7 @@ namespace Pinatatane
                 return;
             else
             {
-                if (!myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToRotate)
+                if (!myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToRotate && isAiming)
                 {
                     cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration, value);
                     myPinata.characterMovementBehaviour.transform.rotation = smoothRotation(myPinata.characterMovementBehaviour.transform.rotation, data.rotationAcceleration, value);
@@ -112,6 +180,18 @@ namespace Pinatatane
         public float getRotationAngle()
         {
             return rightJoyX;
+        }
+
+        public void OnAim()
+        {
+            Debug.Log("bjr");
+            isAiming = true;
+        }
+
+        public void OnRealeaseAim()
+        {
+            Debug.Log("aurevoir");
+            isAiming = false;
         }
     }
 }

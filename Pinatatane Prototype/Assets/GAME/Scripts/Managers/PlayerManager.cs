@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Cinemachine;
 
 namespace Pinatatane
 {
@@ -17,6 +18,7 @@ namespace Pinatatane
 
         [BoxGroup("References", order: 1)] public static PlayerManager Instance;
         [BoxGroup("References", order: 1)] public CameraController camPrefab = default;
+        [BoxGroup("References", order: 1)] public CinemachineFreeLook cinemachinePrefab = default;
         [BoxGroup("References", order: 1), SerializeField] Transform playerParent;
 
         [SerializeField][ReadOnly, BoxGroup("Infos", order: 5)] Pinata localPlayer;
@@ -44,6 +46,10 @@ namespace Pinatatane
 
             CameraController _camController = Instantiate(camPrefab, transform.position, Quaternion.identity);
             player.cameraController = _camController;
+
+            CinemachineFreeLook newCinemachine = Instantiate(cinemachinePrefab); //renseigner le parent
+            newCinemachine.m_Follow = player.transform;
+            newCinemachine.m_LookAt = player.transform;
 
             LocalPlayer = player;
             player.InitPlayer();

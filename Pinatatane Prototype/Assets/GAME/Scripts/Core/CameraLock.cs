@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Pinatatane;
 
 public class CameraLock : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class CameraLock : MonoBehaviour
     public float YAxisLockValue = 0.5f; //Valeur Y ou la camera dois se lock
     private bool lockOnCam = false; //Lorsque la Camera est Lock
     private bool setDefault = true; //Lorsque les valeurs ont été remis à la normale
+
+    [SerializeField]
+    CinemachineFreeLook cinemachine;
 
     private void Start()
     {
@@ -29,7 +33,7 @@ public class CameraLock : MonoBehaviour
 
     private void Initi()
     {
-        rotateYAxisName = this.gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName;
+        rotateYAxisName = cinemachine.m_YAxis.m_InputAxisName;
     }
 
     private void LockCamSystem()
@@ -37,14 +41,14 @@ public class CameraLock : MonoBehaviour
         if (lockOnCam)
         {
             setDefault = false;
-            this.gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = null;
-            this.gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisValue = 0;
-            this.gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.Value = YAxisLockValue;
+            cinemachine.m_YAxis.m_InputAxisName = null;
+            cinemachine.m_YAxis.m_InputAxisValue = 0;
+            cinemachine.m_YAxis.Value = YAxisLockValue;
         }
 
         else if (!setDefault && !lockOnCam)
         {
-            this.gameObject.GetComponent<CinemachineFreeLook>().m_YAxis.m_InputAxisName = rotateYAxisName;
+            cinemachine.m_YAxis.m_InputAxisName = rotateYAxisName;
             setDefault = true;
         }
     }
