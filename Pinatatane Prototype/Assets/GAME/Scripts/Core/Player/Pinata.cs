@@ -33,8 +33,6 @@ namespace Pinatatane
         [SerializeField] DashBehaviour dashBehaviour;
         [FoldoutGroup("References", order: 0)]
         [SerializeField] GrabBehaviour grabBehaviour;
-        [FoldoutGroup("References", order: 0)]
-        [SerializeField] SimplePhysic simplePhysic;
 
         public PinataOverrideControl pinataOverrideControl;
 
@@ -105,16 +103,17 @@ namespace Pinatatane
 
         public void StartGrab(int _cible)
         {
-
+            pinataOverrideControl.photonView.RPC("RPCLoseControl", RpcTarget.All, _cible);
         }
 
         public void EndGrab(int _cible)
         {
-
+            pinataOverrideControl.photonView.RPC("RPCWinControl", RpcTarget.All, _cible);
         }
 
         public void OnGrab(int _cible, int _attaquant)
         {
+            StartGrab(_cible);
             PhotonView.RPC("GrabNetwork", RpcTarget.AllBuffered, _cible, _attaquant);
         }
         #endregion
