@@ -21,11 +21,12 @@ namespace Pinatatane
         [PunRPC]
         public void RPCWinControl(int _ID)
         {
-            if (photonView.ViewID == _ID)
-            {
-                isOverrided = false;
-                NetworkDebugger.Instance.Debug("-->" + PhotonNetwork.GetPhotonView(_ID).gameObject.name, DebugType.NETWORK);
-            }
+            PhotonNetwork.GetPhotonView(_ID).GetComponent<PinataOverrideControl>().isOverrided = false;
+
+            //if (photonView.ViewID == _ID)
+            //{
+            //    isOverrided = false;
+            //}
         }
 
         [PunRPC]
