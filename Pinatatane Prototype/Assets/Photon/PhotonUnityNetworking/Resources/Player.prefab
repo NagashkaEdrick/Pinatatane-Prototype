@@ -438,6 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterMovementBehaviour: {fileID: 1756521561635941210}
+  body: {fileID: 987754853}
   cameraController: {fileID: 0}
   animatorBehaviour: {fileID: 1057187152}
   photonView: {fileID: 3415627638194251138}
@@ -449,7 +450,8 @@ MonoBehaviour:
   ID: 0
   isGrabbed: 0
   isReady: 0
-  isStatic: 0
+  isAllowedToMove: 1
+  isAllowedToRotate: 1
 --- !u!114 &1756521561635941210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,6 +518,8 @@ MonoBehaviour:
   movement: {fileID: 1756521561635941210}
   myPinata: {fileID: 1343214553653338882}
   dashAction: {fileID: 11400000, guid: 2e57aeac053dcf6438c6f5986cb864f6, type: 2}
+  horizontal: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+  vertical: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
 --- !u!114 &3415627638194251138
 MonoBehaviour:
   m_ObjectHideFlags: 0

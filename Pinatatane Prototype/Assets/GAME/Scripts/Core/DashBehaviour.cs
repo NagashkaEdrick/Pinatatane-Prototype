@@ -22,7 +22,11 @@ namespace Pinatatane
         CharacterMovementBehaviour movement;
         [SerializeField] Pinata myPinata;
 
-        [SerializeField] QInputXBOXTouch dashAction;  
+        [SerializeField]
+        QInputXBOXTouch dashAction;
+
+        [SerializeField]
+        QInputXBOXAxis horizontal, vertical;
 
         private Coroutine dashCor = null;
 
@@ -36,7 +40,7 @@ namespace Pinatatane
                 return;
             else
             {
-                if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided && !myPinata.isStatic)
+                if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToMove)
                 {
                     dashCor = StartCoroutine(StartDash());
                 }
@@ -44,12 +48,13 @@ namespace Pinatatane
         }
 
         IEnumerator StartDash() {
-            if (body.GetVelocity() == Vector3.zero) {
+            NetworkDebugger.Instance.Debug(myPinata.body.GetVelocity(), DebugType.LOCAL);
+            if (myPinata.body.GetVelocity() == Vector3.zero) {
+                //NetworkDebugger.Instance.Debug("Front dash", DebugType.LOCAL);
                 body.AddForce(transform.forward * dashForce);
             } else {
-                float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
-                float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-                Vector3 movementVector = new Vector3(horizontal, 0, vertical) * dashForce;
+                //NetworkDebugger.Instance.Debug(horizontal.JoystickValue + "   " + vertical.JoystickValue, DebugType.LOCAL);
+                Vector3 movementVector = new Vector3(horizontal.JoystickValue, 0, vertical.JoystickValue) * dashForce;
                 body.AddForce(transform.TransformVector(movementVector));
             }
             yield return new WaitForSeconds(data.dashCooldown);

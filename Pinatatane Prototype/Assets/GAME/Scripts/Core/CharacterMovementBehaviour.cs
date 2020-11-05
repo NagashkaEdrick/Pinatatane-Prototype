@@ -38,32 +38,9 @@ namespace Pinatatane
             rotationX.onJoystickMove.AddListener(PlayerRotation);
         }
 
-        // Update is called once per frame
-        void FixedUpdate()
-        {
-            //if (movementActive && movementCor == null) movementCor = StartCoroutine(PlayerMovement());
-            //if (!rotationX.IsActive) PlayerRotation();
-        }
-
-        // Gere les mouvement du joueur en fonction du joystick gauche
-        //IEnumerator PlayerMovement() {
-
-        //    if (myPinata.player != PhotonNetwork.LocalPlayer)
-        //        yield break;
-
-        //    //float horizontal = horizontal.
-        //    float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-        //    Vector3 movementVector = new Vector3(horizontal, 0, vertical)* data.movementSpeed;
-
-        //    myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
-
-        //    myPinata.animatorBehaviour.SetFloat("vertical", vertical);
-        //    myPinata.animatorBehaviour.SetFloat("horizontal", horizontal);
-
-        //    yield return new WaitForEndOfFrame();
-
-        //    movementCor = null;
-        //}
+        /***
+         *  A TESTER : Est ce que les fonctions MoveHorizontal et MoveVertical ne sont pas appeler plusieurs fois par frame et donc ajoute plusieurs fois la meme force
+         */
 
         void MoveHorizontal(float value)
         {
@@ -71,7 +48,7 @@ namespace Pinatatane
                 return;
             else
             {
-                if (!myPinata.pinataOverrideControl.isOverrided && !myPinata.isStatic)
+                if (!myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToMove)
                 {
                     Vector3 movementVector = new Vector3(value, 0, 0) * data.movementSpeed;
                     myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
@@ -86,7 +63,7 @@ namespace Pinatatane
                 return;
             else
             {
-                if (!myPinata.pinataOverrideControl.isOverrided && !myPinata.isStatic)
+                if (!myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToMove)
                 {
                     Vector3 movementVector = new Vector3(0, 0, value) * data.movementSpeed;
                     myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
@@ -102,7 +79,7 @@ namespace Pinatatane
                 return;
             else
             {
-                if (!myPinata.pinataOverrideControl.isOverrided)
+                if (!myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToRotate)
                 {
                     cameraTarget.rotation = smoothRotation(cameraTarget.rotation, data.rotationAcceleration, value);
                     myPinata.characterMovementBehaviour.transform.rotation = smoothRotation(myPinata.characterMovementBehaviour.transform.rotation, data.rotationAcceleration, value);
@@ -123,15 +100,13 @@ namespace Pinatatane
         {
             Debug.Log("Mouvements set to " + value);
 
-            myPinata.isStatic = !value;
-            /*horizontal.IsActive = value;
-            vertical.IsActive = value;*/
+            myPinata.isAllowedToMove = value;
         }
 
         public void setRotationActive(bool value)
         {
             Debug.Log("Rotation set to " + value);
-            //rotationX.IsActive = value;
+            myPinata.isAllowedToRotate = value;
         }
 
         public float getRotationAngle()

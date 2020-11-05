@@ -20,6 +20,8 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         public CharacterMovementBehaviour characterMovementBehaviour;
         [FoldoutGroup("References", order: 0)]
+        public SimplePhysic body;
+        [FoldoutGroup("References", order: 0)]
         [HideInInspector] public CameraController cameraController;
         [FoldoutGroup("References", order: 0)]
         public AnimatorBehaviour animatorBehaviour;
@@ -46,7 +48,9 @@ namespace Pinatatane
         [BoxGroup("Player Infos", order: 1)]
         public bool isReady = false;
         [BoxGroup("Player Infos", order: 1)]
-        public bool isStatic = false;
+        public bool isAllowedToMove = true;
+        [BoxGroup("Player Infos", order: 1)]
+        public bool isAllowedToRotate = true;
 
         public PhotonView PhotonView { get => photonView; set => photonView = value; }
 
