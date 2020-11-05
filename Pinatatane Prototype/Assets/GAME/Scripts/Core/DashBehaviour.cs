@@ -36,7 +36,7 @@ namespace Pinatatane
                 return;
             else
             {
-                if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided)
+                if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided && !myPinata.isStatic)
                 {
                     dashCor = StartCoroutine(StartDash());
                 }

@@ -45,6 +45,8 @@ namespace Pinatatane
         public bool isGrabbed = false;
         [BoxGroup("Player Infos", order: 1)]
         public bool isReady = false;
+        [BoxGroup("Player Infos", order: 1)]
+        public bool isStatic = false;
 
         public PhotonView PhotonView { get => photonView; set => photonView = value; }
 
@@ -108,6 +110,7 @@ namespace Pinatatane
 
         public void EndGrab(int _cible)
         {
+            Debug.Log(_cible);
             pinataOverrideControl.photonView.RPC("RPCWinControl", RpcTarget.All, _cible);
         }
 

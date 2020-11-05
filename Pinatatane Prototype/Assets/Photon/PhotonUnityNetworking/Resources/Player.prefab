@@ -449,6 +449,7 @@ MonoBehaviour:
   ID: 0
   isGrabbed: 0
   isReady: 0
+  isStatic: 0
 --- !u!114 &1756521561635941210
 MonoBehaviour:
   m_ObjectHideFlags: 0
