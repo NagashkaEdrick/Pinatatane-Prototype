@@ -71,7 +71,7 @@ namespace Pinatatane
                 return;
             else
             {
-                if (!myPinata.pinataOverrideControl.isOverrided)
+                if (!myPinata.pinataOverrideControl.isOverrided && !myPinata.isStatic)
                 {
                     Vector3 movementVector = new Vector3(value, 0, 0) * data.movementSpeed;
                     myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
@@ -86,7 +86,7 @@ namespace Pinatatane
                 return;
             else
             {
-                if (!myPinata.pinataOverrideControl.isOverrided)
+                if (!myPinata.pinataOverrideControl.isOverrided && !myPinata.isStatic)
                 {
                     Vector3 movementVector = new Vector3(0, 0, value) * data.movementSpeed;
                     myPinata.characterMovementBehaviour.body.AddDirectForce(transform.TransformVector(movementVector));
@@ -122,6 +122,8 @@ namespace Pinatatane
         public void setMovementActive(bool value)
         {
             Debug.Log("Mouvements set to " + value);
+
+            myPinata.isStatic = !value;
             /*horizontal.IsActive = value;
             vertical.IsActive = value;*/
         }
