@@ -21,6 +21,8 @@ namespace Pinatatane
         [PunRPC]
         public void RPCWinControl(int _ID)
         {
+            NetworkDebugger.Instance.Debug("Je suis débloqué..", DebugType.NETWORK);
+
             if (photonView.ViewID == _ID)
             {
                 isOverrided = false;
