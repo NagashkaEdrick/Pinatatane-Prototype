@@ -21,7 +21,8 @@ namespace Pinatatane
         [PunRPC]
         public void RPCWinControl(int _ID)
         {
-            PhotonNetwork.GetPhotonView(_ID).GetComponent<PinataOverrideControl>().isOverrided = false;
+            PhotonNetwork.GetPhotonView(_ID).GetComponent<PinataOverrideControl>().isOverrided = true;
+            Debug.Log("win");
 
             //if (photonView.ViewID == _ID)
             //{
@@ -32,9 +33,11 @@ namespace Pinatatane
         [PunRPC]
         public void RPCLoseControl(int _ID)
         {
+            Debug.Log("Lose");
+
             if (photonView.ViewID == _ID)
             {
-                isOverrided = true;
+                isOverrided = false;
             }
         }
     }
