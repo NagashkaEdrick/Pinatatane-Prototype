@@ -12,7 +12,7 @@ namespace Pinatatane
     public class CameraController : SerializedMonoBehaviour
     {
         [BoxGroup("Tweaking")]
-        public CharacterControllerData data;
+        [SerializeField] CharacterControllerData data;
 
         [BoxGroup("Fix")]
         public Transform target;

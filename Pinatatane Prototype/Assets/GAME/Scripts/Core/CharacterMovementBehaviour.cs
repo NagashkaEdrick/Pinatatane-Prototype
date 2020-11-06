@@ -55,7 +55,6 @@ namespace Pinatatane
         {
             if (myPinata.isAllowedToMove && movementCor == null)
             {
-                Debug.Log(isAiming);
                 if (isAiming) movementCor = StartCoroutine(PlayerMovement());
                 else movementCor = StartCoroutine(PlayerMovement2());
             }
@@ -166,14 +165,11 @@ namespace Pinatatane
 
         public void setMovementActive(bool value)
         {
-            Debug.Log("Mouvements set to " + value);
-
             myPinata.isAllowedToMove = value;
         }
 
         public void setRotationActive(bool value)
         {
-            Debug.Log("Rotation set to " + value);
             myPinata.isAllowedToRotate = value;
         }
 
@@ -184,13 +180,11 @@ namespace Pinatatane
 
         public void OnAim()
         {
-            Debug.Log("bjr");
             isAiming = true;
         }
 
         public void OnRealeaseAim()
         {
-            Debug.Log("aurevoir");
             isAiming = false;
         }
     }
