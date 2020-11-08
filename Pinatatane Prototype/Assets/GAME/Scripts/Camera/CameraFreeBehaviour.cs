@@ -9,8 +9,8 @@ public class CameraFreeBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        PlayerManager.Instance.LocalPlayer.cameraController.GetComponent<CinemachineBrain>().enabled = true;
-        PlayerManager.Instance.LocalPlayer.cameraController.enabled = false;
+        /*PlayerManager.Instance.LocalPlayer.cameraController.GetComponent<CinemachineBrain>().enabled = true;
+        PlayerManager.Instance.LocalPlayer.cameraController.enabled = false;*/
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

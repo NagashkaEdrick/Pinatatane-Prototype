@@ -46,10 +46,6 @@ namespace Pinatatane
             aimLock.onUp.AddListener(OnRealeaseAim);
         }
 
-        /***
- *  A TESTER : Est ce que les fonctions MoveHorizontal et MoveVertical ne sont pas appeler plusieurs fois par frame et donc ajoute plusieurs fois la meme force
- */
-
         // Update is called once per frame
         void FixedUpdate()
         {

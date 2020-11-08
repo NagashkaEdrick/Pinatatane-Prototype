@@ -398,6 +398,9 @@ GameObject:
   - component: {fileID: 987754853}
   - component: {fileID: 987754854}
   - component: {fileID: 3512367383234315917}
+  - component: {fileID: 208725717510458896}
+  - component: {fileID: 7989528035108058100}
+  - component: {fileID: 8229963000043679953}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -459,7 +462,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756521561635941208}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a263d80f0559e814485e3f75b3ff2f5c, type: 3}
   m_Name: 
@@ -670,6 +673,56 @@ MonoBehaviour:
   controlsInputs:
   - {fileID: 11400000, guid: ad28204eaf2db9a45940c51902cfca06, type: 2}
   isOverrided: 0
+--- !u!114 &208725717510458896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756521561635941208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a5691a7e519974e86a7714c010061c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 12b5ac602ecd7e343b7b6e40d910b992, type: 2}
+  rotationTime: 0.1
+  horizontal: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+  vertical: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
+  myPinata: {fileID: 1343214553653338882}
+--- !u!114 &7989528035108058100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756521561635941208}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3104dc01ecc9fb746af10f9b4dc98327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 12b5ac602ecd7e343b7b6e40d910b992, type: 2}
+  horizontal: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+  vertical: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
+  rotationX: {fileID: 11400000, guid: da591934dfd4d3545b2575db5e6141d9, type: 2}
+  myPinata: {fileID: 1343214553653338882}
+--- !u!114 &8229963000043679953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756521561635941208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3223671d285cfe342b09334db48af90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freelook: {fileID: 208725717510458896}
+  aiming: {fileID: 7989528035108058100}
+  aimInput: {fileID: 11400000, guid: 1b6c89e9d97ac1f419bff9a7f1bfe8e3, type: 2}
+  turningRotationSpeed: 10
 --- !u!1 &3640134136872730849
 GameObject:
   m_ObjectHideFlags: 0
