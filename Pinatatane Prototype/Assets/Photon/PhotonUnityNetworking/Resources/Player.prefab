@@ -442,7 +442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterMovementBehaviour: {fileID: 1756521561635941210}
   body: {fileID: 987754853}
-  cameraController: {fileID: 0}
+  mainCamera: {fileID: 0}
   animatorBehaviour: {fileID: 1057187152}
   photonView: {fileID: 3415627638194251138}
   cameraTarget: {fileID: 1756521561467449151}
@@ -690,6 +690,7 @@ MonoBehaviour:
   horizontal: {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
   vertical: {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
   myPinata: {fileID: 1343214553653338882}
+  cinemachine: {fileID: 1370579966538857125, guid: 7c2ebdfb9a11f5e45971054516b05a3d, type: 3}
 --- !u!114 &7989528035108058100
 MonoBehaviour:
   m_ObjectHideFlags: 0

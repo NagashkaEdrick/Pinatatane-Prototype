@@ -88,7 +88,7 @@ namespace Pinatatane
 
             if (direction.magnitude >= 0.1f)
             {
-                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + myPinata.cameraController.transform.eulerAngles.y ;
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + myPinata.mainCamera.transform.eulerAngles.y ;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, 0.1f);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 

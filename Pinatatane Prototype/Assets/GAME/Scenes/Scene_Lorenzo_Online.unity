@@ -12787,7 +12787,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 29.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13291,7 +13291,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.4
+  m_fontSize: 29.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -22678,6 +22678,10 @@ PrefabInstance:
       propertyPath: cinemachinePrefab
       value: 
       objectReference: {fileID: 1370579966538857125, guid: 7c2ebdfb9a11f5e45971054516b05a3d, type: 3}
+    - target: {fileID: 4571625988336653433, guid: fa990058979921a4585f70aad54df7e1, type: 3}
+      propertyPath: camerasPrefab
+      value: 
+      objectReference: {fileID: 5272146475519690617, guid: 699e478978f39284882cd0cb416b3be0, type: 3}
     - target: {fileID: 4571625988336653439, guid: fa990058979921a4585f70aad54df7e1, type: 3}
       propertyPath: m_Name
       value: Player Manager

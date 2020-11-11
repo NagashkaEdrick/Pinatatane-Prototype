@@ -25,7 +25,11 @@ namespace Pinatatane
         [SerializeField] Pinata myPinata;
 
         Coroutine movementCor = null;
-        float rightJoyX;
+
+        /*private void Start()
+        {
+            LinkRotationInput();
+        }*/
 
         // Update is called once per frame
         void Update()
@@ -54,23 +58,20 @@ namespace Pinatatane
         }
 
         // Gere la rotation du joueur en fonction du joystick droit
-        private void PlayerRotation(float value)
+        private void PlayerRotation(float joyValue)
         {
             if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
                 return;
-            else if (!myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToRotate) {
-                    transform.rotation = smoothRotation(transform.rotation, data.rotationAcceleration, value);
+            else if (!myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToRotate)
+            {
+                float currentRotationDegree = transform.rotation.eulerAngles.y;
+                currentRotationDegree += joyValue * data.rotationSpeed;
+                currentRotationDegree %= 360;
+                Quaternion endRotationVector = Quaternion.Euler(0, currentRotationDegree, 0);
+                transform.rotation = Quaternion.Slerp(transform.rotation, endRotationVector, data.rotationAcceleration);
             }
         }
 
-        // Realise une rotation par acceleration
-        Quaternion smoothRotation(Quaternion startRotationVector, float smoothSpeed, float value)
-        {
-            rightJoyX += value * data.rotationSpeed;
-            rightJoyX %= 360;
-            Quaternion endRotationVector = Quaternion.Euler(0, rightJoyX, 0);
-            return Quaternion.Slerp(startRotationVector, endRotationVector, smoothSpeed);
-        }
 
         public void LinkRotationInput()
         {

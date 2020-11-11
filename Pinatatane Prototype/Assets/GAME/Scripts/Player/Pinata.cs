@@ -22,7 +22,7 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         public SimplePhysic body;
         [FoldoutGroup("References", order: 0)]
-        [HideInInspector] public CameraController cameraController;
+        [HideInInspector] public Camera mainCamera;
         [FoldoutGroup("References", order: 0)]
         public AnimatorBehaviour animatorBehaviour;
         [FoldoutGroup("References", order: 0)]
@@ -64,8 +64,7 @@ namespace Pinatatane
 
             SetID();
 
-            cameraController.target = cameraTarget;
-            grabBehaviour._camera = cameraController.GetComponent<Camera>();
+            grabBehaviour._camera = mainCamera;
             pinataUI?.InitPlayerUI();
             SetPlayerName();
             Respawn();
