@@ -18,8 +18,6 @@ namespace Pinatatane
          */
 
         [FoldoutGroup("References", order: 0)]
-        public CharacterMovementBehaviour characterMovementBehaviour;
-        [FoldoutGroup("References", order: 0)]
         public SimplePhysic body;
         [FoldoutGroup("References", order: 0)]
         [HideInInspector] public Camera mainCamera;
@@ -34,7 +32,9 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         [SerializeField] DashBehaviour dashBehaviour;
         [FoldoutGroup("References", order: 0)]
-        [SerializeField] GrabBehaviour grabBehaviour;
+        public GrabBehaviour grabBehaviour;
+        [FoldoutGroup("References", order: 0)]
+        public MovementManager movement;
 
         public PinataOverrideControl pinataOverrideControl;
 

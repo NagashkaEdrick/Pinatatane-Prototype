@@ -26,11 +26,6 @@ namespace Pinatatane
 
         Coroutine movementCor = null;
 
-        /*private void Start()
-        {
-            LinkRotationInput();
-        }*/
-
         // Update is called once per frame
         void Update()
         {
@@ -55,32 +50,6 @@ namespace Pinatatane
             yield return new WaitForEndOfFrame();
 
             movementCor = null;
-        }
-
-        // Gere la rotation du joueur en fonction du joystick droit
-        private void PlayerRotation(float joyValue)
-        {
-            if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
-                return;
-            else if (!myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToRotate)
-            {
-                float currentRotationDegree = transform.rotation.eulerAngles.y;
-                currentRotationDegree += joyValue * data.rotationSpeed;
-                currentRotationDegree %= 360;
-                Quaternion endRotationVector = Quaternion.Euler(0, currentRotationDegree, 0);
-                transform.rotation = Quaternion.Slerp(transform.rotation, endRotationVector, data.rotationAcceleration);
-            }
-        }
-
-
-        public void LinkRotationInput()
-        {
-            rotationX.onJoystickMove.AddListener(PlayerRotation);
-        }
-
-        public void UnlinkRotationInput()
-        {
-            rotationX.onJoystickMove.RemoveListener(PlayerRotation);
         }
     }
 }

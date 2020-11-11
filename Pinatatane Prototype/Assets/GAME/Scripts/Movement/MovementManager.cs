@@ -14,13 +14,16 @@ namespace Pinatatane
 
     public class MovementManager : MonoBehaviour
     {
+        [SerializeField] Pinata myPinata;
         [SerializeField] FreeLookMovement freelook;
-        [SerializeField] AimingMovement aiming;
+        [SerializeField] AimingMovement aimingMovement;
+        [SerializeField] AimingRotation aimingRotation;
         [SerializeField] QInputXBOXTouch aimInput;
         [SerializeField] float turningRotationSpeed;
 
         bool isNeedingFocus = false;
         Vector3 newForward;
+        int mode = 0; // 0: free 1: aim
 
         private void Start()
         {
@@ -35,9 +38,11 @@ namespace Pinatatane
                 if (Vector3.Distance(transform.forward, newForward) <= 0.05f)
                 {
                     // Changement d'un comportement de mouvement a l'autre
-                    aiming.enabled = true;
-                    aiming.LinkRotationInput();
+                    aimingMovement.enabled = true;
+                    aimingRotation.enabled = true;
+                    aimingRotation.LinkRotationInput();
                     isNeedingFocus = false;
+                    mode = 1;
                 }
             }
         }
@@ -46,6 +51,7 @@ namespace Pinatatane
         private void OnAim()
         {
             // Debloquer le grab
+            myPinata.grabBehaviour.SetGrabActive(true);
 
             // Rotation du joueur
             Transform cameraPosition = PlayerManager.Instance.LocalPlayer.mainCamera.transform;
@@ -60,11 +66,29 @@ namespace Pinatatane
         private void OnRealeaseAim()
         {
             // Bloquer le grab
+            myPinata.grabBehaviour.SetGrabActive(false);
 
             // Changement d'un comportement de mouvement a l'autre
-            aiming.UnlinkRotationInput();
-            aiming.enabled = false;
+            aimingRotation.UnlinkRotationInput();
+            aimingMovement.enabled = false;
+            aimingRotation.enabled = false;
             freelook.enabled = true;
+            mode = 0;
+        }
+
+        public void setMovementActive(bool value)
+        {
+            if (mode == 0) freelook.enabled = value;
+            else aimingMovement.enabled = value;
+        }
+
+        public void setRotationActive(bool value)
+        {
+            if (mode == 1)
+            {
+                if (value) aimingRotation.LinkRotationInput();
+                else aimingRotation.UnlinkRotationInput();
+            }
         }
     }
 }

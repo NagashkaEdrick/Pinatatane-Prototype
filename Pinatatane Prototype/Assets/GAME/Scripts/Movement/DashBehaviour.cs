@@ -17,9 +17,6 @@ namespace Pinatatane
         [BoxGroup("Fix")]
         [SerializeField]
         SimplePhysic body;
-        [BoxGroup("Fix")]
-        [SerializeField]
-        CharacterMovementBehaviour movement;
         [SerializeField] Pinata myPinata;
 
         [SerializeField]
@@ -38,22 +35,15 @@ namespace Pinatatane
         public void DashAction() {
             if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
                 return;
-            else
-            {
-                if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToMove)
-                {
-                    dashCor = StartCoroutine(StartDash());
-                }
-            }
+            else if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToMove)
+                dashCor = StartCoroutine(StartDash());
         }
 
         IEnumerator StartDash() {
             NetworkDebugger.Instance.Debug(myPinata.body.GetVelocity(), DebugType.LOCAL);
             if (myPinata.body.GetVelocity() == Vector3.zero) {
-                //NetworkDebugger.Instance.Debug("Front dash", DebugType.LOCAL);
                 body.AddForce(transform.forward * dashForce);
             } else {
-                //NetworkDebugger.Instance.Debug(horizontal.JoystickValue + "   " + vertical.JoystickValue, DebugType.LOCAL);
                 Vector3 movementVector = new Vector3(horizontal.JoystickValue, 0, vertical.JoystickValue) * dashForce;
                 body.AddForce(transform.TransformVector(movementVector));
             }
