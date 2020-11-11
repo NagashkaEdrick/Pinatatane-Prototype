@@ -213,7 +213,7 @@ namespace Pinatatane
         public void SetHostForAll(int _hostID)
         {
             PlayerManager.Instance.hostID = _hostID;
-            NetworkDebugger.Instance.Debug("Host ID = " + _hostID, DebugType.LOCAL);
+            NetworkDebugger.Instance?.Debug("Host ID = " + _hostID, DebugType.LOCAL);
         }
 
         #endregion

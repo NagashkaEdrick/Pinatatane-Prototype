@@ -392,12 +392,12 @@ GameObject:
   - component: {fileID: 1756521561635941157}
   - component: {fileID: 1756521561635941156}
   - component: {fileID: 3415627638194251138}
-  - component: {fileID: 1036201251849547691}
   - component: {fileID: 8229129332693452808}
   - component: {fileID: 1057187152}
   - component: {fileID: 987754853}
   - component: {fileID: 987754854}
   - component: {fileID: 3512367383234315917}
+  - component: {fileID: 42416256621788447}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -535,25 +535,10 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 1036201251849547691}
+  - {fileID: 42416256621788447}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1036201251849547691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756521561635941208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
 --- !u!95 &8229129332693452808
 Animator:
   serializedVersion: 3
@@ -665,6 +650,19 @@ MonoBehaviour:
   controlsInputs:
   - {fileID: 11400000, guid: ad28204eaf2db9a45940c51902cfca06, type: 2}
   isOverrided: 0
+--- !u!114 &42416256621788447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756521561635941208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 612faba9a16911a49b4a71a99f94c633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photonView: {fileID: 3415627638194251138}
 --- !u!1 &3640134136872730849
 GameObject:
   m_ObjectHideFlags: 0

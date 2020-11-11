@@ -47,8 +47,8 @@ namespace Pinatatane
             {
                 if (spawnPoints[i].isFree)
                 {
-                    photonView.RPC("SetSpawnPointFreedomState", RpcTarget.AllBuffered, i, false);
-                    StartCoroutine(FreeSpawnpoint(i));
+                    //photonView.RPC("SetSpawnPointFreedomState", RpcTarget.AllBuffered, i, false);
+                    //StartCoroutine(FreeSpawnpoint(i));
                     return spawnPoints[i];
                 }
             }
