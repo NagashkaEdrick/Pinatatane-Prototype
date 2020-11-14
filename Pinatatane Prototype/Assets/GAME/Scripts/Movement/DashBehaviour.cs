@@ -25,7 +25,7 @@ namespace Pinatatane
         [SerializeField]
         QInputXBOXAxis horizontal, vertical;
 
-        private Coroutine dashCor = null;
+        Coroutine dashCor = null;
 
         private void Start()
         {
@@ -40,12 +40,12 @@ namespace Pinatatane
         }
 
         IEnumerator StartDash() {
-            NetworkDebugger.Instance.Debug(myPinata.body.GetVelocity(), DebugType.LOCAL);
-            if (myPinata.body.GetVelocity() == Vector3.zero) {
+            Vector3 movementVector = new Vector3(horizontal.JoystickValue, 0, vertical.JoystickValue) * dashForce;
+            if (movementVector == Vector3.zero) {
                 body.AddForce(transform.forward * dashForce);
             } else {
-                Vector3 movementVector = new Vector3(horizontal.JoystickValue, 0, vertical.JoystickValue) * dashForce;
-                body.AddForce(transform.TransformVector(movementVector));
+                if (myPinata.movement.isAiming()) body.AddForce(transform.TransformVector(movementVector));
+                else body.AddForce(transform.forward * dashForce);
             }
             yield return new WaitForSeconds(data.dashCooldown);
             dashCor = null;

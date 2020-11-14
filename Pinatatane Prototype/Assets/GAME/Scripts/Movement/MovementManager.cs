@@ -90,5 +90,10 @@ namespace Pinatatane
                 else aimingRotation.UnlinkRotationInput();
             }
         }
+
+        public bool isAiming()
+        {
+            return mode == 1;
+        }
     }
 }
