@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 987754853}
   - component: {fileID: 987754854}
   - component: {fileID: 3512367383234315917}
-  - component: {fileID: 42416256621788447}
+  - component: {fileID: 2379436342788659716}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -535,7 +535,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 42416256621788447}
+  - {fileID: 2379436342788659716}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -650,7 +650,7 @@ MonoBehaviour:
   controlsInputs:
   - {fileID: 11400000, guid: ad28204eaf2db9a45940c51902cfca06, type: 2}
   isOverrided: 0
---- !u!114 &42416256621788447
+--- !u!114 &2379436342788659716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

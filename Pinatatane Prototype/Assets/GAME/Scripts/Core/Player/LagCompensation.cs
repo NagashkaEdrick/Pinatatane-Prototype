@@ -20,10 +20,6 @@ namespace Pinatatane
 
         [SerializeField] private PhotonView photonView;
 
-        private void Start()
-        {
-            photonView.ObservedComponents.Add(this);
-        }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
@@ -32,12 +28,9 @@ namespace Pinatatane
                 //We own this player: send the others our data
                 stream.SendNext(transform.position);
                 stream.SendNext(transform.rotation);
-                Debug.Log("write");
             }
             else
             {
-                Debug.Log("read");
-
                 //Network player, receive data
                 latestPos = (Vector3)stream.ReceiveNext();
                 latestRot = (Quaternion)stream.ReceiveNext();
@@ -51,7 +44,6 @@ namespace Pinatatane
             }
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (!photonView.IsMine)
@@ -61,12 +53,11 @@ namespace Pinatatane
                 currentTime += Time.deltaTime;
 
                 float lerp = (float)(currentTime / timeToReachGoal);
-                Debug.Log(lerp);
 
                 //Update remote player
 
                 DOTween.To(
-                    ()=> positionAtLastPacket,
+                    () => positionAtLastPacket,
                     x => positionAtLastPacket = x,
                     latestPos,
                     .25f
@@ -84,7 +75,7 @@ namespace Pinatatane
 
                 transform.DORotateQuaternion(latestRot, .25f);
 
-                //transform.position = Vector3.Lerp(positionAtLastPacket, latestPos, lerp);
+                //transform.position = Vector3.Lerp(positionAtLastPacket, latestPos, .2f);
                 //transform.rotation = Quaternion.Lerp(rotationAtLastPacket, latestRot, lerp);
 
                 Debug.Log("ac");
@@ -98,64 +89,5 @@ namespace Pinatatane
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(positionAtLastPacket, 1f);
         }
-
-        //float tick = .2f;
-        //[SerializeField] PhotonView photonView;
-
-        //private void Start()
-        //{
-        //    StartCoroutine(LagCompensationCor());
-        //}
-
-        //IEnumerator LagCompensationCor()
-        //{
-        //    Vector3 oldPos = transform.position;
-        //    yield return new WaitForSeconds(tick);
-        //    Vector3 movement = transform.position - oldPos;
-        //    Debug.Log(movement);
-
-        //    StartCoroutine(LagCompensationCor());
-
-
-
-        //    yield break;
-        //}
-
-        //[PunRPC]
-        //public void Repositionning()
-        //{
-
-        //}
-
-        //[SerializeField] Rigidbody r;
-
-        //private void Update()
-        //{
-        //    if (Input.GetKeyDown(KeyCode.A))
-        //    {
-        //        r.AddForce(new Vector3(0, 1500, 0));
-        //    }
-        //}
-
-        //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        //{
-        //    if (stream.IsWriting)
-        //    {
-        //        stream.SendNext(r.position);
-        //        stream.SendNext(r.rotation);
-        //        stream.SendNext(r.velocity);
-
-        //        Debug.Log("reg");
-        //    }
-        //    else
-        //    {
-        //        r.position = (Vector3)stream.ReceiveNext();
-        //        r.rotation = (Quaternion)stream.ReceiveNext();
-        //        r.velocity = (Vector3)stream.ReceiveNext();
-
-        //        float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
-        //        r.position += r.velocity * lag;
-        //    }
-        //}
     }
 }

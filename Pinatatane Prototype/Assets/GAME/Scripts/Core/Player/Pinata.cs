@@ -44,11 +44,28 @@ namespace Pinatatane
         [BoxGroup("Player Infos", order: 1)]
         public bool isGrabbed = false;
         [BoxGroup("Player Infos", order: 1)]
+        public bool canBeGrabbed = true;
+        [BoxGroup("Player Infos", order: 1)]
         public bool isReady = false;
         [BoxGroup("Player Infos", order: 1)]
         public bool isStatic = false;
+        [BoxGroup("Player Infos", order: 1)]
+        [SerializeField] float hp = 5f;
+        public float HP
+        {
+            get => hp;
+            set
+            {
+                if (hp <= 0)
+                    Death();
+                hp = value;
+            }
+        }
+        [BoxGroup("Player Infos", order: 1)]
+        public float velocity;
 
         public PhotonView PhotonView { get => photonView; set => photonView = value; }
+        public bool CanBeGrabbed { get => canBeGrabbed; set => canBeGrabbed = value; }
 
         #region Publics
         /// <summary>
@@ -118,11 +135,22 @@ namespace Pinatatane
         {
             PhotonView.RPC("GrabNetwork", RpcTarget.AllBuffered, _cible, _attaquant);
         }
+
+        public void Death()
+        {
+            photonView.RPC("DeathRPC", RpcTarget.All, photonView.ViewID);
+        }
         #endregion
 
         #endregion
 
         #region Network
+
+        [PunRPC]
+        public void DeathRPC(int _targetID)
+        {
+            PhotonNetwork.GetPhotonView(_targetID).GetComponent<Pinata>().Death();
+        }
 
         /// <summary>
         /// Ajoute du score au joueur ciblé
