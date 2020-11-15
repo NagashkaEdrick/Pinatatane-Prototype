@@ -17,6 +17,8 @@ namespace QRTools.Inputs {
 
         public override void TestInput()
         {
+            if (!IsActive) return;
+
             for (int i = 0; i < inputs.Length; i++)
             {
                 inputs[i].TestInput();

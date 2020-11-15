@@ -34,5 +34,5 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isTrigger: 0
-  xboxButtons: 11
+  xboxButtons: 4
   triggerSensibility: 0.95

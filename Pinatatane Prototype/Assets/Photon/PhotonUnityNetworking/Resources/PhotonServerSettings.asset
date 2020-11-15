@@ -58,6 +58,10 @@ MonoBehaviour:
   - InstantiateCandies
   - AddForce
   - RPCApplyAllForce
+  - RPCLoseControl
+  - RPCWinControl
+  - DeathRPC
+  - SetHPRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
