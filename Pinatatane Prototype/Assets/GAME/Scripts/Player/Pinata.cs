@@ -61,13 +61,13 @@ namespace Pinatatane
                 if (hp <= 0)
                     Death();
 
-                photonView.RPC("SetHPRPC", RpcTarget.All, value);
+                //photonView.RPC("SetHPRPC", RpcTarget.All, value);
 
                 hp = value;
             }
         }
         [BoxGroup("Player Infos", order: 1)]
-        public float velocity;
+        public float velocity => body.GetVelocity().magnitude;
         public bool isAllowedToMove = true;
         [BoxGroup("Player Infos", order: 1)]
         public bool isAllowedToRotate = true;

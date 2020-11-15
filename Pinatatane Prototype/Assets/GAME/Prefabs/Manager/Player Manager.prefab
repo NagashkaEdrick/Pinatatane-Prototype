@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f62aea72a5360241a841965fc163736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camPrefab: {fileID: -7737105762581414211, guid: d4c5b38d6c4b7744698eeef5ec1fbbe2, type: 3}
+  camerasPrefab: {fileID: 5272146475519690617, guid: 699e478978f39284882cd0cb416b3be0, type: 3}
   playerParent: {fileID: 0}
   localPlayer: {fileID: 0}
+  pinatas: []
+  hostID: 0
