@@ -58,6 +58,9 @@ namespace Pinatatane
             {
                 if (hp <= 0)
                     Death();
+
+                photonView.RPC("SetHPRPC", RpcTarget.All, value);
+
                 hp = value;
             }
         }
@@ -145,6 +148,12 @@ namespace Pinatatane
         #endregion
 
         #region Network
+
+        [PunRPC]
+        public void SetHPRPC(int _targetID, float _HP)
+        {
+            PhotonNetwork.GetPhotonView(_targetID).GetComponent<Pinata>().HP = _HP;
+        }
 
         [PunRPC]
         public void DeathRPC(int _targetID)
