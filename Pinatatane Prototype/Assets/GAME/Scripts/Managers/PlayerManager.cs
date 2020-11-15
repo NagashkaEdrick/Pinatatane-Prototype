@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Cinemachine;
 
 namespace Pinatatane
 {
@@ -16,7 +17,7 @@ namespace Pinatatane
          */
 
         [BoxGroup("References", order: 1)] public static PlayerManager Instance;
-        [BoxGroup("References", order: 1)] public CameraController camPrefab = default;
+        [BoxGroup("References", order: 1)] public GameObject camerasPrefab = default;
         [BoxGroup("References", order: 1), SerializeField] Transform playerParent;
 
         [SerializeField][ReadOnly, BoxGroup("Infos", order: 5)] Pinata localPlayer;
@@ -42,8 +43,16 @@ namespace Pinatatane
 
             Pinata player = newPlayerGO.GetComponent<Pinata>();
 
-            CameraController _camController = Instantiate(camPrefab, transform.position, Quaternion.identity);
-            player.cameraController = _camController;
+            GameObject cameras = Instantiate(camerasPrefab, transform.position, Quaternion.identity);
+            player.mainCamera = cameras.transform.GetChild(0).GetComponent<Camera>();
+
+            CinemachineFreeLook freeLook = cameras.transform.GetChild(1).GetComponent<CinemachineFreeLook>();
+            freeLook.m_Follow = player.transform;
+            freeLook.m_LookAt = player.transform;
+
+            Transform aimCamera = cameras.transform.GetChild(2);
+            aimCamera.GetComponent<CinemachineVirtualCamera>().m_LookAt = player.transform;
+            aimCamera.GetComponent<AimCameraBehaviour>().target = player.transform;
 
             LocalPlayer = player;
             player.InitPlayer();

@@ -17,14 +17,15 @@ namespace Pinatatane
         [BoxGroup("Fix")]
         [SerializeField]
         SimplePhysic body;
-        [BoxGroup("Fix")]
-        [SerializeField]
-        CharacterMovementBehaviour movement;
         [SerializeField] Pinata myPinata;
 
-        [SerializeField] QInputXBOXTouch dashAction;  
+        [SerializeField]
+        QInputXBOXTouch dashAction;
 
-        private Coroutine dashCor = null;
+        [SerializeField]
+        QInputXBOXAxis horizontal, vertical;
+
+        Coroutine dashCor = null;
 
         private void Start()
         {
@@ -34,23 +35,17 @@ namespace Pinatatane
         public void DashAction() {
             if (myPinata.player != PlayerManager.Instance.LocalPlayer.player && PhotonNetwork.IsConnected)
                 return;
-            else
-            {
-                if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided && !myPinata.isStatic)
-                {
-                    dashCor = StartCoroutine(StartDash());
-                }
-            }
+            else if (dashCor == null && !myPinata.pinataOverrideControl.isOverrided && myPinata.isAllowedToMove)
+                dashCor = StartCoroutine(StartDash());
         }
 
         IEnumerator StartDash() {
-            if (body.GetVelocity() == Vector3.zero) {
+            Vector3 movementVector = new Vector3(horizontal.JoystickValue, 0, vertical.JoystickValue) * dashForce;
+            if (movementVector == Vector3.zero) {
                 body.AddForce(transform.forward * dashForce);
             } else {
-                float horizontal = InputManagerQ.Instance.GetAxis("Horizontal");
-                float vertical = InputManagerQ.Instance.GetAxis("Vertical");
-                Vector3 movementVector = new Vector3(horizontal, 0, vertical) * dashForce;
-                body.AddForce(transform.TransformVector(movementVector));
+                if (myPinata.movement.isAiming()) body.AddForce(transform.TransformVector(movementVector));
+                else body.AddForce(transform.forward * dashForce);
             }
             yield return new WaitForSeconds(data.dashCooldown);
             dashCor = null;

@@ -20,4 +20,4 @@ MonoBehaviour:
   dashDuration: 0.15
   dashCooldown: 0.5
   cameraHeight: 1
-  cameraDistance: 6
+  cameraDistance: 8

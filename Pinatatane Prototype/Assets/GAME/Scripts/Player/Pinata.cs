@@ -18,9 +18,9 @@ namespace Pinatatane
          */
 
         [FoldoutGroup("References", order: 0)]
-        public CharacterMovementBehaviour characterMovementBehaviour;
+        public SimplePhysic body;
         [FoldoutGroup("References", order: 0)]
-        [HideInInspector] public CameraController cameraController;
+        [HideInInspector] public Camera mainCamera;
         [FoldoutGroup("References", order: 0)]
         public AnimatorBehaviour animatorBehaviour;
         [FoldoutGroup("References", order: 0)]
@@ -32,7 +32,9 @@ namespace Pinatatane
         [FoldoutGroup("References", order: 0)]
         [SerializeField] DashBehaviour dashBehaviour;
         [FoldoutGroup("References", order: 0)]
-        [SerializeField] GrabBehaviour grabBehaviour;
+        public GrabBehaviour grabBehaviour;
+        [FoldoutGroup("References", order: 0)]
+        public MovementManager movement;
 
         public PinataOverrideControl pinataOverrideControl;
 
@@ -66,6 +68,9 @@ namespace Pinatatane
         }
         [BoxGroup("Player Infos", order: 1)]
         public float velocity;
+        public bool isAllowedToMove = true;
+        [BoxGroup("Player Infos", order: 1)]
+        public bool isAllowedToRotate = true;
 
         public PhotonView PhotonView { get => photonView; set => photonView = value; }
         public bool CanBeGrabbed { get => canBeGrabbed; set => canBeGrabbed = value; }
@@ -80,8 +85,7 @@ namespace Pinatatane
 
             SetID();
 
-            cameraController.target = cameraTarget;
-            grabBehaviour._camera = cameraController.GetComponent<Camera>();
+            grabBehaviour._camera = mainCamera;
             pinataUI?.InitPlayerUI();
             SetPlayerName();
             Respawn();

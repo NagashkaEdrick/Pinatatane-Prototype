@@ -183,9 +183,9 @@ public class SimplePhysic : MonoBehaviour
 
         directForces.Clear(); // Ce sont des forces instantanée qui disparaisse immediatement
 
-        if(PhotonNetwork.IsConnected)
+        /*if(PhotonNetwork.IsConnected)
             view.RPC("RPCApplyAllForce", RpcTarget.All, view.ViewID, forceApplication);
-        else
+        else*/
             self.Translate(forceApplication * Time.deltaTime);
     }
 
