@@ -18,7 +18,7 @@ namespace Pinatatane
         {
             base.Refresh();
 
-            billboard.camTransform = pinata.cameraController.transform;
+            billboard.camTransform = pinata.mainCamera.transform;
 
             if (pinata.PhotonView.IsMine)
             {

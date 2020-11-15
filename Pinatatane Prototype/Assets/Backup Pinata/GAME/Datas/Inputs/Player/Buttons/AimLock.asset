@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c42869a5d9423b6438f3eb5ac95e9217, type: 3}
-  m_Name: Dash
+  m_Name: AimLock
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -22,7 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   description: 
-  _inputName: Dash
+  _inputName: 
   isActive: 1
   onDown:
     m_PersistentCalls:
@@ -34,5 +34,5 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isTrigger: 0
-  xboxButtons: 4
+  xboxButtons: 11
   triggerSensibility: 0.95

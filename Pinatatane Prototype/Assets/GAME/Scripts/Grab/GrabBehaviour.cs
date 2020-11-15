@@ -39,20 +39,19 @@ namespace Pinatatane
         public GameObject objectGrabed = null;
 
         int cptLink;
+        int cptListener = 0;
 
         [SerializeField] Pinata pinata;
 
         [BoxGroup("Inputs", order: 1)]
         [SerializeField] QInputXBOXTouch grabButton = default;
         [BoxGroup("Inputs", order: 1)]
-        [SerializeField] QInputXBOXAxis grabX, grabY, grabRotX;
+        [SerializeField] QInputXBOXAxis grabY, grabRotX;
 
         private void Start()
         {
             crossHair = UIManager.Instance.crossHair;
             links = new GameObject[numberOfLink + 1];
-
-            grabButton.onDown.AddListener(OnGrab);
         }
 
         public void OnGrab()
@@ -92,8 +91,8 @@ namespace Pinatatane
             if (grabCoroutine == null)
             {
                 grabCoroutine = StartCoroutine(StartGrab());
-                pinata.characterMovementBehaviour.setMovementActive(false);
-                pinata.characterMovementBehaviour.setRotationActive(false);
+                pinata.movement.setMovementActive(false);
+                pinata.movement.setRotationActive(false);
             }
         }
 
@@ -115,7 +114,7 @@ namespace Pinatatane
             }
             grabCoroutine = null;
             pinata.animatorBehaviour.SetBool("grab", false);
-            pinata.characterMovementBehaviour.setMovementActive(true);
+            pinata.movement.setMovementActive(true);
             yield break;
         }
 
@@ -137,15 +136,14 @@ namespace Pinatatane
                 grabedObjects = Physics.OverlapSphere(links[cptLink].transform.position, links[cptLink].GetComponent<SphereCollider>().radius);
                 for (int i = 0; i < grabedObjects.Length; i++) {
                     if (grabedObjects[i].GetComponent(typeof(IGrabable))) { // Un objet a etait grab
-                        //Debug.Log(pinata.gameObject.name + " a saisi " + grabedObjects[i].gameObject.name);
 
-                        pinata.characterMovementBehaviour.setRotationActive(true);
+                        pinata.movement.setRotationActive(true);
 
                         yield return WaitForInput(grabedObjects[i].gameObject);
 
                         IGrabable grabable = grabedObjects[i].GetComponent<IGrabable>();
-                        grabable.StartGrab(grabable.PhotonView.ViewID);
-                        grabable.OnGrab(grabable.PhotonView.ViewID, pinata.PhotonView.ViewID);
+                        //grabable.StartGrab(grabable.PhotonView.ViewID);
+                        //grabable.OnGrab(grabable.PhotonView.ViewID, pinata.PhotonView.ViewID);
 
                         yield break;
                     }
@@ -174,7 +172,7 @@ namespace Pinatatane
         }
 
         IEnumerator RetractGrab() {
-            pinata.characterMovementBehaviour.setRotationActive(true);
+            pinata.movement.setRotationActive(true);
             while (cptLink > 0) {
                 yield return new WaitForSeconds(duration / numberOfLink);
                 Destroy(links[cptLink--]);
@@ -185,14 +183,14 @@ namespace Pinatatane
             StartCoroutine(RetractGrab());
             target.GetComponent<SimplePhysic>().AddForce((pinata.transform.position - target.transform.position).normalized * attractionForce);
 
-            pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
+            //pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
         }
 
         void GoToTarget(GameObject target) {
             StartCoroutine(RetractGrab());
             pinata.GetComponent<SimplePhysic>().AddForce((target.transform.position - pinata.transform.position).normalized * attractionForce);
 
-            pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
+            //pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
         }
 
         IEnumerator RotateTargetRight(GameObject target)
@@ -202,7 +200,7 @@ namespace Pinatatane
             yield return new WaitWhile(() => grabRotX.JoystickValue >= 0.5f); // si le temps de rotation est timer rajouter ici
             GetComponent<GrabRotation>().ReleaseRight();
 
-            pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
+            //pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
 
             yield return RetractGrab();
         }
@@ -213,9 +211,22 @@ namespace Pinatatane
             yield return new WaitWhile(() => grabRotX.JoystickValue <= -0.5f); // si le temps de rotation est timer rajouter ici
             GetComponent<GrabRotation>().ReleaseLeft();
 
-            pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
+            //pinata.EndGrab(target.GetComponent<PhotonView>().ViewID);
 
             yield return RetractGrab();
+        }
+
+        public void SetGrabActive(bool value)
+        {
+            if (value && cptListener == 0) {
+                cptListener++;
+                grabButton.onDown.AddListener(OnGrab);
+            }
+            else
+            {
+                cptListener = 0;
+                grabButton.onDown.RemoveAllListeners();
+            }
         }
     }
 }
