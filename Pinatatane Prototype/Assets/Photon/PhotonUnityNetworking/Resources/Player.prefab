@@ -452,7 +452,10 @@ MonoBehaviour:
   pinataOverrideControl: {fileID: 3512367383234315917}
   ID: 0
   isGrabbed: 0
+  canBeGrabbed: 1
   isReady: 0
+  isStatic: 0
+  hp: 5
   isAllowedToMove: 1
   isAllowedToRotate: 1
 --- !u!114 &4212750106791532742
