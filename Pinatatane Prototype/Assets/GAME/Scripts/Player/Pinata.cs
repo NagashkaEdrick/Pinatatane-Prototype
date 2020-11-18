@@ -9,7 +9,7 @@ using TMPro;
 using Sirenix.OdinInspector;
 using Photon.Pun.UtilityScripts;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class Pinata : MonoBehaviourPunCallbacks, IGrabable
     {

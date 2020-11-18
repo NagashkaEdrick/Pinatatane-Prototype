@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 #endif
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class CandiesBatch : MonoBehaviour
     {

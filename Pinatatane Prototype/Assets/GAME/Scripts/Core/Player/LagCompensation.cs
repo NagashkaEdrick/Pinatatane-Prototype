@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using Photon.Pun;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class LagCompensation : MonoBehaviour, IPunObservable
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using Pinatatane;
+using OldPinatatane;
 using Photon.Pun;
 using QRTools.Inputs;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     /***
      *  Comportement de mouvement du joueur lorsqu'il vise :

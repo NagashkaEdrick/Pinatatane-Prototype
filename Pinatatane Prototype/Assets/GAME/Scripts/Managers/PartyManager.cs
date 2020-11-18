@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class PartyManager : MonoBehaviourStateMachine
     {

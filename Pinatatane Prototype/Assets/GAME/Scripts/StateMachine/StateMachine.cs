@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class StateMachine
     {

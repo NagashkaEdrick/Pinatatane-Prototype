@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     [CreateAssetMenu(menuName = "Pinatatane/Pieges/PiegeData")]
     public class CactusData : PiegeData

@@ -11,7 +11,7 @@ using Photon.Pun;
  *          -> Faire les references dans le gameManager et acceder a ses references par son instance ??
  */
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class GrabBehaviour : MonoBehaviour
     {

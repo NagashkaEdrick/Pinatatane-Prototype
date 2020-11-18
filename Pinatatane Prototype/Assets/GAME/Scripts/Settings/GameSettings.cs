@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-using Pinatatane.Utilities;
+using OldPinatatane.Utilities;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     [CreateAssetMenu(menuName = "Pinatatane/Settings/Game Settings", fileName = "Game Settings")]
     public class GameSettings : ScriptableObjectSingleton<GameSettings>

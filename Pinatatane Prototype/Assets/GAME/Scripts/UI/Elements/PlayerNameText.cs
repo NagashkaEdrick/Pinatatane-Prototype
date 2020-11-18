@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using Photon.Pun;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class PlayerNameText : UIElement
     {

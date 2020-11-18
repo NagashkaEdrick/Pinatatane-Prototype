@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class Cactus : PiegeBase<CactusData>
     {

@@ -6,7 +6,7 @@ using QRTools.Inputs;
 using Photon.Pun;
 using Cinemachine;
 
-namespace Pinatatane {
+namespace OldPinatatane {
 
     /***
      *  Comportement de mouvement du joueur lorsqu'il ne vise pas :

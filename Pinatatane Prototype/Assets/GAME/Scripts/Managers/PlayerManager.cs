@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Cinemachine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class PlayerManager : MonoBehaviourPunCallbacks
     {

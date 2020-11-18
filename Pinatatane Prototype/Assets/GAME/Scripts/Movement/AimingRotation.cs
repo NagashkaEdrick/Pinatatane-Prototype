@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using Photon.Pun;
 using QRTools.Inputs;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class AimingRotation : MonoBehaviour
     {

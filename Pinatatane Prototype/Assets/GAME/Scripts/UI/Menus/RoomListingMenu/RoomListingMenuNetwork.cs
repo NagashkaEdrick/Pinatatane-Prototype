@@ -5,7 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class RoomListingMenuNetwork : MonoBehaviourPunCallbacks
     {

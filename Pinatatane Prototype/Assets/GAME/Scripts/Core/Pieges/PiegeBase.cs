@@ -4,7 +4,7 @@ using UnityEngine;
 
 using Sirenix.OdinInspector;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public abstract class PiegeBase<T> : SerializedMonoBehaviour where T : PiegeData
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class NetworkInfoManager : UIMenu
     {
