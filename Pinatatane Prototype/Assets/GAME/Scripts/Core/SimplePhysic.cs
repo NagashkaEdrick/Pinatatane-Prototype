@@ -23,6 +23,7 @@ public class SimplePhysic : MonoBehaviour
     List<float> forcesFrictionTime = new List<float>();
     Collider[] collisions;
     Collider box;
+    Vector3 velocity;
 
     //Pas générique
     public PhotonView view;
@@ -122,9 +123,6 @@ public class SimplePhysic : MonoBehaviour
     }
 
     public Vector3 GetVelocity() {
-        Vector3 velocity = Vector3.zero;
-        forces.ForEach(force => velocity += force);
-        directForces.ForEach(force => velocity += force);
         return velocity;
     }
 
@@ -187,6 +185,8 @@ public class SimplePhysic : MonoBehaviour
             view.RPC("RPCApplyAllForce", RpcTarget.All, view.ViewID, forceApplication);
         else*/
             self.Translate(forceApplication * Time.deltaTime);
+
+        velocity = forceApplication;
     }
 
     [PunRPC]
