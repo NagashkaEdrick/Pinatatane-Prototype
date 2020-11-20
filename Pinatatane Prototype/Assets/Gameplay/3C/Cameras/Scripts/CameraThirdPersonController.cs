@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Pinatatane;
+
 namespace GameplayFramework
 {
     public class CameraThirdPersonController : MonoBehaviour
@@ -12,8 +14,9 @@ namespace GameplayFramework
 
         [SerializeField] CameraControllerData cameraControllerData;
 
-        [SerializeField]
-        bool
+        [SerializeField] StateMachineCameraController m_stateMachineCameraController;
+
+        public bool
             blockRotationInX = false,
             blockRotationInY = false;
 
@@ -37,53 +40,46 @@ namespace GameplayFramework
                 blockRotationInY = value;
             }
         }
-        #endregion
 
-        float angleH;
-        float angleV;      
+        public Transform HandlerTransform { get => m_HandlerTransform; set => m_HandlerTransform = value; }
+        public Transform CameraTransform { get => m_CameraTransform; set => m_CameraTransform = value; }
+        public Transform TargetTransform1 { get => m_TargetTransform; set => m_TargetTransform = value; }
+        public CameraControllerData CameraControllerData { get => cameraControllerData; set => cameraControllerData = value; }
+        #endregion    
 
         Vector3 targetPos;
 
+        private void Start()
+        {
+            m_stateMachineCameraController.StartStateMachine(m_stateMachineCameraController.currentState, this);
+        }
+
         private void Update()
         {
+            m_stateMachineCameraController.CheckCurrentState(this);
+            m_stateMachineCameraController.currentState?.OnCurrent(this);
+            
             LookTarget();
             FollowTarget();
             CameraOffset();
-            if(!blockRotationInY) MoveVertical();
-            if(!blockRotationInX) MoveHorizontal();
         }
+
 
         void LookTarget()
         {
-            targetPos = m_TargetTransform.position + cameraControllerData.lookTargetOffset;
-            m_CameraTransform.transform.LookAt(targetPos);
+            targetPos = TargetTransform.position + CameraControllerData.lookTargetOffset;
+            CameraTransform.transform.LookAt(targetPos);
         }
 
         void CameraOffset()
         {
-            m_CameraTransform.localPosition = Vector3.Lerp(m_CameraTransform.localPosition, cameraControllerData.positionOffset, cameraControllerData.lerpFollowingOffsetSpeed);
+            CameraTransform.localPosition = Vector3.Lerp(CameraTransform.localPosition, CameraControllerData.positionOffset, CameraControllerData.lerpFollowingOffsetSpeed);
         }
 
         void FollowTarget()
         {
-            m_HandlerTransform.transform.position = Vector3.Lerp(m_HandlerTransform.transform.position, m_TargetTransform.transform.position, cameraControllerData.lerpFollowingSpeed);
+            HandlerTransform.transform.position = Vector3.Lerp(HandlerTransform.transform.position, TargetTransform.transform.position, CameraControllerData.lerpFollowingSpeed);
         }
 
-        void MoveHorizontal()
-        {
-            angleH += Input.GetAxis("RotationX") * cameraControllerData.movementSpeed * cameraControllerData.cameraSensibilityX * Time.deltaTime;
-            angleH %= 360;
-
-            m_HandlerTransform.localRotation = Quaternion.Euler(m_HandlerTransform.localRotation.eulerAngles.x, angleH, m_HandlerTransform.localRotation.eulerAngles.z);
-        }
-
-        void MoveVertical()
-        {
-            angleV += Input.GetAxis("RotationY") * cameraControllerData.movementSpeed * cameraControllerData.cameraSensibilityY * Time.deltaTime;
-            angleV %= 360;
-
-            angleV = Mathf.Clamp(angleV, cameraControllerData.clamp_RotationY.x, cameraControllerData.clamp_RotationY.y);
-            m_HandlerTransform.localRotation = Quaternion.Euler(angleV, m_HandlerTransform.localRotation.eulerAngles.y, m_HandlerTransform.localRotation.eulerAngles.z);
-        }
     }
 }
