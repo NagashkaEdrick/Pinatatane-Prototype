@@ -22,13 +22,13 @@ namespace GameplayFramework
         public List<IPawn> Pawns { get => m_pawns; set => m_pawns = value; }
 
         [BoxGroup("Options", order: 10)]
-        public bool IsActive = true; //True -> Control(); False -> !Control();
+        public bool IsControllable = true; //True -> Control(); False -> !Control();
 
         public override void OnUpdate()
         {
-            if (IsActive && m_pawn != null) Control(m_pawn);
+            if (IsControllable && m_pawn != null) Control(m_pawn);
 
-            if (IsActive && m_pawns.Count > 0)
+            if (IsControllable && m_pawns.Count > 0)
                 for (int i = 0; i < m_pawns.Count; i++)
                     Control(m_pawns[i]);
         }

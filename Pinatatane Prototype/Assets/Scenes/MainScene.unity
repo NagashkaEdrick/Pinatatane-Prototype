@@ -488,6 +488,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8866277158355189355, guid: 785ada3ac2187c04c8967d9330e444f4, type: 3}
   m_PrefabInstance: {fileID: 8866277159950186735}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1954892462 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+  m_PrefabInstance: {fileID: 246381323956348934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b65454b8059c441b8263f4fced640e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1986634717
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +560,19 @@ MonoBehaviour:
     Priority: 0
     IconType: 2900
     IconTexture: {fileID: 0}
-    IsIconRecursive: 1
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: Camera
+    GameObject: {fileID: 0}
+    Ordinal: 3
+    Priority: 0
+    IconType: 2900
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
     BackgroundType: 0
     BackgroundTexture: {fileID: 0}
     IsBackgroundRecursive: 0
@@ -557,7 +580,7 @@ MonoBehaviour:
   - Type: 1
     Name: Hierarchy RuleSet
     GameObject: {fileID: 0}
-    Ordinal: 3
+    Ordinal: 4
     Priority: 0
     IconType: 1040
     IconTexture: {fileID: 0}
@@ -569,7 +592,7 @@ MonoBehaviour:
   - Type: 1
     Name: View
     GameObject: {fileID: 0}
-    Ordinal: 4
+    Ordinal: 5
     Priority: 5
     IconType: 1410
     IconTexture: {fileID: 0}
@@ -581,7 +604,7 @@ MonoBehaviour:
   - Type: 1
     Name: Model
     GameObject: {fileID: 0}
-    Ordinal: 5
+    Ordinal: 6
     Priority: 5
     IconType: 2990
     IconTexture: {fileID: 0}
@@ -593,7 +616,7 @@ MonoBehaviour:
   - Type: 1
     Name: Controller
     GameObject: {fileID: 0}
-    Ordinal: 6
+    Ordinal: 7
     Priority: 5
     IconType: 1550
     IconTexture: {fileID: 0}
@@ -605,7 +628,7 @@ MonoBehaviour:
   - Type: 1
     Name: Game
     GameObject: {fileID: 0}
-    Ordinal: 7
+    Ordinal: 8
     Priority: 5
     IconType: 1030
     IconTexture: {fileID: 0}
@@ -617,9 +640,21 @@ MonoBehaviour:
   - Type: 1
     Name: ---MAP---
     GameObject: {fileID: 0}
-    Ordinal: 8
+    Ordinal: 9
     Priority: 5
     IconType: 1130
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: State Machine
+    GameObject: {fileID: 0}
+    Ordinal: 10
+    Priority: 5
+    IconType: 1860
     IconTexture: {fileID: 0}
     IsIconRecursive: 0
     BackgroundType: 0
@@ -647,14 +682,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359111464}
     m_Modifications:
-    - target: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
-      propertyPath: cameraTransform
+    - target: {fileID: 1109290580, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 208567785}
+      objectReference: {fileID: 1109290580, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 1109290581, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1109290581, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 1375604025, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1375604025, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 1375604026, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1375604026, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1954892462}
+    - target: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"controllerStateMachine","value":$eref:0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 208567785}
     - target: {fileID: 246381323587135670, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_Name
       value: Player

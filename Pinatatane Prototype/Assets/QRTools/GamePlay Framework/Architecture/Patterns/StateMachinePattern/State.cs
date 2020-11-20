@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,7 +12,7 @@ namespace GameplayFramework
     /// A State for a generic state machine 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class State<T> : SerializedScriptableObject
+    public abstract class State<T> : SerializedMonoBehaviour
     {
 #if UNITY_EDITOR
         [SerializeField, TextArea(3, 5), BoxGroup("State infos")] private string Description = "";
@@ -20,6 +21,7 @@ namespace GameplayFramework
         [BoxGroup("State infos")]
         public Dictionary<Condition<T>, State<T>> nextState = new Dictionary<Condition<T>, State<T>>();
 
+        [FoldoutGroup("Callbacks")]
         public UnityEvent
             onEnter,
             onCurrent,
@@ -28,7 +30,6 @@ namespace GameplayFramework
         /// <summary>
         /// Callback when this state become the current state of the state machine.
         /// </summary>
-        /// <param name="element"></param>
         public virtual void OnEnter(T element)
         {
             onEnter?.Invoke();
@@ -37,7 +38,6 @@ namespace GameplayFramework
         /// <summary>
         /// Callback call in update of the state machine.
         /// </summary>
-        /// <param name="element"></param>
         public virtual void OnCurrent(T element)
         {
             onCurrent?.Invoke();
@@ -46,7 +46,6 @@ namespace GameplayFramework
         /// <summary>
         /// Callback when this state change.
         /// </summary>
-        /// <param name="element"></param>
         public virtual void OnExit(T element)
         {
             onExit?.Invoke();
@@ -55,7 +54,6 @@ namespace GameplayFramework
         /// <summary>
         /// actualize = true -> Change the state in the statemachine
         /// </summary>
-        /// <returns></returns>
         public bool TryGetNextState(T element, StateMachine<T> stateMachineToActualize = null)
         {
             if (nextState == null || nextState.Count == 0)
@@ -74,8 +72,6 @@ namespace GameplayFramework
         /// <summary>
         /// Get next state in fonction of conditions
         /// </summary>
-        /// <param name="element"></param>
-        /// <returns></returns>
         State<T> GetNextState(T element)
         {
             Condition<T> c = null;
@@ -91,7 +87,6 @@ namespace GameplayFramework
         /// <summary>
         /// Check if a condition is validate and out it.
         /// </summary>
-        /// <returns></returns>
         bool CheckCondition(T element, out Condition<T> cond)
         {
             foreach(Condition<T> c in nextState.Keys)

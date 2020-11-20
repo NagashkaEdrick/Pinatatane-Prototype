@@ -11,5 +11,6 @@ namespace Pinatatane
     public class PinataData : SerializedScriptableObject
     {
         public float movementSpeed = 5f;
+        public float movementLateralSpeed = 2.5f;
     }
 }

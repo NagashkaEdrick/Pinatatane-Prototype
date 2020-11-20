@@ -13,49 +13,22 @@ namespace Pinatatane
     public class PinataController : PlayerController
     {
         [SerializeField] Pinata m_pinata = default;
+        public Pinata Pinata { get => m_pinata; set => m_pinata = value; }
 
-        float horizontal, vertical, moveAmount;
+        public StateMachinePinataController controllerStateMachine;
 
-        [SerializeField] Transform cameraTransform = default;
+        public Transform cameraTransform = default;
+
+        public override void OnStart()
+        {
+            base.OnStart();
+            controllerStateMachine.StartStateMachine(controllerStateMachine.currentState ,this);
+        }
 
         public override void Control(IPawn pawn)
         {
-            MoveForward(pawn);
-            RotationBasedOnCameraOrientation(pawn);
-
-            //if (Input.GetKeyDown(KeyCode.Z))
-            //{
-            //    pawn.PawnTransform.position += Vector3.forward * m_pinata.PinataData.movementSpeed * Time.deltaTime;
-            //}
-            //if (Input.GetKeyDown(KeyCode.S))
-            //{
-            //    pawn.PawnTransform.position -= Vector3.forward * m_pinata.PinataData.movementSpeed * Time.deltaTime;
-            //}
-        }
-
-        void MoveForward(IPawn pawn)
-        {
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
-            moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
-            Vector3 targetVelocity = pawn.PawnTransform.forward * m_pinata.PinataData.movementSpeed * moveAmount * Time.deltaTime;
-            pawn.PawnTransform.position += targetVelocity;
-        }
-
-        void RotationBasedOnCameraOrientation(IPawn pawn)
-        {
-            Vector3 targetDir = cameraTransform.forward * vertical;
-            targetDir += cameraTransform.right * horizontal;
-            targetDir.Normalize();
-            targetDir.y = 0;
-
-            if (targetDir == Vector3.zero)
-                targetDir = pawn.PawnTransform.forward;
-
-            Quaternion tr = Quaternion.LookRotation(targetDir);
-            Quaternion targetRot = Quaternion.Slerp(pawn.PawnTransform.rotation, tr, Time.deltaTime * moveAmount * m_pinata.PinataData.movementSpeed);
-
-            pawn.PawnTransform.rotation = targetRot;
-        }
+            controllerStateMachine.currentState.OnCurrent(this);
+            controllerStateMachine.CheckCurrentState(this);
+        }        
     }
 }
