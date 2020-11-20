@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 using GameplayFramework;
 
@@ -19,6 +20,13 @@ namespace Pinatatane
 
         public Transform cameraTransform = default;
 
+        public PlayerInputs playerInputs;
+
+        /// <summary>
+        /// Différent de IsControllable car ne bloque pas la lecture de la state machine.
+        /// </summary>
+        public bool IsBlocked { get; set; } = false;
+
         public override void OnStart()
         {
             base.OnStart();
@@ -27,6 +35,8 @@ namespace Pinatatane
 
         public override void Control(IPawn pawn)
         {
+            if (Input.GetKeyDown(KeyCode.A)) IsBlocked = !IsBlocked;
+
             controllerStateMachine.currentState.OnCurrent(this);
             controllerStateMachine.CheckCurrentState(this);
         }        

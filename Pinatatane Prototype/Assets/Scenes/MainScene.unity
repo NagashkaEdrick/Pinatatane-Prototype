@@ -452,6 +452,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1288436276 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 246381323561514760, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+  m_PrefabInstance: {fileID: 246381323956348934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1288436277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288436276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f41a45944b4a0894090f0154b474d69a, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &1433079009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1109290581, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+  m_PrefabInstance: {fileID: 246381323956348934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431527578145c13479ca16a0210ba763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1459912262
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,9 +745,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1375604026, guid: 66725be79c259384a8133db6a683d45a, type: 3}
     - target: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1433079009}
+    - target: {fileID: 1954892462, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"currentState","value":$eref:0'
+      objectReference: {fileID: 0}
     - target: {fileID: 246381323561514774, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
       value: 1
@@ -732,15 +794,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 246381323587135671, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.20946795
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 246381323587135671, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6691818
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 246381323587135671, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.9990902
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 246381323587135671, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_LocalRotation.x
@@ -778,6 +840,18 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 246381323822321919, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 948520480311434909, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 948520480311434909, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 2174268683083899797, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 2174268683083899797, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 7193392941892444176, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7193392941892444176, guid: 66725be79c259384a8133db6a683d45a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66725be79c259384a8133db6a683d45a, type: 3}
 --- !u!1001 &8866277159950186735

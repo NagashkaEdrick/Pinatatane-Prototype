@@ -12,5 +12,6 @@ namespace Pinatatane
     {
         public float movementSpeed = 5f;
         public float movementLateralSpeed = 2.5f;
+        public float aimTransitionTime = 1f;
     }
 }

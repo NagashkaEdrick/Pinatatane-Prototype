@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameplayFramework;
 
-public class BlockedMove : MonoBehaviour
+namespace Pinatatane
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BlockedMove : State<PinataController>
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void OnCurrent(PinataController element)
+        {
+            base.OnCurrent(element);
+        }
     }
 }
