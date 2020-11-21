@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using GameplayFramework;
-
-namespace Pinatatane
+namespace GameplayFramework
 {
     public class StateMachineCameraController : StateMachine<CameraThirdPersonController>
     {

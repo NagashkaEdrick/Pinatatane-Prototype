@@ -6,11 +6,11 @@ using Sirenix.OdinInspector;
 
 namespace GameplayFramework
 {
-    [CreateAssetMenu(menuName = "Pinatatane/Gameplay/3C/Camera", fileName = "Camera Data")]
-    public class CameraControllerData : SerializedScriptableObject
+    [CreateAssetMenu(menuName = "Pinatatane/Gameplay/3C/Camera/Camera Profile", fileName = "Camera Profile")]
+    public class CameraControllerProfile : SerializedScriptableObject
     {
         [BoxGroup("Settings"), Tooltip("Rotation speed of the camera.")]
-        public float movementSpeed = 150;
+        public float rotationSpeed = 150;
 
         [BoxGroup("Settings"), Tooltip("Add an offset on the target for the look rotation.")]
         public Vector3 positionOffset = new Vector3();
@@ -32,5 +32,10 @@ namespace GameplayFramework
 
         [FoldoutGroup("More Settings"), Tooltip("Sensibility on Y axis"), Range(0, 2)]
         public float cameraSensibilityY = 1;
+
+        [FoldoutGroup("More Settings"), Tooltip("Block rotation on a target axis")]
+        public bool
+            blockRotationInX = false,
+            blockRotationInY = false;
     }
 }

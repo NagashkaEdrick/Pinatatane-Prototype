@@ -9,10 +9,7 @@ namespace Pinatatane
     {
         public override bool CheckCondition(PinataController element)
         {
-            if (Input.GetAxis("LeftTrigger") <= .1f)
-                return true;
-
-            return false;
+            return Input.GetAxis("LeftTrigger") <= .1f;
         }
     }
 }

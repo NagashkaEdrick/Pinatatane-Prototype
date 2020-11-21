@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c394f4f0de889f4593450ef3f6cc9a5, type: 3}
-  m_Name: Camera Data
+  m_Name: AimLook Profile
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,11 +21,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  movementSpeed: 150
-  positionOffset: {x: 0, y: 1, z: -5}
-  lookTargetOffset: {x: 0, y: 0, z: 0}
+  rotationSpeed: 150
+  positionOffset: {x: 0, y: 1.4, z: -4}
+  lookTargetOffset: {x: 0, y: 1.6, z: 0}
   lerpFollowingSpeed: 0.2
   lerpFollowingOffsetSpeed: 0.2
   clamp_RotationY: {x: 10, y: 60}
   cameraSensibilityX: 1
   cameraSensibilityY: 1
+  blockRotationInX: 1
+  blockRotationInY: 0
