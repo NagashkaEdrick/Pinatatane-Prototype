@@ -6,11 +6,6 @@ namespace GameplayFramework
 {
     public class CameraThirdPersonController : CameraController
     {
-        private void Start()
-        {
-            m_stateMachineCameraController?.StartStateMachine(m_stateMachineCameraController.currentState, this);
-        }
-
         public override void CameraUpdate()
         {
             base.CameraUpdate();
@@ -18,9 +13,9 @@ namespace GameplayFramework
             if (m_CurrentCameraControllerProfile == null)
                 throw new System.Exception(string.Format("There is no profile in : {0}", this.ToString()));
 
-            m_stateMachineCameraController?.CheckCurrentState(this);
-            m_stateMachineCameraController?.currentState?.OnCurrent(this);
-            
+            MoveHorizontal(m_CurrentCameraControllerProfile.rotationSpeed);
+            MoveVertical(m_CurrentCameraControllerProfile.rotationSpeed);
+
             LookTarget();
             FollowTarget();
             CameraOffset();

@@ -22,12 +22,12 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   rotationSpeed: 150
-  positionOffset: {x: 0, y: 1.4, z: -4}
-  lookTargetOffset: {x: 0, y: 1.6, z: 0}
+  positionOffset: {x: 0, y: 1.5, z: -3}
+  lookTargetOffset: {x: 0, y: 1.8, z: 0}
   lerpFollowingSpeed: 0.2
   lerpFollowingOffsetSpeed: 0.2
   clamp_RotationY: {x: 10, y: 60}
   cameraSensibilityX: 1
   cameraSensibilityY: 1
-  blockRotationInX: 1
-  blockRotationInY: 0
+  blockRotationInX: 0
+  blockRotationInY: 1

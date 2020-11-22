@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameplayFramework
 {
-    public class StateMachineCameraController : StateMachine<CameraThirdPersonController>
+    public class StateMachineCameraController : StateMachine<CameraManager>
     {
         
     }

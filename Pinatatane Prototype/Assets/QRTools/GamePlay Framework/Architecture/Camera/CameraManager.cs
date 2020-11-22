@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-using DG.Tweening;
+using Sirenix.OdinInspector;
 
 using GameplayFramework.Singletons;
 
@@ -13,14 +13,25 @@ namespace GameplayFramework
     {
         [SerializeField] Camera mainCamera;
         [SerializeField] CameraController m_CurrentCameraController;
+        public CameraController CurrentCameraController { get => m_CurrentCameraController; set => m_CurrentCameraController = value; }
 
-        [SerializeField] Dictionary<string, CameraController> m_cameraHandlers = new Dictionary<string, CameraController>();
+        [SerializeField] Dictionary<string, CameraController> m_cameraControllers = new Dictionary<string, CameraController>();
 
         public bool inTransition { get; protected set; }
         Coroutine transitionCoroutine;
 
+        [SerializeField] StateMachineCameraController m_StateMachineCameraController;
+
+        private void Start()
+        {
+            m_StateMachineCameraController.StartStateMachine(m_StateMachineCameraController.currentState, this);
+        }
+
         private void Update()
         {
+            m_StateMachineCameraController?.CheckCurrentState(this);
+            m_StateMachineCameraController?.currentState?.OnCurrent(this);
+
             m_CurrentCameraController?.CameraUpdate();
 
             if (Input.GetKeyDown(KeyCode.A))
@@ -36,36 +47,35 @@ namespace GameplayFramework
             transitionCoroutine = StartCoroutine(TransitionCoroutine(to, TimeTransition));
         }
 
+        public void TransitionTo(string to, float TimeTransition)
+        {
+            if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
+            transitionCoroutine = StartCoroutine(TransitionCoroutine(GetCameraHandler(to), TimeTransition));
+        }
+
         IEnumerator TransitionCoroutine(CameraController to, float TimeTransition)
         {
             inTransition = true;
             m_CurrentCameraController = to;
-
             Vector3 startPos = mainCamera.transform.position;
 
             float elapsedTime = 0;
             while (elapsedTime < TimeTransition)
             {
                 mainCamera.transform.position = Vector3.Lerp(startPos, to.CameraTransform.position, (elapsedTime / TimeTransition));
-                //mainCamera.transform.rotation = Quaternion.Lerp(mainCamera.transform.rotation, to.CameraTransform.rotation, (elapsedTime / TimeTransition));
-
-                //mainCamera.transform.DORotate(m_CurrentCameraController.CameraTransform.rotation.eulerAngles, TimeTransition);
-                //mainCamera.transform.DOMove(m_CurrentCameraController.CameraTransform.position, TimeTransition);
 
                 elapsedTime += Time.deltaTime;
 
                 yield return null;
             }
-
-            Debug.Log(elapsedTime);
             inTransition = false;
 
             yield break;
         }
 
-        CameraController GetCameraHandler(string key)
+        public CameraController GetCameraHandler(string key)
         {
-            m_cameraHandlers.TryGetValue(key, out var value);
+            m_cameraControllers.TryGetValue(key, out var value);
             return value;
         }
 
@@ -79,6 +89,17 @@ namespace GameplayFramework
             Gizmos.DrawLine(m_CurrentCameraController.CameraTransform.position, mainCamera.transform.position);
             Gizmos.DrawWireSphere(mainCamera.transform.position, .7f);
             Gizmos.DrawLine(m_CurrentCameraController.TargetTransform.position, mainCamera.transform.position);
+        }
+
+        [Button]
+        void CreateVirtualCamera()
+        {
+            GameObject root = new GameObject("New Camera Handler");
+            root.transform.parent = transform;
+            GameObject controller = new GameObject("Controller");
+            controller.transform.parent = root.transform;
+            GameObject virtualCam = new GameObject("Virtual Camera");
+            virtualCam.transform.parent = root.transform;
         }
     }
 }

@@ -6,18 +6,31 @@ using GameplayFramework;
 
 namespace Pinatatane
 {
-    public class AimLookCameraState : State<CameraThirdPersonController>
+    public class AimLookCameraState : State<CameraManager>
     {
-        public override void OnEnter(CameraThirdPersonController element)
+        Coroutine transitionCoroutine;
+        [SerializeField] PinataData pinataData;
+
+        public override void OnEnter(CameraManager element)
         {
             base.OnEnter(element);
-            element.LoadCameraControllerProfile("AimLook");
+
+            transitionCoroutine = StartCoroutine(Transition(element));
         }
 
-        public override void OnCurrent(CameraThirdPersonController element)
+        IEnumerator Transition(CameraManager element)
         {
-            base.OnCurrent(element);
-            element.MoveHorizontal(element.CurrentCameraControllerProfile.rotationSpeed);
+            yield return new WaitForSeconds(pinataData.aimTransitionTime);
+            element.GetCameraHandler("AimLook").CopyAnglesValues(element.GetCameraHandler("FreeLook"));
+            element.TransitionTo("AimLook", 1f);
+
+            yield break;
+        }
+
+        public override void OnExit(CameraManager element)
+        {
+            StopCoroutine(transitionCoroutine);
+            base.OnExit(element);
         }
     }
 }

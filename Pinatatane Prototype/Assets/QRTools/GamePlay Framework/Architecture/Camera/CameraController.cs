@@ -20,8 +20,6 @@ namespace GameplayFramework
 
         [SerializeField] protected CameraControllerProfile m_CurrentCameraControllerProfile;
 
-        [SerializeField] protected StateMachineCameraController m_stateMachineCameraController;
-
         #region Properties
         public Transform TargetTransform { get => m_TargetTransform; set => m_TargetTransform = value; }
         public Transform HandlerTransform { get => m_HandlerTransform; set => m_HandlerTransform = value; }
@@ -42,7 +40,7 @@ namespace GameplayFramework
         {
             PaintCamera();
         }
-
+        
         public void PaintCamera()
         {
             if (CameraManager.Instance.inTransition)
@@ -81,6 +79,17 @@ namespace GameplayFramework
                 HandlerTransform.transform.position,
                 TargetTransform.transform.position,
                 CurrentCameraControllerProfile.lerpFollowingSpeed);
+        }
+
+        public void CopyAnglesValues(CameraController c)
+        {
+            angleH = c.angleH;
+            angleV = c.angleV;
+            //m_HandlerTransform.forward = new Vector3(
+            //    m_TargetTransform.forward.x,
+            //    m_HandlerTransform.forward.y,
+            //    m_TargetTransform.forward.z
+            //    );
         }
 
         /// <summary>

@@ -6,9 +6,9 @@ using GameplayFramework;
 
 namespace Pinatatane
 {
-    public class AimTriggerUpCameraCondition : Condition<CameraThirdPersonController>
+    public class AimTriggerUpCameraCondition : Condition<CameraManager>
     {
-        public override bool CheckCondition(CameraThirdPersonController element)
+        public override bool CheckCondition(CameraManager element)
         {
             return Input.GetAxis("LeftTrigger") < .2f;
         }
