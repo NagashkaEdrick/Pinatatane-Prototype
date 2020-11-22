@@ -84,9 +84,9 @@ namespace Pinatatane
         {
             horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxis("Vertical");
-            Vector3 movementVector = new Vector3(horizontal, 0, vertical) * m_pinata.PinataData.movementLateralSpeed;
-
-            m_pawn.PawnTransform.position += movementVector * Time.deltaTime;
+            Vector3 targetVelocity = m_pawn.PawnTransform.forward * m_pinata.PinataData.movementSpeed * vertical * Time.deltaTime;
+            targetVelocity += m_pawn.PawnTransform.right * m_pinata.PinataData.movementSpeed * horizontal * Time.deltaTime;
+            m_pawn.PawnTransform.position += targetVelocity;
         }
 
         /// <summary>

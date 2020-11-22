@@ -12,18 +12,18 @@ namespace GameplayFramework
         [SerializeField, BoxGroup("Transform Reference")] 
         protected Transform m_HandlerTransform;
         [SerializeField, BoxGroup("Transform Reference")]
-        protected Transform m_CameraTransform;
+        protected Transform m_VirualCameraTransform;
         [SerializeField, BoxGroup("Transform Reference")]
         protected Transform m_TargetTransform;
 
-        public Camera Camera;
+        [HideInInspector]public Camera Camera;
 
         [SerializeField] protected CameraControllerProfile m_CurrentCameraControllerProfile;
 
         #region Properties
         public Transform TargetTransform { get => m_TargetTransform; set => m_TargetTransform = value; }
         public Transform HandlerTransform { get => m_HandlerTransform; set => m_HandlerTransform = value; }
-        public Transform CameraTransform { get => m_CameraTransform; set => m_CameraTransform = value; }
+        public Transform VirtualCameraTransform { get => m_VirualCameraTransform; set => m_VirualCameraTransform = value; }
         public CameraControllerProfile CurrentCameraControllerProfile { get => m_CurrentCameraControllerProfile; set => m_CurrentCameraControllerProfile = value; }
         #endregion    
 
@@ -36,18 +36,29 @@ namespace GameplayFramework
             angleH,
             angleV;
 
+        private void Start()
+        {
+            Camera = CameraManager.Instance.MainCamera;
+        }
+
+        /// <summary>
+        /// Update camera in runtime.
+        /// </summary>
         public virtual void CameraUpdate()
         {
-            PaintCamera();
+            PositionCameraOnVirtualCamera();
         }
         
-        public void PaintCamera()
+        /// <summary>
+        /// Paint the position of the main camera on the virtual camera.
+        /// </summary>
+        public void PositionCameraOnVirtualCamera()
         {
             if (CameraManager.Instance.inTransition)
                 return;
 
-            Camera.transform.position = m_CameraTransform.position;
-            Camera.transform.rotation = m_CameraTransform.rotation;
+            Camera.transform.position = m_VirualCameraTransform.position;
+            Camera.transform.rotation = m_VirualCameraTransform.rotation;
         }
 
         /// <summary>
@@ -64,8 +75,8 @@ namespace GameplayFramework
         /// </summary>
         public void CameraOffset()
         {
-            CameraTransform.localPosition = Vector3.Lerp(
-                CameraTransform.localPosition,
+            VirtualCameraTransform.localPosition = Vector3.Lerp(
+                VirtualCameraTransform.localPosition,
                 CurrentCameraControllerProfile.positionOffset,
                 CurrentCameraControllerProfile.lerpFollowingOffsetSpeed);
         }
@@ -81,15 +92,13 @@ namespace GameplayFramework
                 CurrentCameraControllerProfile.lerpFollowingSpeed);
         }
 
-        public void CopyAnglesValues(CameraController c)
+        /// <summary>
+        /// Copy angles values.
+        /// </summary>
+        public void CopyAnglesValues(CameraController from, CameraController to)
         {
-            angleH = c.angleH;
-            angleV = c.angleV;
-            //m_HandlerTransform.forward = new Vector3(
-            //    m_TargetTransform.forward.x,
-            //    m_HandlerTransform.forward.y,
-            //    m_TargetTransform.forward.z
-            //    );
+            to.angleH = from.angleH;
+            to.angleV = from.angleV;
         }
 
         /// <summary>

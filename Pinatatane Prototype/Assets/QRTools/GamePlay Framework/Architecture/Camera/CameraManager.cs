@@ -11,20 +11,23 @@ namespace GameplayFramework
 {
     public class CameraManager : MonobehaviourSingleton<CameraManager>
     {
-        [SerializeField] Camera mainCamera;
+        [SerializeField] Camera m_MainCamera;
+
         [SerializeField] CameraController m_CurrentCameraController;
-        public CameraController CurrentCameraController { get => m_CurrentCameraController; set => m_CurrentCameraController = value; }
 
-        [SerializeField] Dictionary<string, CameraController> m_cameraControllers = new Dictionary<string, CameraController>();
-
-        public bool inTransition { get; protected set; }
-        Coroutine transitionCoroutine;
+        [SerializeField] Dictionary<string, CameraController> m_CameraControllers = new Dictionary<string, CameraController>();
 
         [SerializeField] StateMachineCameraController m_StateMachineCameraController;
 
+        public CameraController CurrentCameraController { get => m_CurrentCameraController; set => m_CurrentCameraController = value; }
+        public bool inTransition { get; protected set; }
+        public Camera MainCamera { get => m_MainCamera; set => m_MainCamera = value; }
+
+        Coroutine transitionCoroutine;
+
         private void Start()
         {
-            m_StateMachineCameraController.StartStateMachine(m_StateMachineCameraController.currentState, this);
+            m_StateMachineCameraController?.StartStateMachine(m_StateMachineCameraController.currentState, this);
         }
 
         private void Update()
@@ -33,36 +36,48 @@ namespace GameplayFramework
             m_StateMachineCameraController?.currentState?.OnCurrent(this);
 
             m_CurrentCameraController?.CameraUpdate();
-
-            if (Input.GetKeyDown(KeyCode.A))
-                TransitionTo(GetCameraHandler("AimHandler"), 3f);
-
-            if (Input.GetKeyDown(KeyCode.Z))
-                TransitionTo(GetCameraHandler("FreeLookHandler"), 3f);
         }
 
-        public void TransitionTo(CameraController to, float TimeTransition)
+        /// <summary>
+        /// Create a smooth transition from CurrentCameraController to an other.
+        /// </summary>
+        public void TransitionTo(CameraController to, float TimeTransition = 1f)
         {
             if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
             transitionCoroutine = StartCoroutine(TransitionCoroutine(to, TimeTransition));
         }
 
-        public void TransitionTo(string to, float TimeTransition)
+        /// <summary>
+        /// Create a smooth transition from CurrentCameraController to an other.
+        /// </summary>
+        public void TransitionTo(string to, float TimeTransition = 1f)
         {
             if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
             transitionCoroutine = StartCoroutine(TransitionCoroutine(GetCameraHandler(to), TimeTransition));
         }
 
+        /// <summary>
+        /// Find a CameraController in m_CameraControllers
+        /// </summary>
+        public CameraController GetCameraHandler(string key)
+        {
+            m_CameraControllers.TryGetValue(key, out var value);
+            return value;
+        }
+
+        /// <summary>
+        /// Coroutine use for transition
+        /// </summary>
         IEnumerator TransitionCoroutine(CameraController to, float TimeTransition)
         {
             inTransition = true;
             m_CurrentCameraController = to;
-            Vector3 startPos = mainCamera.transform.position;
+            Vector3 startPos = m_MainCamera.transform.position;
 
             float elapsedTime = 0;
             while (elapsedTime < TimeTransition)
             {
-                mainCamera.transform.position = Vector3.Lerp(startPos, to.CameraTransform.position, (elapsedTime / TimeTransition));
+                m_MainCamera.transform.position = Vector3.Lerp(startPos, to.VirtualCameraTransform.position, (elapsedTime / TimeTransition));
 
                 elapsedTime += Time.deltaTime;
 
@@ -73,22 +88,19 @@ namespace GameplayFramework
             yield break;
         }
 
-        public CameraController GetCameraHandler(string key)
-        {
-            m_cameraControllers.TryGetValue(key, out var value);
-            return value;
-        }
-
         private void OnDrawGizmosSelected()
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(m_CurrentCameraController.CameraTransform.position, .5f);
-            Gizmos.DrawLine(mainCamera.transform.position, m_CurrentCameraController.CameraTransform.position);
+            if (CurrentCameraController != null && CurrentCameraController.TargetTransform != null)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(m_CurrentCameraController.VirtualCameraTransform.position, .5f);
+                Gizmos.DrawLine(m_MainCamera.transform.position, m_CurrentCameraController.VirtualCameraTransform.position);
 
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(m_CurrentCameraController.CameraTransform.position, mainCamera.transform.position);
-            Gizmos.DrawWireSphere(mainCamera.transform.position, .7f);
-            Gizmos.DrawLine(m_CurrentCameraController.TargetTransform.position, mainCamera.transform.position);
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(m_CurrentCameraController.VirtualCameraTransform.position, m_MainCamera.transform.position);
+                Gizmos.DrawWireSphere(m_MainCamera.transform.position, .7f);
+                Gizmos.DrawLine(m_CurrentCameraController.TargetTransform.position, m_MainCamera.transform.position);
+            }
         }
 
         [Button]

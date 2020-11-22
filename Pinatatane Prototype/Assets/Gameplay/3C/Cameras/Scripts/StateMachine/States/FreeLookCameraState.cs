@@ -11,6 +11,7 @@ namespace Pinatatane
         public override void OnEnter(CameraManager element)
         {
             base.OnEnter(element);
+            element.CurrentCameraController.CopyAnglesValues(element.GetCameraHandler("AimLook"), element.GetCameraHandler("FreeLook"));
             element.TransitionTo("FreeLook", 1f);
         }
     }

@@ -18,19 +18,19 @@ namespace Pinatatane
             transitionCoroutine = StartCoroutine(Transition(element));
         }
 
-        IEnumerator Transition(CameraManager element)
-        {
-            yield return new WaitForSeconds(pinataData.aimTransitionTime);
-            element.GetCameraHandler("AimLook").CopyAnglesValues(element.GetCameraHandler("FreeLook"));
-            element.TransitionTo("AimLook", 1f);
-
-            yield break;
-        }
-
         public override void OnExit(CameraManager element)
         {
             StopCoroutine(transitionCoroutine);
             base.OnExit(element);
+        }
+
+        IEnumerator Transition(CameraManager element)
+        {
+            yield return new WaitForSeconds(pinataData.aimTransitionTime);
+            element.CurrentCameraController.CopyAnglesValues(element.GetCameraHandler("FreeLook"), element.GetCameraHandler("AimLook"));
+            element.TransitionTo("AimLook", 1f);
+
+            yield break;
         }
     }
 }
