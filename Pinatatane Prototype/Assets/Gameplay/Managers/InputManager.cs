@@ -6,7 +6,11 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 using GameplayFramework.Singletons;
+using GameplayFramework.Network;
+
 using QRTools.Inputs;
+
+using Photon.Pun;
 
 namespace GameplayFramework
 {
@@ -32,8 +36,6 @@ namespace GameplayFramework
 
         public override void OnUpdate()
         {
-            base.OnUpdate();
-
             if (GameplayBatch)
             {
                 moveX.TestInput();

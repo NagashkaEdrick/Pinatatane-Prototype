@@ -8,7 +8,7 @@ using GameplayFramework;
 namespace Pinatatane
 {
     public class Pinata : Pawn
-    {
+    {        
         public PinataData PinataData = default;
 
         public LassoController LassoController;

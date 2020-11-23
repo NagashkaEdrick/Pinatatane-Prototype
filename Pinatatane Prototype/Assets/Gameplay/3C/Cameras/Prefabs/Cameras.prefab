@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5318207554527598552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.20946795, y: -0.6691818, z: 0.9990902}
+  m_LocalPosition: {x: -0.20946795, y: 2.31, z: -4.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5318207555716257736}
@@ -266,6 +266,8 @@ MonoBehaviour:
   m_CurrentCameraControllerProfile: {fileID: 11400000, guid: 8dc224864a391e444a70a848e66e317f, type: 2}
   angleH: 0
   angleV: 0
+  cameraRotX: {fileID: 11400000, guid: 1e61f9f3efeca224e842de6bc160ef52, type: 2}
+  cameraRotY: {fileID: 11400000, guid: cb6fa2feadf69334f867ee61b8ddeffc, type: 2}
 --- !u!1 &5318207555691063571
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +446,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  mainCamera: {fileID: 5318207554527598550}
+  m_MainCamera: {fileID: 5318207554527598550}
   m_CurrentCameraController: {fileID: 5318207556645609855}
   m_StateMachineCameraController: {fileID: 5318207554789543802}
 --- !u!1 &5318207556124314980
@@ -639,6 +641,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls: []
+  pinataData: {fileID: 11400000, guid: d12d438ab4304d845b798b3fdb125d16, type: 2}
 --- !u!114 &5318207556361180230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,3 +831,5 @@ MonoBehaviour:
   m_CurrentCameraControllerProfile: {fileID: 11400000, guid: 492411fefbb00d44d93b84830c4b5075, type: 2}
   angleH: 0
   angleV: 0
+  cameraRotX: {fileID: 11400000, guid: 1e61f9f3efeca224e842de6bc160ef52, type: 2}
+  cameraRotY: {fileID: 11400000, guid: 5ddf7fc1ed190424e94897eef7203587, type: 2}
