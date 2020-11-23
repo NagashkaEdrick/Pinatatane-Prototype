@@ -15,7 +15,7 @@ namespace Pinatatane
         {
             base.OnEnter(element);
 
-            element.TweenAllignPawnOnCameraForward();
+            element.TweenAllignPawnOnCameraForward(element.Pinata.PinataData.aimTransitionTime);
         }
     }
 }

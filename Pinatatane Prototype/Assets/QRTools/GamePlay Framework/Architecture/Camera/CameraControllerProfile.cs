@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace GameplayFramework
 {
-    [CreateAssetMenu(menuName = "Pinatatane/Gameplay/3C/Camera/Camera Profile", fileName = "Camera Profile")]
+    [CreateAssetMenu(menuName = "GameplayFramework/3C/Camera/Camera Profile", fileName = "Camera Profile")]
     public class CameraControllerProfile : SerializedScriptableObject
     {
         [BoxGroup("Settings"), Tooltip("Rotation speed of the camera.")]

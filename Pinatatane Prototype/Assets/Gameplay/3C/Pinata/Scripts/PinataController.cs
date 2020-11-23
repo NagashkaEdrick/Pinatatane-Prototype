@@ -22,8 +22,6 @@ namespace Pinatatane
 
         public Transform cameraTransform = default;
 
-        public PlayerInputs playerInputs;
-
         float 
             horizontal, 
             vertical, 
@@ -33,6 +31,7 @@ namespace Pinatatane
         /// Différent de IsControllable car ne bloque pas la lecture de la state machine.
         /// </summary>
         public bool IsBlocked { get; set; } = false;
+        public bool BlockMovement { get; set; } = false;
 
         public override void OnStart()
         {
@@ -49,19 +48,23 @@ namespace Pinatatane
         /// <summary>
         /// Avancer tout droit.
         /// </summary>
-        public void MoveForward()
+        public void MoveForward(float speed)
         {
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
+            horizontal = InputManager.Instance.moveX.JoystickValue;
+            vertical = InputManager.Instance.moveY.JoystickValue;
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
-            Vector3 targetVelocity = m_pawn.PawnTransform.forward * m_pinata.PinataData.movementSpeed * moveAmount * Time.deltaTime;
+
+            if (BlockMovement)
+                return;
+
+            Vector3 targetVelocity = m_pawn.PawnTransform.forward * speed * moveAmount * Time.deltaTime;
             m_pawn.PawnTransform.position += targetVelocity;
         }
 
         /// <summary>
         /// Direction que le pawn doit prendre = Direction de la camera * axes des inputs;
         /// </summary>
-        public void RotationBasedOnCameraOrientation()
+        public void RotationBasedOnCameraOrientation(float speed)
         {
             Vector3 targetDir = cameraTransform.forward * vertical;
             targetDir += cameraTransform.right * horizontal;
@@ -72,25 +75,29 @@ namespace Pinatatane
                 targetDir = m_pawn.PawnTransform.forward;
 
             Quaternion tr = Quaternion.LookRotation(targetDir);
-            Quaternion targetRot = Quaternion.Slerp(m_pawn.PawnTransform.rotation, tr, Time.deltaTime * moveAmount * Pinata.PinataData.movementSpeed);
+            Quaternion targetRot = Quaternion.Slerp(m_pawn.PawnTransform.rotation, tr, Time.deltaTime * moveAmount * speed);
 
             m_pawn.PawnTransform.rotation = targetRot;
         }
         
         /// <summary>
-        /// 
+        /// Movement quand le joueur est en train de viser.
         /// </summary>
-        public void AimMovement()
+        public void AimMovement(float speed)
         {
             horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxis("Vertical");
-            Vector3 targetVelocity = m_pawn.PawnTransform.forward * m_pinata.PinataData.movementSpeed * vertical * Time.deltaTime;
-            targetVelocity += m_pawn.PawnTransform.right * m_pinata.PinataData.movementSpeed * horizontal * Time.deltaTime;
+
+            if (BlockMovement)
+                return;
+
+            Vector3 targetVelocity = m_pawn.PawnTransform.forward * speed * vertical * Time.deltaTime;
+            targetVelocity += m_pawn.PawnTransform.right * speed * horizontal * Time.deltaTime;
             m_pawn.PawnTransform.position += targetVelocity;
         }
 
         /// <summary>
-        /// 
+        /// Rotation quand le joueur est en train de viser
         /// </summary>
         public void AimRotation()
         {
@@ -103,13 +110,13 @@ namespace Pinatatane
         /// <summary>
         /// Alligne le Pawn sur le forward de la camera.
         /// </summary>
-        public Tween TweenAllignPawnOnCameraForward()
+        public Tween TweenAllignPawnOnCameraForward(float duration)
         {
             return DOTween.To(
             () => Pawn.PawnTransform.forward,
             x => Pawn.PawnTransform.forward = x,
             AllignPawnToCameraForward(),
-            Pinata.PinataData.aimTransitionTime
+            duration
             ).SetEase(Ease.InOutSine);
         }
 

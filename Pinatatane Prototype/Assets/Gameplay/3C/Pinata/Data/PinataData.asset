@@ -22,5 +22,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   movementSpeed: 5
-  movementLateralSpeed: 2.5
+  aimMovementSpeed: 4
   aimTransitionTime: 0.25
+  rotationSpeedLerp: 2
+  grabMovementSpeed: 1

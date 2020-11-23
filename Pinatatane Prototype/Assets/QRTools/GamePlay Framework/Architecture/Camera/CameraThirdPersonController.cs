@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+
+using QRTools.Inputs;
 
 namespace GameplayFramework
 {
     public class CameraThirdPersonController : CameraController
     {
+        [SerializeField]
+        QInputAxis
+            cameraRotX,
+            cameraRotY;
+
         public override void CameraUpdate()
         {
             base.CameraUpdate();
@@ -13,8 +21,8 @@ namespace GameplayFramework
             if (m_CurrentCameraControllerProfile == null)
                 throw new System.Exception(string.Format("There is no profile in : {0}", this.ToString()));
 
-            MoveHorizontal(Input.GetAxis("RotationX"));
-            MoveVertical(Input.GetAxis("RotationY"));
+            MoveHorizontal(cameraRotX.JoystickValue);
+            MoveVertical(cameraRotY.JoystickValue);
 
             LookTarget();
             FollowTarget();

@@ -11,6 +11,8 @@ namespace Pinatatane
     {
         public PinataData PinataData = default;
 
+        public LassoController lasso;
+
         public override void OnStart()
         {
             base.OnStart();

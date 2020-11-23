@@ -28,7 +28,7 @@ namespace Pinatatane
         {
             yield return new WaitForSeconds(pinataData.aimTransitionTime);
             element.CurrentCameraController.CopyAnglesValues(element.GetCameraHandler("FreeLook"), element.GetCameraHandler("AimLook"));
-            element.TransitionTo("AimLook", 1f);
+            element.TransitionTo("AimLook", pinataData.aimTransitionTime);
 
             yield break;
         }

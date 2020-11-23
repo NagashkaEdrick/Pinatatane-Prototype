@@ -29,7 +29,7 @@ namespace GameplayFramework.Singletons
                     }
                     if (_instance == null)
                     {
-                        Debug.LogError("There is no " + typeof(T).Name + " in the scene.");
+                        //Debug.LogError("There is no " + typeof(T).Name + " in the scene.");
                     }
                 }
                 return _instance;

@@ -12,8 +12,8 @@ namespace Pinatatane
         {
             base.OnCurrent(element);
 
-            element.MoveForward();
-            element.RotationBasedOnCameraOrientation();
+            element.MoveForward(element.Pinata.PinataData.movementSpeed);
+            element.RotationBasedOnCameraOrientation(element.Pinata.PinataData.movementSpeed);
         }        
     }
 }

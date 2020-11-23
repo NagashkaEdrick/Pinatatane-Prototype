@@ -15,12 +15,15 @@ namespace Pinatatane
         public float movementSpeed = 5f;
 
         [FoldoutGroup("Pinata Movement")]
-        public float movementLateralSpeed = 2.5f;
+        public float aimMovementSpeed = 4f;
 
         [FoldoutGroup("Pinata Movement")]
         public float aimTransitionTime = 1f;
 
         [FoldoutGroup("Pinata Movement")]
         public float rotationSpeedLerp = 2f;
+
+        [FoldoutGroup("Pinata Movement")]
+        public float grabMovementSpeed = 1f;
     }
 }

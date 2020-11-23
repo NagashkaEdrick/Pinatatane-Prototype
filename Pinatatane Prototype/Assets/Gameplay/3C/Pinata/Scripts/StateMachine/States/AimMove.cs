@@ -8,14 +8,11 @@ namespace Pinatatane
 {
     public class AimMove : State<PinataController>
     {
-        private float horizontal;
-        private float vertical;
-
         public override void OnCurrent(PinataController element)
         {
             base.OnCurrent(element);
 
-            element.AimMovement();
+            element.AimMovement(element.Pinata.PinataData.aimMovementSpeed);
             element.AimRotation();
         }
     }
