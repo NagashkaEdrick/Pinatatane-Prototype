@@ -6,7 +6,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using DG.Tweening;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     [CreateAssetMenu(menuName = "Pinatatane/Gameplay/CandyData")]
     public class CandyData : SerializedScriptableObject

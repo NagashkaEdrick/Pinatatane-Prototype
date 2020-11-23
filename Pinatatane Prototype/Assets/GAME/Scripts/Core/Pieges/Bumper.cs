@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class Bumper : PiegeBase<PiegeData>
     {

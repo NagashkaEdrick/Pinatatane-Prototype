@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 using Sirenix.OdinInspector;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     [System.Serializable]
     public class State

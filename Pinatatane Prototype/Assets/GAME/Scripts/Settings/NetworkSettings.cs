@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     [CreateAssetMenu(menuName = "Pinatatane/Settings/Network Settings", fileName = "Network Settings")]
     public class NetworkSettings : SerializedScriptableObject

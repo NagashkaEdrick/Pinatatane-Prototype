@@ -1,14 +1,17 @@
 ﻿using Photon.Pun;
 
-public interface IGrabable
+namespace OldPinatatane
 {
-    PhotonView PhotonView { get; set; }
+    public interface IGrabable
+    {
+        PhotonView PhotonView { get; set; }
 
-    bool CanBeGrabbed { get; set; }
+        bool CanBeGrabbed { get; set; }
 
-    void StartGrab(int _cible);
+        void StartGrab(int _cible);
 
-    void OnGrab(int _cible, int _attaquant);
+        void OnGrab(int _cible, int _attaquant);
 
-    void EndGrab(int _cible);
+        void EndGrab(int _cible);
+    }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 using TMPro;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class RoomListingMenu : UIMenu
     {

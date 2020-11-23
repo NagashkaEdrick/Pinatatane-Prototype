@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class UIElement : MonoBehaviour
     {

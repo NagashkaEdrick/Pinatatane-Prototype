@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 using QRTools.Inputs;
 using Photon.Pun;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class DashBehaviour : MonoBehaviour 
     {

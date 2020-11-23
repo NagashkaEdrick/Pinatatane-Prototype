@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class ScoreTabMenu : UIMenu
     {

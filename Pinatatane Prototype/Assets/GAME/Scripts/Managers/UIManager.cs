@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using TMPro;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class UIManager : SerializedMonoBehaviour
     {

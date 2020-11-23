@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using DG.Tweening;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class Candy : MonoBehaviour
     {

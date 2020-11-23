@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     [CreateAssetMenu(menuName = "Pinatatane/Conditions/TimerCondition", fileName = "Timer Condition")]
     public class Condition_Timer : Condition

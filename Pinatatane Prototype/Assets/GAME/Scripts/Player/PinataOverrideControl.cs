@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 using UnityEngine.Events;
 using QRTools.Inputs;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class PinataOverrideControl : MonoBehaviour
     {

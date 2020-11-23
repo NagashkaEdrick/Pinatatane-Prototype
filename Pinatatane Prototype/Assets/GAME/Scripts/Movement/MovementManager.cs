@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using QRTools.Inputs;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
 
     /*** Gere la transition entre le mode viser et le mode free look

@@ -5,7 +5,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Photon.Pun;
 using UnityEngine.Events;
-using Pinatatane;
+using OldPinatatane;
 
 public class SimplePhysic : MonoBehaviour
 {

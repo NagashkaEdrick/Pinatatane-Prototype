@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 
 using UnityEngine;
 
-namespace Pinatatane
+namespace OldPinatatane
 {
     public class SpawnerManager : SerializedMonoBehaviour
     {

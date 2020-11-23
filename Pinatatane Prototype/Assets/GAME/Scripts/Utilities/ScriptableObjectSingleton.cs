@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pinatatane.Utilities
+namespace OldPinatatane.Utilities
 {
     public class ScriptableObjectSingleton<T> : ScriptableObject where T : ScriptableObject
     {
