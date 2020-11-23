@@ -12,7 +12,7 @@ namespace GameplayFramework.Network
 {
     public class RoomManager : MonoBehaviourPunCallbacks
     {
-        [SerializeField] NetworkSettings m_NetworkSettings = default;
+        [SerializeField, BoxGroup("Network Infos")] NetworkSettings m_NetworkSettings = default;
 
         [SerializeField, BoxGroup("Room Infos"), ReadOnly] string currentRoomName = "Not in a room.";
         [SerializeField, BoxGroup("Room Infos")] bool debugMessage = false;
@@ -27,9 +27,12 @@ namespace GameplayFramework.Network
         {
             if (string.IsNullOrEmpty(roomName))
             {
-                Debug.Log("You are trying to create a room without name.");
+                Debug.Log("<color=blue>Network: </color> You are trying to create a room without name.");
                 return;
             }
+
+            if (PhotonNetwork.InRoom)
+                return;
 
             RoomOptions newRoomOptions = new RoomOptions();
             newRoomOptions.MaxPlayers = m_NetworkSettings.MaxPlayerInRoom;
@@ -50,7 +53,7 @@ namespace GameplayFramework.Network
 
         public override void OnJoinedRoom()
         {
-            if(debugMessage) Debug.Log("You join the room : " + PhotonNetwork.CurrentRoom.Name);
+            if(debugMessage) Debug.Log("<color=blue>Network: </color> You join the room : " + PhotonNetwork.CurrentRoom.Name);
             currentRoomName = PhotonNetwork.CurrentRoom.Name;
         }
 
