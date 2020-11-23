@@ -10,7 +10,8 @@ namespace Pinatatane
     public class LassoData : SerializedScriptableObject
     {
         [BoxGroup("Construction Lasso")]
-        public float constructionTime;
-        public float constructionDistance;
+        public float 
+            constructionTime,
+            constructionDistance;
     }
 }

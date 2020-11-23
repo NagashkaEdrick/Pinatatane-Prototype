@@ -6,6 +6,9 @@ using GameplayFramework;
 
 namespace Pinatatane
 {
+    /// <summary>
+    /// Cette state gère le déploiement du lasso.
+    /// </summary>
     public class LassoConstruction : State<LassoController>
     {
         Coroutine lassoConstrucionCoroutine;
@@ -17,7 +20,7 @@ namespace Pinatatane
 
         public override void OnEnter(LassoController element)
         {
-            Debug.Log("Lasso : Construction Du Lasso");
+            if(element.debugMode) Debug.Log("<color=yellow>Lasso:</color> Construction Du Lasso...");
 
             lassoController = element;
             lassoConstrucionCoroutine = StartCoroutine(StartConstruction(element));
@@ -27,25 +30,27 @@ namespace Pinatatane
 
         IEnumerator StartConstruction(LassoController element)
         {
-            while (distanceParcouru < element.LassoData.constructionDistance)
+            //Construction du raycast avec le temps
+            while (distanceParcouru < element.Lasso.LassoData.constructionDistance)
             {
-                distanceParcouru += element.LassoData.constructionDistance * Time.deltaTime / element.LassoData.constructionTime;
+                distanceParcouru += element.Lasso.LassoData.constructionDistance * Time.deltaTime / element.Lasso.LassoData.constructionTime;
 
                 if (Physics.Raycast(element.StartPosition.position, element.StartPosition.forward, out hit, distanceParcouru))
                 {
                     if (hit.collider.TryGetComponent(typeof(IGrabbable), out var _grabbedObject))
                     {
-                        //On touche un object !!!
-
-                        element.CurrenObjectGrabbed = _grabbedObject as IGrabbable;
+                        //Quand on touche un objet.
+                        element.Lasso.CurrenObjectGrabbed = _grabbedObject as IGrabbable;
+                        if (element.debugMode) Debug.Log("<color=yellow>Lasso:</color> Le joueur attrape " + ((MonoBehaviour)_grabbedObject).name + ".");
                         break;
                     }
+                    //Et si le joueur touche un objet qui ne peut pas se faire grabber ?
                 }
 
                 yield return null;
             }
 
-            //On ne touche rien
+            if (element.debugMode) Debug.Log("<color=yellow>Lasso: </color> Le joueur n'a rien attrapé.");
 
             yield break;
         }
@@ -54,7 +59,6 @@ namespace Pinatatane
         {
             if(lassoConstrucionCoroutine != null) StopCoroutine(lassoConstrucionCoroutine);
             distanceParcouru = 0;
-            Debug.Log("exit");
         }
 
         private void OnDrawGizmos()

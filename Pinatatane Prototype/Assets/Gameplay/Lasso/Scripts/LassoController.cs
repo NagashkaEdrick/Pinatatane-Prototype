@@ -11,34 +11,19 @@ namespace Pinatatane
 {
     public class LassoController : MyMonoBehaviour
     {
-        [SerializeField] LassoData m_LassoData;
+        [SerializeField] Lasso m_Lasso;
         [SerializeField] LassoStateMachine m_LassoStateMachine;
         [SerializeField] Transform m_StartPosition;
         [SerializeField] PinataController m_PinataController;
-        [SerializeField, ReadOnly] IGrabbable m_CurrenObjectGrabbed;
 
-        public LassoData LassoData { get => m_LassoData; set => m_LassoData = value; }
+        public bool debugMode = true;
+
+        public Lasso Lasso { get => m_Lasso; set => m_Lasso = value; }
         public Transform StartPosition { get => m_StartPosition; set => m_StartPosition = value; }
         public PinataController PinataController { get => m_PinataController; set => m_PinataController = value; }
-        public IGrabbable CurrenObjectGrabbed
-        {
-            get => m_CurrenObjectGrabbed;
-            set
-            {
-                m_CurrenObjectGrabbed = value;
-                if (m_CurrenObjectGrabbed != null)
-                {
-                    m_CurrenObjectGrabbed.OnStartGrabbed();
-                }
-            }
-        }
-
 
         public override void OnStart()
         {
-            InputManager.Instance.grabButton.onDown.AddListener(Grab);
-            InputManager.Instance.grabButton.onUp.AddListener(Retract);
-
             m_LassoStateMachine.StartStateMachine(m_LassoStateMachine.currentState, this);
         }
 
@@ -48,14 +33,15 @@ namespace Pinatatane
             m_LassoStateMachine.CheckCurrentState(this);
         }
 
-        public void Grab()
-        {
-
-        }
-
+        /// <summary>
+        /// Retractation du grab.
+        /// </summary>
         public void Retract()
         {
-            m_CurrenObjectGrabbed = null;
+            if (debugMode) Debug.Log("<color=yellow>Lasso: </color> Retractation du lasso...");
+
+            Lasso.CurrenObjectGrabbed?.OnEndGrabbed();
+            Lasso.CurrenObjectGrabbed = null;
         }
 
         protected override void OnGameEnd()
@@ -70,11 +56,16 @@ namespace Pinatatane
         {
             Gizmos.color = Color.yellow;
 
-            if(m_CurrenObjectGrabbed != null)
+            if(Lasso.CurrenObjectGrabbed != null)
             {
-                Gizmos.DrawWireSphere(m_CurrenObjectGrabbed.Transform.position, 1f);
-                Gizmos.DrawLine(m_StartPosition.position, m_CurrenObjectGrabbed.Transform.position);
+                Gizmos.DrawWireSphere(Lasso.CurrenObjectGrabbed.Transform.position, 1f);
+                Gizmos.DrawLine(m_StartPosition.position, Lasso.CurrenObjectGrabbed.Transform.position);
             }
         }
     }
 }
+
+/*
+ * NOTES:
+ * C'EST LA STATE MACHINE QUI LANCE LE GRAB, DONC GERE LA LECTURE DES INPUTS
+ */

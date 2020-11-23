@@ -12,6 +12,7 @@ namespace Pinatatane
         public override void OnCurrent(PinataController element)
         {
             base.OnCurrent(element);
+
             element.AimMovement(element.Pinata.PinataData.grabMovementSpeed);
             element.AimRotation();
         }

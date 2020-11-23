@@ -676,6 +676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 969004186}
+  - component: {fileID: 969004187}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -697,6 +698,31 @@ Transform:
   m_Father: {fileID: 2098631665}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &969004187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969004185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cec61e734dd20f43a06e2fee8d44dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: m_CurrenObjectGrabbed
+      Entry: 6
+      Data: 
+  m_LassoData: {fileID: 11400000, guid: ef940613ff1fa194dbeeb46f6e3f4a26, type: 2}
 --- !u!1 &1074122738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,14 +1470,12 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: m_CurrenObjectGrabbed
-      Entry: 6
-      Data: 
-  m_LassoData: {fileID: 11400000, guid: ef940613ff1fa194dbeeb46f6e3f4a26, type: 2}
+    SerializationNodes: []
+  m_Lasso: {fileID: 969004187}
   m_LassoStateMachine: {fileID: 129112799}
   m_StartPosition: {fileID: 2098631665}
   m_PinataController: {fileID: 1288436279}
+  debugMode: 1
 --- !u!1 &1986634717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1845,7 +1869,15 @@ PrefabInstance:
     - target: {fileID: 246381323822321919, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 246381323822321919, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 246381323822321919, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: lasso
+      value: 
+      objectReference: {fileID: 1985900527}
+    - target: {fileID: 246381323822321919, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: LassoController
+      value: 
+      objectReference: {fileID: 1985900527}
     - target: {fileID: 574394529447296527, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -1858,6 +1890,14 @@ PrefabInstance:
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 2174268683083899797, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 6417839830541930007, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 6417839830541930007, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+    - target: {fileID: 6442831451461682509, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 6442831451461682509, guid: 66725be79c259384a8133db6a683d45a, type: 3}
     - target: {fileID: 7193392941892444176, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: serializationData.Prefab
       value: 

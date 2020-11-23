@@ -11,7 +11,7 @@ namespace Pinatatane
     {
         public override bool CheckCondition(LassoController element)
         {
-            return element.CurrenObjectGrabbed != null;
+            return element.Lasso.CurrenObjectGrabbed != null;
         }
     }
 }
