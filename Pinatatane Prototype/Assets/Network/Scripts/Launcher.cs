@@ -12,10 +12,19 @@ namespace GameplayFramework.Network
 {
     public class Launcher : MonoBehaviourPunCallbacks
     {
-        [SerializeField, BoxGroup("Network Infos")] bool offlineMode;
+        public static Launcher Instance;
+
+        [SerializeField, BoxGroup("Network Infos")] public bool offlineMode;
 
         [SerializeField, BoxGroup("Lobby Infos")] bool debugMessage = false;
         [SerializeField, BoxGroup("Lobby Infos"), ReadOnly] bool isConnected = false;
+
+        public bool IsConnected { get => isConnected; set => isConnected = value; }
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
@@ -28,7 +37,7 @@ namespace GameplayFramework.Network
         public override void OnConnectedToMaster()
         {
             base.OnConnectedToMaster();
-            isConnected = true;
+            IsConnected = true;
 
             if(debugMessage) Debug.Log("<color=blue>Network: </color> Connected to Master.");
         }
@@ -44,7 +53,7 @@ namespace GameplayFramework.Network
         {
             base.OnDisconnected(cause);
 
-            isConnected = false;
+            IsConnected = false;
         }
     }
 }

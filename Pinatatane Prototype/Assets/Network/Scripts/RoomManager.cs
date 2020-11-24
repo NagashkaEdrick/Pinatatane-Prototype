@@ -7,19 +7,37 @@ using Sirenix.OdinInspector;
 
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 namespace GameplayFramework.Network
 {
     public class RoomManager : MonoBehaviourPunCallbacks
     {
+        [SerializeField, BoxGroup("Network Infos")] bool createRoomAutomaticaly;
         [SerializeField, BoxGroup("Network Infos")] NetworkSettings m_NetworkSettings = default;
 
         [SerializeField, BoxGroup("Room Infos"), ReadOnly] string currentRoomName = "Not in a room.";
         [SerializeField, BoxGroup("Room Infos")] bool debugMessage = false;
 
+        private void Start()
+        {
+            if (createRoomAutomaticaly)
+                StartCoroutine(CreateRoolAutomaticaly());
+        }
+
+        IEnumerator CreateRoolAutomaticaly()
+        {
+            yield return new WaitWhile(() => Launcher.Instance.IsConnected == true);
+            Invoke("CreateRoomTest", 2f);
+            yield break;
+        }
+
         [Button]
         public void CreateRoomTest()
         {
+            if (!Launcher.Instance.IsConnected)
+                throw new Exception("Impossible de créer la room car le Launcher n'est pas connecté.");
+
             CreateRoom("RoomTest");
         }
 

@@ -8,6 +8,7 @@ using UnityEngine;
 using TMPro;
 using Sirenix.OdinInspector;
 using Photon.Pun.UtilityScripts;
+using GameplayFramework.Network;
 
 namespace OldPinatatane
 {
