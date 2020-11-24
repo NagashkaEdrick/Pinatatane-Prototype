@@ -16,11 +16,15 @@ namespace Pinatatane
         [SerializeField] Transform m_StartPosition;
         [SerializeField] PinataController m_PinataController;
 
+        /** Variable lasso avec maillon */
+        [SerializeField] GameObject m_Maillon;
+
         public bool debugMode = true;
 
         public Lasso Lasso { get => m_Lasso; set => m_Lasso = value; }
         public Transform StartPosition { get => m_StartPosition; set => m_StartPosition = value; }
         public PinataController PinataController { get => m_PinataController; set => m_PinataController = value; }
+        public GameObject Maillon { get => m_Maillon; }
 
         public override void OnStart()
         {

@@ -13,5 +13,8 @@ namespace Pinatatane
         public float 
             constructionTime,
             constructionDistance;
+
+        [BoxGroup("Construction Lasso (Avec Maillon)")]
+        public int numberOfLink = 10;
     }
 }

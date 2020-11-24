@@ -22,4 +22,5 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   constructionTime: 1
-  constructionDistance: 4
+  constructionDistance: 15
+  numberOfLink: 10
