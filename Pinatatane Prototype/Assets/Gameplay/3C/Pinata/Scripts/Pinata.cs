@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using GameplayFramework;
+using UnityEngine.UI;
+using Sirenix.OdinInspector;
 
 namespace Pinatatane
 {
@@ -12,6 +14,11 @@ namespace Pinatatane
         public PinataData PinataData = default;
 
         public LassoController LassoController;
+
+        [BoxGroup("A bouger ailleurs")]
+        public Camera MainCamera;
+        [BoxGroup("A bouger ailleurs")]
+        public Image CrossHair;
 
         public override void OnStart()
         {
