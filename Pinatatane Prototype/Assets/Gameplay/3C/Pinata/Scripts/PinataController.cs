@@ -20,7 +20,16 @@ namespace Pinatatane
 
         public StateMachinePinataController controllerStateMachine;
 
-        public Transform cameraTransform = default;
+        [SerializeField] Transform m_CameraTransform;
+        public Transform CameraTransform {
+            get
+            {
+                if (m_CameraTransform == null)
+                    m_CameraTransform = CameraManager.Instance.MainCamera.transform;
+                return m_CameraTransform;
+            }
+            set => m_CameraTransform = value;
+        }
 
         float 
             horizontal, 
@@ -66,8 +75,8 @@ namespace Pinatatane
         /// </summary>
         public void RotationBasedOnCameraOrientation(float speed)
         {
-            Vector3 targetDir = cameraTransform.forward * vertical;
-            targetDir += cameraTransform.right * horizontal;
+            Vector3 targetDir = CameraTransform.forward * vertical;
+            targetDir += CameraTransform.right * horizontal;
             targetDir.Normalize();
             targetDir.y = 0;
 
@@ -126,9 +135,9 @@ namespace Pinatatane
         Vector3 AllignPawnToCameraForward()
         {
             return new Vector3(
-                cameraTransform.forward.x,
+                CameraTransform.forward.x,
                 Pawn.PawnTransform.forward.y,
-                cameraTransform.forward.z);
+                CameraTransform.forward.z);
         }
     }
 }

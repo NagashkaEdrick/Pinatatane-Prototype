@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 
@@ -86,6 +87,14 @@ namespace GameplayFramework
             inTransition = false;
 
             yield break;
+        }
+
+        public void SetCameraControllersTarget(Transform newTransform)
+        {
+            for (int i = 0; i < m_CameraControllers.Count; i++)
+            {
+                m_CameraControllers.ElementAt(i).Value.TargetTransform = newTransform;
+            }
         }
 
         private void OnDrawGizmosSelected()
