@@ -21,6 +21,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  constructionTime: 1
-  constructionDistance: 15
+  constructionTime: 0.1
+  constructionDistance: 10
   numberOfLink: 10

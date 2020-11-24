@@ -26,8 +26,12 @@ namespace Pinatatane
         public PinataController PinataController { get => m_PinataController; set => m_PinataController = value; }
         public GameObject Maillon { get => m_Maillon; }
 
+        public bool isConstructed = false;
+
         public override void OnStart()
         {
+            InputManager.Instance.grabButton.onUp.AddListener(delegate { isConstructed = false; });
+
             m_LassoStateMachine.StartStateMachine(m_LassoStateMachine.currentState, this);
         }
 
@@ -43,7 +47,7 @@ namespace Pinatatane
         public void Retract()
         {
             if (debugMode) Debug.Log("<color=yellow>Lasso: </color> Retractation du lasso...");
-
+            Lasso.LassoGraphics.Retract();
             Lasso.CurrenObjectGrabbed?.OnEndGrabbed();
             Lasso.CurrenObjectGrabbed = null;
         }

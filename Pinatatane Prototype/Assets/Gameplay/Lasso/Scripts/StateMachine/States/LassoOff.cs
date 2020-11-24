@@ -16,6 +16,7 @@ namespace Pinatatane
         {
             base.OnEnter(element);
             element.Retract();
+            element.Lasso.LassoGraphics.LassoDebug(Color.white);
         }
     }
 }

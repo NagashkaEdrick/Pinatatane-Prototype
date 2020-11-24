@@ -34,7 +34,13 @@ namespace GameplayFramework.Network
             GameObject newPlayer = PhotonNetwork.Instantiate("Player", transform.position, Quaternion.identity);
             newPlayer.name = "Player: " +  PhotonNetwork.LocalPlayer.NickName;
             newPlayer.transform.parent = playerParent;
-            CameraManager.Instance.SetCameraControllersTarget(newPlayer.transform);
+
+            ConnectToCamera(newPlayer.transform);
+        }
+
+        void ConnectToCamera(Transform t)
+        {
+            CameraManager.Instance.SetCameraControllersTarget(t);
         }
     }
 }

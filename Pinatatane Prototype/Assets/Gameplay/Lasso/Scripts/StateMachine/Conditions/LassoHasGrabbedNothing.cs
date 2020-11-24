@@ -7,14 +7,14 @@ using GameplayFramework;
 
 namespace Pinatatane
 {
-    public class LassoHasGrabbedSomething : Condition<LassoController>
+    public class LassoHasGrabbedNothing : Condition<LassoController>
     {
         public override bool CheckCondition(LassoController element)
         {
             if (!element.isConstructed)
                 return false;
 
-            return element.Lasso.CurrenObjectGrabbed != null;
+            return element.Lasso.CurrenObjectGrabbed == null;
         }
     }
 }

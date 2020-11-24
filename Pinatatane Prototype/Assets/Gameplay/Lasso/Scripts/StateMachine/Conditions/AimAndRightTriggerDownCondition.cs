@@ -14,6 +14,9 @@ namespace Pinatatane
     {
         public override bool CheckCondition(LassoController element)
         {
+            if (element.isConstructed)
+                return false;
+
             return InputManager.Instance.aimButton.IsTrigger && InputManager.Instance.grabButton.IsTrigger;
         }
     }
