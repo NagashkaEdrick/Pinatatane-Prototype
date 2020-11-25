@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2155202761812202467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2155202761812202465}
+  - component: {fileID: 2155202761812202464}
+  m_Layer: 0
+  m_Name: Hierarchy RuleSet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2155202761812202465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155202761812202467}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2155202761812202464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155202761812202467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 366663908, guid: ebe26e22332665d4c8332b2a624e5e8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rules:
+  - Type: 1
+    Name: ---MANAGERS---
+    GameObject: {fileID: 0}
+    Ordinal: 0
+    Priority: 0
+    IconType: 1030
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 10
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: ---3C---
+    GameObject: {fileID: 0}
+    Ordinal: 1
+    Priority: 0
+    IconType: 2800
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 130
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: Cameras
+    GameObject: {fileID: 0}
+    Ordinal: 2
+    Priority: 0
+    IconType: 3410
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: MainCamera
+    GameObject: {fileID: 0}
+    Ordinal: 3
+    Priority: 0
+    IconType: 2900
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: Hierarchy RuleSet
+    GameObject: {fileID: 0}
+    Ordinal: 4
+    Priority: 0
+    IconType: 1040
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 160
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: View
+    GameObject: {fileID: 0}
+    Ordinal: 5
+    Priority: 5
+    IconType: 1410
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: Model
+    GameObject: {fileID: 0}
+    Ordinal: 6
+    Priority: 5
+    IconType: 2990
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: Controller
+    GameObject: {fileID: 0}
+    Ordinal: 7
+    Priority: 5
+    IconType: 1550
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: Game
+    GameObject: {fileID: 0}
+    Ordinal: 8
+    Priority: 5
+    IconType: 1030
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: ---MAP---
+    GameObject: {fileID: 0}
+    Ordinal: 9
+    Priority: 5
+    IconType: 1130
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 50
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: State Machine
+    GameObject: {fileID: 0}
+    Ordinal: 10
+    Priority: 5
+    IconType: 1860
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: Input Manager
+    GameObject: {fileID: 0}
+    Ordinal: 11
+    Priority: 5
+    IconType: 1550
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 0
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: ---NETWORK---
+    GameObject: {fileID: 0}
+    Ordinal: 12
+    Priority: 5
+    IconType: 2110
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 200
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0
+  - Type: 1
+    Name: ---UI---
+    GameObject: {fileID: 0}
+    Ordinal: 13
+    Priority: 5
+    IconType: 1050
+    IconTexture: {fileID: 0}
+    IsIconRecursive: 0
+    BackgroundType: 20
+    BackgroundTexture: {fileID: 0}
+    IsBackgroundRecursive: 0
+    IsHidden: 0

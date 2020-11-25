@@ -38,6 +38,7 @@ namespace GameplayFramework.Network
         {
             base.OnConnectedToMaster();
             IsConnected = true;
+            InputManager.Instance.useNetworkCommands = true;
 
             if(debugMessage) Debug.Log("<color=blue>Network: </color> Connected to Master.");
         }

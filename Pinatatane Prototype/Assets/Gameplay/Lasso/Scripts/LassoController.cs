@@ -38,7 +38,7 @@ namespace Pinatatane
         public override void OnUpdate()
         {
             m_LassoStateMachine.currentState.OnCurrent(this);
-            m_LassoStateMachine.CheckCurrentState(this);
+            //m_LassoStateMachine.CheckCurrentState(this);
         }
 
         /// <summary>
@@ -60,6 +60,7 @@ namespace Pinatatane
         {
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
@@ -70,6 +71,7 @@ namespace Pinatatane
                 Gizmos.DrawLine(m_StartPosition.position, Lasso.CurrenObjectGrabbed.Transform.position);
             }
         }
+#endif
     }
 }
 

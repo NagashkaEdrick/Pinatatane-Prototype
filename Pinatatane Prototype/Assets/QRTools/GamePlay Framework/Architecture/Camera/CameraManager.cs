@@ -33,7 +33,7 @@ namespace GameplayFramework
 
         private void Update()
         {
-            m_StateMachineCameraController?.CheckCurrentState(this);
+            //m_StateMachineCameraController?.CheckCurrentState(this);
             m_StateMachineCameraController?.currentState?.OnCurrent(this);
 
             m_CurrentCameraController?.CameraUpdate();
@@ -97,6 +97,7 @@ namespace GameplayFramework
             }
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             if (CurrentCameraController != null && CurrentCameraController.TargetTransform != null)
@@ -122,5 +123,6 @@ namespace GameplayFramework
             GameObject virtualCam = new GameObject("Virtual Camera");
             virtualCam.transform.parent = root.transform;
         }
+#endif
     }
 }

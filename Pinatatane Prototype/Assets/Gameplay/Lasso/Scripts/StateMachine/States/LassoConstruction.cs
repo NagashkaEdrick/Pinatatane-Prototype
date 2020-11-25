@@ -71,6 +71,7 @@ namespace Pinatatane
             //element.isConstructed = false;
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (lassoController != null)
@@ -78,6 +79,7 @@ namespace Pinatatane
                 Gizmos.color = Color.red;
                 Gizmos.DrawLine(lassoController.StartPosition.position, lassoController.StartPosition.position + lassoController.StartPosition.forward * distanceParcouru);
             }
-        }        
+        }
+#endif
     }
 }

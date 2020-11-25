@@ -34,19 +34,31 @@ namespace GameplayFramework
             cameraRotX,
             cameraRotY;
 
+        public bool useNetworkCommands = false;
+
         public override void OnUpdate()
         {
-            if (GameplayBatch)
+            if (useNetworkCommands && !PhotonNetwork.LocalPlayer.IsLocal)
             {
-                moveX.TestInput();
-                moveY.TestInput();
-
-                aimButton.TestInput();
-                grabButton.TestInput();
-
-                cameraRotX.TestInput();
-                cameraRotY.TestInput();
+                if (GameplayBatch)
+                {
+                    TestCommands();
+                }
             }
+            else
+                TestCommands();
+        }
+
+        void TestCommands()
+        {
+            moveX.TestInput();
+            moveY.TestInput();
+
+            aimButton.TestInput();
+            grabButton.TestInput();
+
+            cameraRotX.TestInput();
+            cameraRotY.TestInput();
         }
     }
 }

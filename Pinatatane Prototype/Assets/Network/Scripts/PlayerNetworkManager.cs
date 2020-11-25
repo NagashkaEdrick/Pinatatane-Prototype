@@ -11,6 +11,8 @@ namespace GameplayFramework.Network
 {
     public class PlayerNetworkManager : MonoBehaviourPunCallbacks
     {
+        public static PlayerNetworkManager Instance;
+
         [SerializeField, BoxGroup("Network Infos")] string m_PlayerName = "DefaultName";
 
         [SerializeField, BoxGroup("Room Infos")] bool debugMessage = false;
@@ -18,6 +20,11 @@ namespace GameplayFramework.Network
         [SerializeField, BoxGroup("References")] Transform playerParent;
 
         public string PlayerName { get => m_PlayerName; set => m_PlayerName = value; }
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         public override void OnJoinedRoom()
         {

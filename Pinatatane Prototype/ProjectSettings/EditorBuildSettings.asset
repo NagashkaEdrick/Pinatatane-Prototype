@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/GAME/Prefabs/Scene Du Jeu/Scene_Principale.unity
-    guid: c4e7545666357024e81c12431b20c454
+    path: Assets/Scenes/MainScene.unity
+    guid: a57ebc936fb73114e99ec571aacf0084
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 681172e7e1ecc55498e5057b905c5bcf, type: 2}

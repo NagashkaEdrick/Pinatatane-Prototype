@@ -51,7 +51,7 @@ namespace Pinatatane
         public override void Control(IPawn pawn)
         {
             controllerStateMachine.currentState.OnCurrent(this);
-            controllerStateMachine.CheckCurrentState(this);
+            //controllerStateMachine.CheckCurrentState(this);
         }
 
         /// <summary>
