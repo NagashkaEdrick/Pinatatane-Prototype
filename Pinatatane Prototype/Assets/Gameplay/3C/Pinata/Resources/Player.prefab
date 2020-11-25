@@ -116,7 +116,9 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 4935790832737060684}
+    - {fileID: 8553982007327466991}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -136,7 +138,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
       Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -153,6 +167,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls: []
+  coefForce: 150
 --- !u!114 &8442228065174219540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1204,7 +1219,6 @@ MonoBehaviour:
   m_LassoStateMachine: {fileID: 8553982007327466906}
   m_StartPosition: {fileID: 8553982007327466196}
   m_PinataController: {fileID: 8553982007327467102}
-  m_Maillon: {fileID: 0}
   debugMode: 1
   isConstructed: 0
   hasGrabbed: 0
@@ -3455,9 +3469,8 @@ MonoBehaviour:
   m_Controller: {fileID: 8553982007327467102}
   PinataData: {fileID: 11400000, guid: d12d438ab4304d845b798b3fdb125d16, type: 2}
   LassoController: {fileID: 8553982007327466976}
+  Rigidbody: {fileID: 877472493901103490}
   m_PhotonView: {fileID: 8553982007327467278}
-  MainCamera: {fileID: 0}
-  CrossHair: {fileID: 0}
 --- !u!1 &8553982007327465865
 GameObject:
   m_ObjectHideFlags: 0
