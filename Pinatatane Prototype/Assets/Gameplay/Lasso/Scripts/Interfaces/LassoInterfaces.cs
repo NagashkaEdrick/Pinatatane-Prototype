@@ -8,6 +8,8 @@ namespace Pinatatane
     {
         Transform Transform { get; set; }
 
+        Rigidbody Rigidbody { get; set; }
+
         /// <summary>
         /// Callback when the object grabbed at first frame
         /// </summary>

@@ -20,6 +20,7 @@ namespace Pinatatane
         public override void OnCurrent(LassoController element)
         {
             base.OnCurrent(element);
+            if (element.debugMode) Debug.Log("<color=yellow>Lasso:</color> Attente d'une instruction...");
         }
     }
 }

@@ -14,9 +14,7 @@ namespace GameplayFramework
     /// <typeparam name="T"></typeparam>
     public abstract class State<T> : SerializedMonoBehaviour
     {
-#if UNITY_EDITOR
         [SerializeField, TextArea(3, 5), BoxGroup("State infos")] private string Description = "";
-#endif
 
         [BoxGroup("State infos")]
         public Dictionary<Condition<T>, State<T>> nextState = new Dictionary<Condition<T>, State<T>>();

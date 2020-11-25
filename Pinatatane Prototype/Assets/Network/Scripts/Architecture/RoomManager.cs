@@ -14,10 +14,8 @@ namespace GameplayFramework.Network
     public class RoomManager : MonoBehaviourPunCallbacks
     {
         [SerializeField, BoxGroup("Network Infos")] bool createRoomAutomaticaly;
-        [SerializeField, BoxGroup("Network Infos")] NetworkSettings m_NetworkSettings = default;
 
         [SerializeField, BoxGroup("Room Infos"), ReadOnly] string currentRoomName = "Not in a room.";
-        [SerializeField, BoxGroup("Room Infos")] bool debugMessage = false;
 
         private void Start()
         {
@@ -27,7 +25,7 @@ namespace GameplayFramework.Network
 
         IEnumerator CreateRoolAutomaticaly()
         {
-            yield return new WaitWhile(() => Launcher.Instance.IsConnected == true);
+            yield return new WaitWhile(() => NetworkManager.Instance.IsConnected == true);
             Invoke("CreateRoomTest", 2f);
             yield break;
         }
@@ -35,8 +33,8 @@ namespace GameplayFramework.Network
         [Button]
         public void CreateRoomTest()
         {
-            if (!Launcher.Instance.IsConnected)
-                throw new Exception("Impossible de créer la room car le Launcher n'est pas connecté.");
+            if (!NetworkManager.Instance.IsConnected)
+                throw new Exception("Impossible de créer la room car le NetworkManager n'est pas connecté.");
 
             CreateRoom("RoomTest");
         }
@@ -53,9 +51,9 @@ namespace GameplayFramework.Network
                 return;
 
             RoomOptions newRoomOptions = new RoomOptions();
-            newRoomOptions.MaxPlayers = m_NetworkSettings.MaxPlayerInRoom;
+            newRoomOptions.MaxPlayers = NetworkManager.Instance.NetworkSettings.MaxPlayerInRoom;
 
-            PhotonNetwork.CreateRoom(roomName, newRoomOptions);
+            PhotonNetwork.JoinOrCreateRoom(roomName, newRoomOptions, TypedLobby.Default);
         }
 
         public void JoinRoom(RoomInfo roomInfo)
@@ -71,7 +69,7 @@ namespace GameplayFramework.Network
 
         public override void OnJoinedRoom()
         {
-            if(debugMessage) Debug.Log("<color=blue>Network: </color> You join the room : " + PhotonNetwork.CurrentRoom.Name);
+            if(NetworkManager.Instance.DebugMessage) Debug.Log("<color=blue>Network: </color> You join the room : " + PhotonNetwork.CurrentRoom.Name);
             currentRoomName = PhotonNetwork.CurrentRoom.Name;
         }
 

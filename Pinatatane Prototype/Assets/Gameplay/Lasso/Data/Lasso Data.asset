@@ -23,4 +23,5 @@ MonoBehaviour:
     SerializationNodes: []
   constructionTime: 0.1
   constructionDistance: 10
-  numberOfLink: 10
+  timeWithNoInstructionAccorded: 2
+  grabBackForce: 2.5

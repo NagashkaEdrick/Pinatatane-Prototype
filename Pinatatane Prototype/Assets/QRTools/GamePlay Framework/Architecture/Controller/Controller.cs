@@ -19,10 +19,25 @@ namespace GameplayFramework
 
         [SerializeField, ReadOnly, BoxGroup("Pawn(s) Register", order: 0)] 
         protected List<IPawn> m_pawns = new List<IPawn>();
-        public List<IPawn> Pawns { get => m_pawns; set => m_pawns = value; }
 
         [BoxGroup("Options", order: 10)]
         public bool IsControllable = true; //True -> Control(); False -> !Control();
+
+        [FoldoutGroup("Debug")]
+        [SerializeField]
+        float
+            m_Horizontal,
+            m_Vertical,
+            m_MoveAmount,
+            m_LookX,
+            m_LookZ;
+
+        public List<IPawn> Pawns { get => m_pawns; set => m_pawns = value; }
+        public float Horizontal { get => m_Horizontal; set => m_Horizontal = value; }
+        public float Vertical { get => m_Vertical; set => m_Vertical = value; }
+        public float MoveAmount { get => m_MoveAmount; set => m_MoveAmount = value; }
+        public float LookX { get => m_LookX; set => m_LookX = value; }
+        public float LookZ { get => m_LookZ; set => m_LookZ = value; }
 
         public override void OnUpdate()
         {

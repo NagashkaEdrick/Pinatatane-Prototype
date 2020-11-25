@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using GameplayFramework;
+using GameplayFramework.Network;
 
 using Sirenix.OdinInspector;
 
@@ -27,6 +28,7 @@ namespace Pinatatane
         public GameObject Maillon { get => m_Maillon; }
 
         public bool isConstructed = false;
+        public bool hasGrabbed = false;
 
         public override void OnStart()
         {
@@ -37,8 +39,11 @@ namespace Pinatatane
 
         public override void OnUpdate()
         {
-            m_LassoStateMachine.currentState.OnCurrent(this);
-            //m_LassoStateMachine.CheckCurrentState(this);
+            if (NetworkManager.Instance.UseNetwork && PinataController.PhotonView.IsMine)
+            {
+                m_LassoStateMachine.currentState.OnCurrent(this);
+                m_LassoStateMachine.CheckCurrentState(this);
+            }
         }
 
         /// <summary>
@@ -50,6 +55,7 @@ namespace Pinatatane
             Lasso.LassoGraphics.Retract();
             Lasso.CurrenObjectGrabbed?.OnEndGrabbed();
             Lasso.CurrenObjectGrabbed = null;
+            hasGrabbed = false;
         }
 
         protected override void OnGameEnd()

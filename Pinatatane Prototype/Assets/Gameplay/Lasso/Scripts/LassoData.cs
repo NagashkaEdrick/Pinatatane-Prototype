@@ -14,7 +14,9 @@ namespace Pinatatane
             constructionTime,
             constructionDistance;
 
-        [BoxGroup("Construction Lasso (Avec Maillon)")]
-        public int numberOfLink = 10;
+        [BoxGroup("Gameplay Datas")]
+        public float timeWithNoInstructionAccorded = 2f;
+        [BoxGroup("Gameplay Datas"), Range(0,10)]
+        public float grabBackForce = 5;
     }
 }

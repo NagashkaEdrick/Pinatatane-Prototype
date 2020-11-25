@@ -33,7 +33,7 @@ namespace GameplayFramework
 
         private void Update()
         {
-            //m_StateMachineCameraController?.CheckCurrentState(this);
+            m_StateMachineCameraController?.CheckCurrentState(this);
             m_StateMachineCameraController?.currentState?.OnCurrent(this);
 
             m_CurrentCameraController?.CameraUpdate();

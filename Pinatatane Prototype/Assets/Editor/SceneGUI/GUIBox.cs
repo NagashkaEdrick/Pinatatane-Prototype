@@ -21,8 +21,8 @@ namespace Pinatatane
             GUILayout.BeginArea(r, style);
             EditorGUILayout.BeginVertical("box");
             {
-                Launcher l = FindObjectOfType<Launcher>();
-                l.offlineMode = EditorGUILayout.ToggleLeft("OffLine Mode", l.offlineMode);
+                NetworkManager nm = FindObjectOfType<NetworkManager>();
+                nm.UseNetwork = EditorGUILayout.ToggleLeft("Use Network", nm.UseNetwork);
             }
             EditorGUILayout.EndVertical();
             GUILayout.EndArea();

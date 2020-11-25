@@ -19,10 +19,11 @@ namespace GameplayFramework
         [FoldoutGroup("Player Inputs")]
         public bool GameplayBatch = true;
 
-        [FoldoutGroup("Player Inputs")]
+        [FoldoutGroup("Player Axis")]
         public QInputAxis
             moveX,
-            moveY;
+            moveY,
+            instructionJoystick;
 
         [FoldoutGroup("Player Inputs")]
         public QInputXBOXTouch
@@ -34,19 +35,14 @@ namespace GameplayFramework
             cameraRotX,
             cameraRotY;
 
-        public bool useNetworkCommands = false;
+        //public bool useNetworkCommands = false;
 
         public override void OnUpdate()
         {
-            if (useNetworkCommands && !PhotonNetwork.LocalPlayer.IsLocal)
+            if (GameplayBatch)
             {
-                if (GameplayBatch)
-                {
-                    TestCommands();
-                }
-            }
-            else
                 TestCommands();
+            }
         }
 
         void TestCommands()
