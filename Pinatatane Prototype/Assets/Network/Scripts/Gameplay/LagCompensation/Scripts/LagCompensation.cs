@@ -7,19 +7,16 @@ using Photon.Pun;
 
 namespace GameplayFramework.Network
 {
-    public class LagCompensation : MonoBehaviour, IPunObservable
+    public class LagCompensation : MonoBehaviourPunCallbacks, IPunObservable
     {
         public Transform m_SharedTransform;
         [SerializeField] PhotonView m_PhotonView;
 
-        Vector3 m_RemotePlayerPosition;
-        Quaternion m_RemotePlayerRotation;
+        [SerializeField] Vector3 m_RemoteSharedPosition;
+        Quaternion m_RemoteSharedRotation;
 
-        public bool calculate = false;
+        public bool GetControlInLocal = false;
         public Transform m_Target;
-
-        Vector3 m_RemoteTargetPosition;
-        Quaternion m_RemoteTargetRotation;
 
         public LagCompensation obj;
 
@@ -30,94 +27,78 @@ namespace GameplayFramework.Network
         private void Start()
         {
             if(PhotonView.IsMine)
-                calculate = true;
+                GetControlInLocal = true;
 
-            m_RemotePlayerPosition = m_SharedTransform.position;
-            m_RemotePlayerRotation = m_SharedTransform.rotation;
+            m_RemoteSharedPosition = m_SharedTransform.position;
+            m_RemoteSharedRotation = m_SharedTransform.rotation;
 
-            obj = FindObjectOfType<GrabableObject>().GetComponent<LagCompensation>();
         }
 
         public void Update()
         {
             if (objTest && Input.GetKeyDown(KeyCode.P))
             {
-                obj.PhotonView.GetComponent<LagCompensation>().calculate = true;
-                PhotonView.RPC("Test", RpcTarget.OthersBuffered);
+                obj = FindObjectOfType<GrabableObject>().GetComponent<LagCompensation>();
+
+                obj.GetControlInLocal = true;
+
+                PhotonNetwork.GetPhotonView(obj.PhotonView.ViewID).TransferOwnership(PhotonNetwork.LocalPlayer);
+
+                PhotonView.RPC("Test", RpcTarget.All, obj.PhotonView.ViewID, 
+                     new Vector3(m_SharedTransform.position.x, 1f, m_SharedTransform.position.z));
+
+                NetworkDebugger.Instance.Debug(m_RemoteSharedPosition, DebugType.LOCAL);
             }
 
-            NetworkDebugger.Instance.Debug(obj.GetComponent<LagCompensation>().calculate, DebugType.LOCAL);
+            ActualisePositionAndRotation();
 
-            if (!calculate)
-            {                
-                ActualisePositionAndRotation();
-
-                if(m_Target != null)
-                {
-                    ActualiseTargetPositionAndRotation();
-                }
-            }
         }
 
         void ActualisePositionAndRotation()
         {
-            if (PhotonView.IsMine)
+            if (GetControlInLocal)
                 return;
 
-            var lagDistance = m_RemotePlayerPosition - m_SharedTransform.position;
+            var lagDistance = m_RemoteSharedPosition - m_SharedTransform.position;
 
             if (lagDistance.magnitude > 5f)
             {
-                transform.position = m_RemotePlayerPosition;
+                transform.position = m_RemoteSharedPosition;
                 lagDistance = Vector3.zero;
             }
 
             if (lagDistance.magnitude > .11f)
             {
-                m_SharedTransform.position = Vector3.Lerp(m_SharedTransform.position, m_RemotePlayerPosition, .2f);
+                m_SharedTransform.position = Vector3.Lerp(m_SharedTransform.position, m_RemoteSharedPosition, .2f);
             }
 
-            m_SharedTransform.rotation = Quaternion.Lerp(m_SharedTransform.rotation, m_RemotePlayerRotation, .2f);
-        }
-
-        void ActualiseTargetPositionAndRotation()
-        {
-            var lagDistance = m_RemoteTargetPosition - m_Target.position;
-
-            if (lagDistance.magnitude > 5f)
-            {
-                m_Target.position = m_RemoteTargetPosition;
-                lagDistance = Vector3.zero;
-            }
-
-            if (lagDistance.magnitude > .11f)
-            {
-                m_Target.position = m_RemoteTargetPosition;
-            }
-
-            m_Target.rotation = m_RemoteTargetRotation;
+            m_SharedTransform.rotation = Quaternion.Lerp(m_SharedTransform.rotation, m_RemoteSharedRotation, .2f);
         }
 
         [PunRPC]
-        void Test()
+        void Test(int id, Vector3 sharedPos)
         {
-            m_Target = obj.transform;
-            m_RemoteTargetPosition = m_Target.position;
-            m_RemoteTargetRotation = m_Target.rotation;
-            obj.PhotonView.GetComponent<LagCompensation>().calculate = false;
+            PhotonNetwork.GetPhotonView(id).GetComponent<LagCompensation>().GetControlInLocal = false;
+            PhotonNetwork.GetPhotonView(id).GetComponent<LagCompensation>().m_RemoteSharedPosition = sharedPos;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.IsWriting)
             {
-                stream.SendNext(m_SharedTransform.position);
-                stream.SendNext(m_SharedTransform.rotation);
+                if (!GetControlInLocal) // A TETSTER
+                {
+                    stream.SendNext(m_SharedTransform.position);
+                    stream.SendNext(m_SharedTransform.rotation);
+                }
+
+                //if (obj != null)
+                    //NetworkDebugger.Instance.Debug(obj.GetControlInLocal, DebugType.LOCAL);
             }
             else
             {
-                m_RemotePlayerPosition = (Vector3)stream.ReceiveNext();
-                m_RemotePlayerRotation = (Quaternion)stream.ReceiveNext();
+                m_RemoteSharedPosition = (Vector3)stream.ReceiveNext();
+                m_RemoteSharedRotation = (Quaternion)stream.ReceiveNext();
             }
         }
     }
