@@ -20,5 +20,7 @@ namespace Pinatatane
         public float grabBackForce = 5;
         [BoxGroup("Gameplay Datas"), Range(0, 10)]
         public float grabForwardForce = 5;
+        [BoxGroup("Gameplay Datas"), Range(0, 10)]
+        public float grabRotatingForce = 5;
     }
 }

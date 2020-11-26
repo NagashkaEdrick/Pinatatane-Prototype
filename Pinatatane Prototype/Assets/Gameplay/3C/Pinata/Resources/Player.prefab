@@ -234,7 +234,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls: []
-  rotationForce: 4
+  rotationForce: 1000
 --- !u!114 &2885548933769746059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls: []
-  rotationForce: 4
+  rotationForce: 1000
 --- !u!1 &8254148441204944160
 GameObject:
   m_ObjectHideFlags: 0
