@@ -18,12 +18,9 @@ namespace Pinatatane
 
         public LassoController LassoController;
 
-        [SerializeField] PhotonView m_PhotonView;
+        public Rigidbody Rigidbody;
 
-        [BoxGroup("A bouger ailleurs")]
-        public Camera MainCamera;
-        [BoxGroup("A bouger ailleurs")]
-        public Image CrossHair;
+        [SerializeField] PhotonView m_PhotonView;
 
         public PhotonView PhotonView { get => m_PhotonView; set => m_PhotonView = value; }
 

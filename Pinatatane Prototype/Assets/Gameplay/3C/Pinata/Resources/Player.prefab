@@ -116,7 +116,9 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 4935790832737060684}
+    - {fileID: 8553982007327466991}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -136,7 +138,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
       Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -153,6 +167,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls: []
+  coefForce: 50
 --- !u!114 &8442228065174219540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +183,9 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 5002299654182258822}
+    - {fileID: 8553982007327466991}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -188,7 +205,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
       Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -205,6 +234,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls: []
+  rotationForce: 4
 --- !u!114 &2885548933769746059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +250,9 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 4285536768808805105}
+    - {fileID: 8553982007327466991}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -240,7 +272,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
       Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -257,6 +301,7 @@ MonoBehaviour:
   onExit:
     m_PersistentCalls:
       m_Calls: []
+  rotationForce: 4
 --- !u!1 &8254148441204944160
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +316,8 @@ GameObject:
   - component: {fileID: 103463676841001871}
   - component: {fileID: 8751456226404349711}
   - component: {fileID: 6571893661086747431}
+  - component: {fileID: 4285536768808805105}
+  - component: {fileID: 5002299654182258822}
   m_Layer: 0
   m_Name: Conditions Instruction
   m_TagString: Untagged
@@ -390,6 +437,54 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2aaf50a65fef4d40b15b13cefe7e44f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Description: 
+--- !u!114 &4285536768808805105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8254148441204944160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a8d53740788ad4fbab2531c0da06f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Description: 'Condition de sortie de la rotation sur la droite
+
+    on arrete la
+    rotation vers la droite de la cible lorsque l''on donne un input contraire ou
+    que l''on a fait un tour complet'
+--- !u!114 &5002299654182258822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8254148441204944160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a228972302c42f4b8242fc2ab600fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -1204,7 +1299,6 @@ MonoBehaviour:
   m_LassoStateMachine: {fileID: 8553982007327466906}
   m_StartPosition: {fileID: 8553982007327466196}
   m_PinataController: {fileID: 8553982007327467102}
-  m_Maillon: {fileID: 0}
   debugMode: 1
   isConstructed: 0
   hasGrabbed: 0
@@ -3455,9 +3549,8 @@ MonoBehaviour:
   m_Controller: {fileID: 8553982007327467102}
   PinataData: {fileID: 11400000, guid: d12d438ab4304d845b798b3fdb125d16, type: 2}
   LassoController: {fileID: 8553982007327466976}
+  Rigidbody: {fileID: 877472493901103490}
   m_PhotonView: {fileID: 8553982007327467278}
-  MainCamera: {fileID: 0}
-  CrossHair: {fileID: 0}
 --- !u!1 &8553982007327465865
 GameObject:
   m_ObjectHideFlags: 0

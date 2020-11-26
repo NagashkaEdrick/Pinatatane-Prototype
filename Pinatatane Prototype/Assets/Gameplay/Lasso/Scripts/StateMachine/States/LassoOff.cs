@@ -18,5 +18,10 @@ namespace Pinatatane
             element.Retract();
             element.Lasso.LassoGraphics.LassoDebug(Color.white);
         }
+
+        public override void OnCurrent(LassoController element)
+        {
+            base.OnCurrent(element);
+        }
     }
 }
