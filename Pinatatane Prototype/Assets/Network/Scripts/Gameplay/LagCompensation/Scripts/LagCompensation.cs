@@ -15,7 +15,7 @@ namespace GameplayFramework.Network
         Vector3 m_RemotePlayerPosition;
         Quaternion m_RemotePlayerRotation;
 
-        public bool isOverride = false;
+        public bool calculate = false;
         public Transform m_Target;
 
         Vector3 m_RemoteTargetPosition;
@@ -23,11 +23,15 @@ namespace GameplayFramework.Network
 
         public LagCompensation obj;
 
+        public bool objTest = true;
+
         public PhotonView PhotonView { get => m_PhotonView; set => m_PhotonView = value; }
 
         private void Start()
         {
-            isOverride = false;
+            if(PhotonView.IsMine)
+                calculate = true;
+
             m_RemotePlayerPosition = m_SharedTransform.position;
             m_RemotePlayerRotation = m_SharedTransform.rotation;
 
@@ -36,24 +40,15 @@ namespace GameplayFramework.Network
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (objTest && Input.GetKeyDown(KeyCode.P))
             {
-                m_Target = obj.transform;
-                m_RemoteTargetPosition = m_Target.position;
-                m_RemoteTargetRotation = m_Target.rotation;
-
-                PhotonView.RPC("Test", RpcTarget.All);
+                obj.PhotonView.GetComponent<LagCompensation>().calculate = true;
+                PhotonView.RPC("Test", RpcTarget.OthersBuffered);
             }
 
-            if (Input.GetKey(KeyCode.I))
-            {
-                if (m_Target != null)
-                {
-                    m_Target.transform.position += Vector3.forward * 2f * Time.deltaTime;
-                }
-            }
+            NetworkDebugger.Instance.Debug(obj.GetComponent<LagCompensation>().calculate, DebugType.LOCAL);
 
-            if (!isOverride)
+            if (!calculate)
             {                
                 ActualisePositionAndRotation();
 
@@ -66,7 +61,7 @@ namespace GameplayFramework.Network
 
         void ActualisePositionAndRotation()
         {
-            if (PhotonView.IsMine || !NetworkManager.Instance.UseNetwork)
+            if (PhotonView.IsMine)
                 return;
 
             var lagDistance = m_RemotePlayerPosition - m_SharedTransform.position;
@@ -88,56 +83,41 @@ namespace GameplayFramework.Network
         void ActualiseTargetPositionAndRotation()
         {
             var lagDistance = m_RemoteTargetPosition - m_Target.position;
-             
-            Debug.Log("target = " + m_Target.transform.position);
-            Debug.Log("remoteTraget = " + m_RemoteTargetPosition);
+
+            if (lagDistance.magnitude > 5f)
+            {
+                m_Target.position = m_RemoteTargetPosition;
+                lagDistance = Vector3.zero;
+            }
 
             if (lagDistance.magnitude > .11f)
             {
                 m_Target.position = m_RemoteTargetPosition;
-                m_Target.rotation = m_RemoteTargetRotation;
             }
+
+            m_Target.rotation = m_RemoteTargetRotation;
         }
 
         [PunRPC]
         void Test()
-        {            
-            obj.PhotonView.GetComponent<LagCompensation>().isOverride = true;
+        {
+            m_Target = obj.transform;
+            m_RemoteTargetPosition = m_Target.position;
+            m_RemoteTargetRotation = m_Target.rotation;
+            obj.PhotonView.GetComponent<LagCompensation>().calculate = false;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (!isOverride)
+            if (stream.IsWriting)
             {
-                if (stream.IsWriting)
-                {
-                    stream.SendNext(m_SharedTransform.position);
-                    stream.SendNext(m_SharedTransform.rotation);
-                }
-                else
-                {
-                    m_RemotePlayerPosition = (Vector3)stream.ReceiveNext();
-                    m_RemotePlayerRotation = (Quaternion)stream.ReceiveNext();
-                }
+                stream.SendNext(m_SharedTransform.position);
+                stream.SendNext(m_SharedTransform.rotation);
             }
             else
             {
-                if (stream.IsWriting)
-                {
-                    //stream.SendNext(m_SharedTransform.position);
-                    //stream.SendNext(m_SharedTransform.rotation);
-
-                    stream.SendNext(m_Target.position);
-                    stream.SendNext(m_Target.rotation);
-                }
-                else
-                {
-                    //    m_RemotePlayerPosition = (Vector3)stream.ReceiveNext();
-                    //    m_RemotePlayerRotation = (Quaternion)stream.ReceiveNext();
-
-                    m_RemoteTargetPosition = (Vector3)stream.ReceiveNext();
-                    m_RemoteTargetRotation = (Quaternion)stream.ReceiveNext();
-                }
+                m_RemotePlayerPosition = (Vector3)stream.ReceiveNext();
+                m_RemotePlayerRotation = (Quaternion)stream.ReceiveNext();
             }
         }
     }
