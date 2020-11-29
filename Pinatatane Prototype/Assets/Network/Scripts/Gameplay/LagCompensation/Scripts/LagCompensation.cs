@@ -44,16 +44,17 @@ namespace GameplayFramework.Network
 
         public void Update()
         {
-            if (objTest && Input.GetKeyDown(KeyCode.O))
-            {
-                obj = FindObjectOfType<GrabableObject>().GetComponent<LagCompensation>();
-                
-                PhotonNetwork.GetPhotonView(obj.PhotonView.ViewID).TransferOwnership(PhotonNetwork.LocalPlayer);
-                PhotonView.RPC("RPC_SetControlInLocal", RpcTarget.AllBuffered, obj.PhotonView.ViewID, false);
-            }
-
             if(!PhotonView.IsMine)
                 ActualisePositionAndRotation();
+        }
+
+        public void OverrideLagCompensation(LagCompensation target)
+        {
+            if (GetControlInLocal)
+                return;
+
+            PhotonNetwork.GetPhotonView(target.PhotonView.ViewID).TransferOwnership(PhotonNetwork.LocalPlayer);
+            PhotonView.RPC("RPC_SetControlInLocal", RpcTarget.AllBuffered, target.PhotonView.ViewID, false);
         }
 
         public void OnOwnershipRequest(PhotonView targetView, Photon.Realtime.Player requestingPlayer)
@@ -76,9 +77,6 @@ namespace GameplayFramework.Network
 
         void ActualisePositionAndRotation()
         {
-            if(objTest)
-                NetworkDebugger.Instance.Debug(GetControlInLocal, DebugType.LOCAL);                       
-
             var lagDistance = m_RemoteSharedPosition - m_SharedTransform.position;
 
             if (lagDistance.magnitude > 5f)

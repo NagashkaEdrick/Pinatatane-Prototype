@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Transform: {fileID: 2742610204384038668}
   m_Rigidbody: {fileID: 2742610204384038665}
+  lagCompensation: {fileID: 2742610204384038667}
 --- !u!65 &2742610204384038671
 BoxCollider:
   m_ObjectHideFlags: 0
