@@ -1310,7 +1310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8553982007327466192}
   - component: {fileID: 8553982007327466977}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: State Machine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1670,7 +1670,7 @@ GameObject:
   - component: {fileID: 8553982007327467095}
   - component: {fileID: 8553982007327467090}
   - component: {fileID: 8553982007327467306}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Conditions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2849,7 +2849,7 @@ GameObject:
   - component: {fileID: 8553982007327466899}
   - component: {fileID: 8553982007327467173}
   - component: {fileID: 8553982007327467307}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3501,7 +3501,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8553982007327466287}
   - component: {fileID: 8553982007327467101}
-  m_Layer: 0
+  - component: {fileID: 910965537}
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3549,6 +3550,20 @@ MonoBehaviour:
   LassoController: {fileID: 8553982007327466976}
   Rigidbody: {fileID: 877472493901103490}
   m_PhotonView: {fileID: 8553982007327467278}
+--- !u!136 &910965537
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8553982007327465864}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &8553982007327465865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3560,8 +3575,7 @@ GameObject:
   - component: {fileID: 8553982007327466280}
   - component: {fileID: 8553982007327466376}
   - component: {fileID: 8553982007327466352}
-  - component: {fileID: 8553982007327466394}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3631,20 +3645,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8553982007327466394
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8553982007327465865}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8553982007327465866
 GameObject:
   m_ObjectHideFlags: 0
@@ -3656,13 +3656,13 @@ GameObject:
   - component: {fileID: 8553982007327466281}
   - component: {fileID: 877472493901103490}
   - component: {fileID: 246381323956349353}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8553982007327466281
 Transform:
   m_ObjectHideFlags: 0
@@ -3724,7 +3724,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8553982007327466282}
   - component: {fileID: 8553982007327467102}
-  m_Layer: 0
+  - component: {fileID: 3880379517664656737}
+  m_Layer: 10
   m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3793,6 +3794,19 @@ MonoBehaviour:
   m_PhotonView: {fileID: 8553982007327467278}
   controllerStateMachine: {fileID: 8553982007327466977}
   m_CameraTransform: {fileID: 0}
+--- !u!114 &3880379517664656737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8553982007327465867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac695f5b31ab047866e985fae75d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pinata: {fileID: 8553982007327467101}
 --- !u!1 &8553982007327465871
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,7 +3816,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8553982007327466286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3836,7 +3850,7 @@ GameObject:
   - component: {fileID: 8553982007327466283}
   - component: {fileID: 8553982007327466377}
   - component: {fileID: 8553982007327466353}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3916,7 +3930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8553982007327466285}
   - component: {fileID: 8553982007327467268}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Transitions
   m_TagString: Untagged
   m_Icon: {fileID: 0}

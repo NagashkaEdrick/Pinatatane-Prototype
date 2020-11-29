@@ -25,5 +25,11 @@ namespace Pinatatane
 
         [FoldoutGroup("Pinata Movement")]
         public float grabMovementSpeed = 1f;
+
+        [FoldoutGroup("Dash")]
+        public float dashForce = 100f;
+
+        [FoldoutGroup("Dash")]
+        public float dashCoolDown = 1f;
     }
 }

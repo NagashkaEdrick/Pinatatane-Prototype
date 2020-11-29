@@ -28,7 +28,8 @@ namespace GameplayFramework
         [FoldoutGroup("Player Inputs")]
         public QInputXBOXTouch
             aimButton,
-            grabButton;
+            grabButton,
+            dashButton;
 
         [FoldoutGroup("Camera Inputs")]
         public QInputAxis
