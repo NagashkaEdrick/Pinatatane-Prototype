@@ -63,6 +63,7 @@ MonoBehaviour:
   - DeathRPC
   - SetHPRPC
   - Test
+  - RPC_SetControlInLocal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

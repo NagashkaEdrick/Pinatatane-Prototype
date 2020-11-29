@@ -46,7 +46,7 @@ namespace GameplayFramework.Network
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.B))
-                PhotonNetwork.Instantiate("Cible", Vector3.up, Quaternion.identity);
+                PhotonNetwork.Instantiate("Cible", new Vector3(5, 1, 5), Quaternion.identity);
         }
 
         public override void OnConnectedToMaster()

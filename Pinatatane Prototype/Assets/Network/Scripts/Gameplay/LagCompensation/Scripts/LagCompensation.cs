@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Photon.Pun;
+using Photon.Realtime;
 
 namespace GameplayFramework.Network
 {
-    public class LagCompensation : MonoBehaviourPunCallbacks, IPunObservable
+    public class LagCompensation : MonoBehaviourPunCallbacks, IPunObservable, IPunOwnershipCallbacks
     {
         public Transform m_SharedTransform;
         [SerializeField] PhotonView m_PhotonView;
@@ -16,7 +17,6 @@ namespace GameplayFramework.Network
         Quaternion m_RemoteSharedRotation;
 
         public bool GetControlInLocal = false;
-        public Transform m_Target;
 
         public LagCompensation obj;
 
@@ -29,41 +29,61 @@ namespace GameplayFramework.Network
             if(PhotonView.IsMine)
                 GetControlInLocal = true;
 
+            PhotonNetwork.AddCallbackTarget(this);
+
             m_RemoteSharedPosition = m_SharedTransform.position;
             m_RemoteSharedRotation = m_SharedTransform.rotation;
 
         }
 
+        public override void OnDisable()
+        {
+            base.OnDisable();
+            PhotonNetwork.RemoveCallbackTarget(this);
+        }
+
         public void Update()
         {
-            if (objTest && Input.GetKeyDown(KeyCode.P))
+            if (objTest && Input.GetKeyDown(KeyCode.O))
             {
                 obj = FindObjectOfType<GrabableObject>().GetComponent<LagCompensation>();
-
-                obj.GetControlInLocal = true;
-
+                
                 PhotonNetwork.GetPhotonView(obj.PhotonView.ViewID).TransferOwnership(PhotonNetwork.LocalPlayer);
-
-                PhotonView.RPC("Test", RpcTarget.All, obj.PhotonView.ViewID, 
-                     new Vector3(m_SharedTransform.position.x, 1f, m_SharedTransform.position.z));
-
-                NetworkDebugger.Instance.Debug(m_RemoteSharedPosition, DebugType.LOCAL);
+                PhotonView.RPC("RPC_SetControlInLocal", RpcTarget.AllBuffered, obj.PhotonView.ViewID, false);
             }
 
-            ActualisePositionAndRotation();
+            if(!PhotonView.IsMine)
+                ActualisePositionAndRotation();
+        }
 
+        public void OnOwnershipRequest(PhotonView targetView, Photon.Realtime.Player requestingPlayer)
+        {
+            if (targetView != PhotonView)
+                return;
+        }
+
+        public void OnOwnershipTransfered(PhotonView targetView, Photon.Realtime.Player previousOwner)
+        {
+            if (targetView != PhotonView)
+            {
+                GetControlInLocal = false;
+            }
+            else
+            {
+                GetControlInLocal = true;
+            }
         }
 
         void ActualisePositionAndRotation()
         {
-            if (GetControlInLocal)
-                return;
+            if(objTest)
+                NetworkDebugger.Instance.Debug(GetControlInLocal, DebugType.LOCAL);                       
 
             var lagDistance = m_RemoteSharedPosition - m_SharedTransform.position;
 
             if (lagDistance.magnitude > 5f)
             {
-                transform.position = m_RemoteSharedPosition;
+                m_SharedTransform.position = m_RemoteSharedPosition;
                 lagDistance = Vector3.zero;
             }
 
@@ -76,24 +96,17 @@ namespace GameplayFramework.Network
         }
 
         [PunRPC]
-        void Test(int id, Vector3 sharedPos)
+        void RPC_SetControlInLocal(int id, bool state)
         {
-            PhotonNetwork.GetPhotonView(id).GetComponent<LagCompensation>().GetControlInLocal = false;
-            PhotonNetwork.GetPhotonView(id).GetComponent<LagCompensation>().m_RemoteSharedPosition = sharedPos;
+            PhotonNetwork.GetPhotonView(id).GetComponent<LagCompensation>().GetControlInLocal = state;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.IsWriting)
             {
-                if (!GetControlInLocal) // A TETSTER
-                {
-                    stream.SendNext(m_SharedTransform.position);
-                    stream.SendNext(m_SharedTransform.rotation);
-                }
-
-                //if (obj != null)
-                    //NetworkDebugger.Instance.Debug(obj.GetControlInLocal, DebugType.LOCAL);
+                stream.SendNext(m_SharedTransform.position);
+                stream.SendNext(m_SharedTransform.rotation);
             }
             else
             {
