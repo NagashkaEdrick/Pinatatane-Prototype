@@ -34,7 +34,7 @@ namespace GameplayFramework.Network
         public void CreateRoomTest()
         {
             if (!NetworkManager.Instance.IsConnected)
-                throw new Exception("Impossible de créer la room car le NetworkManager n'est pas connecté.");
+                Debug.LogError("Impossible de créer la room car le NetworkManager n'est pas connecté.");
 
             CreateRoom("RoomTest");
         }

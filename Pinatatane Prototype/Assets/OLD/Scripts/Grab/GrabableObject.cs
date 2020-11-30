@@ -1,8 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using Photon.Pun;
+
 using Pinatatane;
+
 using UnityEngine;
+
+using GameplayFramework.Network;
 
 public class GrabableObject : MonoBehaviour, IGrabbable
 {
@@ -12,9 +17,11 @@ public class GrabableObject : MonoBehaviour, IGrabbable
     public Transform Transform { get => m_Transform; set => m_Transform = value; }
     public Rigidbody Rigidbody { get => m_Rigidbody; set => m_Rigidbody = value; }
 
+    [SerializeField] LagCompensation lagCompensation;
+
     public void OnStartGrabbed()
     {
-        Debug.Log("Start grab");
+        lagCompensation.OverrideLagCompensation(lagCompensation);
     }
 
     public void OnCurrentGrabbed()

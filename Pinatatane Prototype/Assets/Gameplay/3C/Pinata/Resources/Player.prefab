@@ -3490,7 +3490,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SharedTransform: {fileID: 8553982007327466281}
   m_PhotonView: {fileID: 8553982007327467278}
-  m_Controller: {fileID: 8553982007327467102}
+  m_RemoteSharedPosition: {x: 0, y: 0, z: 0}
+  GetControlInLocal: 0
+  obj: {fileID: 0}
+  objTest: 0
 --- !u!1 &8553982007327465864
 GameObject:
   m_ObjectHideFlags: 0
