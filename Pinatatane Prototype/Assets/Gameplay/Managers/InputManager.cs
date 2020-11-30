@@ -53,6 +53,7 @@ namespace GameplayFramework
 
             aimButton.TestInput();
             grabButton.TestInput();
+            dashButton.TestInput();
 
             cameraRotX.TestInput();
             cameraRotY.TestInput();

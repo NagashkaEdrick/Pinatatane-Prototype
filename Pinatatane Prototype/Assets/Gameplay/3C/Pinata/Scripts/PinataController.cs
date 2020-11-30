@@ -10,6 +10,7 @@ using GameplayFramework;
 using GameplayFramework.Network;
 
 using Photon.Pun;
+using Sirenix.OdinInspector;
 
 namespace Pinatatane
 {

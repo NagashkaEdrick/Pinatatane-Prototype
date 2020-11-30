@@ -10,7 +10,9 @@ namespace Pinatatane
     [CreateAssetMenu(menuName = "Pinatatane/Gameplay/3C/Pinata", fileName = "PinataData")]
     public class PinataData : SerializedScriptableObject
     {
-        
+        [FoldoutGroup("Pinata")]
+        public float startHealth = 5f;
+
         [FoldoutGroup("Pinata Movement")]
         public float movementSpeed = 5f;
 

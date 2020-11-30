@@ -36,7 +36,6 @@ namespace QRTools.Inputs
                     TestButton(KeyCode.JoystickButton4);
                     break;
                 case XboxButtons.RIGHT_BUMPER:
-                    Debug.Log("bjrrrrrrrrrr");
                     TestButton(KeyCode.JoystickButton5);
                     break;
                 case XboxButtons.LEFT_BUMPER:

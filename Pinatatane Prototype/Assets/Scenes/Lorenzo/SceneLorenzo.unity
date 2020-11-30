@@ -1105,9 +1105,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f31538c2e73266449086ee8ef208d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pinata: {fileID: 1873691721}
-  damage: 10
-  gettingAwayTime: 1
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  m_OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnExit:
+    m_PersistentCalls:
+      m_Calls: []
+  trapData: {fileID: 11400000, guid: 02544707c44e7ba46a19f9f54aabd1ea, type: 2}
 --- !u!136 &544151215
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1952,17 +1965,6 @@ Transform:
   m_Father: {fileID: 494267179}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1873691721 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8553982007327467102, guid: 66725be79c259384a8133db6a683d45a, type: 3}
-  m_PrefabInstance: {fileID: 8493379684218914861}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f99b6e2f5f55304fa5a22e7e28bcb1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1923877697 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5318207556645609855, guid: b5e0a4221b2ae8f44969b9dfb1342587, type: 3}
@@ -2332,6 +2334,10 @@ PrefabInstance:
     - target: {fileID: 8553982007327465866, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8553982007327465866, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8553982007327466281, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_LocalPosition.x
