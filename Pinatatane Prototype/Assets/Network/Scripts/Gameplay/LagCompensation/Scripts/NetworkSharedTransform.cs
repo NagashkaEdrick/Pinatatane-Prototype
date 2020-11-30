@@ -8,7 +8,7 @@ using Photon.Realtime;
 
 namespace GameplayFramework.Network
 {
-    public class LagCompensation : MonoBehaviourPunCallbacks, IPunObservable, IPunOwnershipCallbacks
+    public class NetworkSharedTransform : MonoBehaviourPunCallbacks, IPunObservable, IPunOwnershipCallbacks
     {
         public Transform m_SharedTransform;
         [SerializeField] PhotonView m_PhotonView;
@@ -17,10 +17,6 @@ namespace GameplayFramework.Network
         Quaternion m_RemoteSharedRotation;
 
         public bool GetControlInLocal = false;
-
-        public LagCompensation obj;
-
-        public bool objTest = true;
 
         public PhotonView PhotonView { get => m_PhotonView; set => m_PhotonView = value; }
 
@@ -33,7 +29,6 @@ namespace GameplayFramework.Network
 
             m_RemoteSharedPosition = m_SharedTransform.position;
             m_RemoteSharedRotation = m_SharedTransform.rotation;
-
         }
 
         public override void OnDisable()
@@ -48,10 +43,12 @@ namespace GameplayFramework.Network
                 ActualisePositionAndRotation();
         }
 
-        public void OverrideLagCompensation(LagCompensation target)
+        public void OverrideLagCompensation(NetworkSharedTransform target)
         {
             if (GetControlInLocal)
                 return;
+
+            Debug.Log("override" + target.transform.parent.name);
 
             PhotonNetwork.GetPhotonView(target.PhotonView.ViewID).TransferOwnership(PhotonNetwork.LocalPlayer);
             PhotonView.RPC("RPC_SetControlInLocal", RpcTarget.AllBuffered, target.PhotonView.ViewID, false);
@@ -96,7 +93,7 @@ namespace GameplayFramework.Network
         [PunRPC]
         void RPC_SetControlInLocal(int id, bool state)
         {
-            PhotonNetwork.GetPhotonView(id).GetComponent<LagCompensation>().GetControlInLocal = state;
+            PhotonNetwork.GetPhotonView(id).GetComponent<NetworkSharedTransform>().GetControlInLocal = state;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

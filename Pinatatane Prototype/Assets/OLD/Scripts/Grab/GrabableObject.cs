@@ -17,7 +17,7 @@ public class GrabableObject : MonoBehaviour, IGrabbable
     public Transform Transform { get => m_Transform; set => m_Transform = value; }
     public Rigidbody Rigidbody { get => m_Rigidbody; set => m_Rigidbody = value; }
 
-    [SerializeField] LagCompensation lagCompensation;
+    [SerializeField] NetworkSharedTransform lagCompensation;
 
     public void OnStartGrabbed()
     {

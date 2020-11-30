@@ -1317,6 +1317,7 @@ MonoBehaviour:
   instructionJoystick: {fileID: 0}
   aimButton: {fileID: 11400000, guid: d8915b9a0c4bcd8449b5f4397cba3600, type: 2}
   grabButton: {fileID: 11400000, guid: 13bf0deb1e1aa284c816b320bc8ff911, type: 2}
+  dashButton: {fileID: 11400000, guid: cb40549ee31c7a54cbb984fa5d186992, type: 2}
   cameraRotX: {fileID: 11400000, guid: 1e61f9f3efeca224e842de6bc160ef52, type: 2}
   cameraRotY: {fileID: 11400000, guid: cb6fa2feadf69334f867ee61b8ddeffc, type: 2}
 --- !u!1 &1683900325
@@ -1736,6 +1737,10 @@ PrefabInstance:
       propertyPath: isOverride
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4824910749515055049, guid: 66725be79c259384a8133db6a683d45a, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4824910749515055049, guid: 66725be79c259384a8133db6a683d45a, type: 3}
     - target: {fileID: 4884282957519791180, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: serializationData.Prefab
       value: 

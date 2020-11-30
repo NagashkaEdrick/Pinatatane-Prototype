@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
+using Photon.Pun;
+
 using UnityEngine;
+
+using GameplayFramework.Network;
 
 namespace Pinatatane
 {
     public interface IGrabbable //Signifier que l'on peut se faire grab.
     {
-        Transform Transform { get; set; }
+        Transform Transform { get;}
 
-        Rigidbody Rigidbody { get; set; }
+        Rigidbody Rigidbody { get;}
 
         /// <summary>
         /// Callback when the object grabbed at first frame
@@ -33,6 +38,8 @@ namespace Pinatatane
 
     public interface INetWorkGrabbable : IGrabbable
     {
-        
+        NetworkSharedTransform NetworkSharedTransform { get;}
+
+        PhotonView PhotonView { get; }
     }
 }
