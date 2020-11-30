@@ -33,5 +33,4 @@ public class GrabableObject : MonoBehaviour, IGrabbable
     {
         Debug.Log("End grab");
     }
-
 }
