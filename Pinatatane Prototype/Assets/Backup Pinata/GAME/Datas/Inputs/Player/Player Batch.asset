@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43769aecd17233b468c1dddea1c27741, type: 3}
+  m_Name: Player Batch
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  description: 
+  _inputName: 
+  isActive: 1
+  inputs:
+  - {fileID: 11400000, guid: 776c951287eb6a445946221eafee6ba0, type: 2}
+  - {fileID: 11400000, guid: 2e57aeac053dcf6438c6f5986cb864f6, type: 2}
+  - {fileID: 11400000, guid: da591934dfd4d3545b2575db5e6141d9, type: 2}
+  - {fileID: 11400000, guid: b3285533381b5bc419830028696bf85f, type: 2}
+  - {fileID: 11400000, guid: fe0de429eac2a9f4f8bd44828d97848e, type: 2}
+  - {fileID: 11400000, guid: 52dfc2fe5b67fea44b7bc2f155ed57d8, type: 2}
+  - {fileID: 11400000, guid: e08c25b2745d6b946abc3003d212ebb5, type: 2}
+  - {fileID: 11400000, guid: 8136249ff7442ed45a6854a84c6b3ee7, type: 2}
+  - {fileID: 11400000, guid: 1b6c89e9d97ac1f419bff9a7f1bfe8e3, type: 2}

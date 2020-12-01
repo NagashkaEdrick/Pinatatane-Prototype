@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using Sirenix.Utilities;
 using System.Collections;
@@ -10,27 +11,43 @@ namespace Pinatatane
 {
     public class PlayerListingElement : UIElement
     {
-        [SerializeField] PhotonView photonView;
         public TextMeshProUGUI playerNameText;
-        [SerializeField] TextMeshProUGUI scoreText;
+        public TextMeshProUGUI scoreText;
 
-        Player player;
+        public string playerIDref;
 
-        public void Build(string _playerName)
+        public void Build(string _playerID)
         {
-            playerNameText.text = _playerName;
-            RefreshScore(0);
+            playerIDref = _playerID;
+
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            {
+                if(PhotonNetwork.PlayerList[i].UserId == playerIDref)
+                {
+                    playerNameText.text = PhotonNetwork.PlayerList[i].NickName;
+                    scoreText.text = (PhotonNetwork.PlayerList[i].GetScore()).ToString();
+
+                    if (PhotonNetwork.LocalPlayer.UserId == _playerID)
+                        playerNameText.color = Color.red;
+                }
+            } 
         }
 
-        public void RefreshScore(int _score)
+        public void RefreshScoreNetwork()
         {
-            photonView.RPC("RefreshScoreNetwork", RpcTarget.AllBuffered, _score);
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            {
+                if (PhotonNetwork.PlayerList[i].UserId == playerIDref)
+                {
+                    playerNameText.text = PhotonNetwork.PlayerList[i].NickName;
+                    scoreText.text = (PhotonNetwork.PlayerList[i].GetScore()).ToString();
+                }
+            }
         }
 
-        [PunRPC]
-        public void RefreshScoreNetwork(int _score)
+        public void Remove()
         {
-            scoreText.text = _score.ToString();
+            Destroy(gameObject);
         }
     }
 }

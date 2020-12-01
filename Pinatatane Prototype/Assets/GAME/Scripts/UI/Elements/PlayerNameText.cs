@@ -18,14 +18,12 @@ namespace Pinatatane
         {
             base.Refresh();
 
-            billboard.camTransform = pinata.cameraController.transform;
+            billboard.camTransform = pinata.mainCamera.transform;
 
-            if (pinata.photonView.IsMine)
+            if (pinata.PhotonView.IsMine)
             {
                 Hide();
             }
-
-            pinata.SetPlayerName();
         }
     }
 }
