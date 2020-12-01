@@ -14,6 +14,9 @@ namespace Pinatatane
     {
         public override bool CheckCondition(LassoController element)
         {
+            if (!element.PinataController.PhotonView.IsMine)
+                return false;
+
             if (element.isConstructed)
                 return false;
 

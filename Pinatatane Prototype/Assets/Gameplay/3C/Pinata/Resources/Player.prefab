@@ -3431,7 +3431,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8553982007327466297}
   - component: {fileID: 8553982007327467278}
-  - component: {fileID: 4494541819577882331}
+  - component: {fileID: 5250764148836121696}
+  - component: {fileID: 4824910749515055049}
   m_Layer: 0
   m_Name: Network
   m_TagString: Untagged
@@ -3470,13 +3471,13 @@ MonoBehaviour:
   prefixField: -1
   observableSearch: 2
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   ObservedComponents:
-  - {fileID: 4494541819577882331}
+  - {fileID: 5250764148836121696}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &4494541819577882331
+--- !u!114 &5250764148836121696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3492,8 +3493,30 @@ MonoBehaviour:
   m_PhotonView: {fileID: 8553982007327467278}
   m_RemoteSharedPosition: {x: 0, y: 0, z: 0}
   GetControlInLocal: 0
-  obj: {fileID: 0}
-  objTest: 0
+--- !u!114 &4824910749515055049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8553982007327465858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b76513606edb72459587428f8d945ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  PhotonView: {fileID: 8553982007327467278}
+  PinataController: {fileID: 8553982007327467102}
+  NetworkSharedTransform: {fileID: 5250764148836121696}
 --- !u!1 &8553982007327465864
 GameObject:
   m_ObjectHideFlags: 0
@@ -3551,10 +3574,12 @@ MonoBehaviour:
   m_Controller: {fileID: 8553982007327467102}
   PinataData: {fileID: 11400000, guid: d12d438ab4304d845b798b3fdb125d16, type: 2}
   LassoController: {fileID: 8553982007327466976}
-  Rigidbody: {fileID: 877472493901103490}
   PinataController: {fileID: 8553982007327467102}
   m_PhotonView: {fileID: 8553982007327467278}
   m_Health: 0
+  m_Rigidbody: {fileID: 877472493901103490}
+  m_NetworkSharedTransform: {fileID: 5250764148836121696}
+  m_NetworkSharedComponents: {fileID: 4824910749515055049}
 --- !u!136 &3173635704185953848
 CapsuleCollider:
   m_ObjectHideFlags: 0
