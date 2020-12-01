@@ -72,12 +72,14 @@ namespace Pinatatane
 
         public void OnStartGrabbed()
         {
-            m_NetworkSharedTransform.OverrideLagCompensation(m_NetworkSharedTransform);
+            m_NetworkSharedTransform.OverrideNetworkSharedTransform(m_NetworkSharedTransform);
             m_NetworkSharedComponents.OnStartGrab();
         }
 
         public void OnEndGrabbed()
         {
+            m_NetworkSharedTransform.OverrideNetworkSharedTransformToDefaultPlayer();
+            m_NetworkSharedComponents.OnEndGrab();
         }
 
         public void OnCurrentGrabbed()

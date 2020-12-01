@@ -21,7 +21,7 @@ public class GrabableObject : MonoBehaviour, IGrabbable
 
     public void OnStartGrabbed()
     {
-        lagCompensation.OverrideLagCompensation(lagCompensation);
+        lagCompensation.OverrideNetworkSharedTransform(lagCompensation);
     }
 
     public void OnCurrentGrabbed()

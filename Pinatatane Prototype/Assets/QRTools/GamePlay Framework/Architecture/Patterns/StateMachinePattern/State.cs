@@ -42,6 +42,14 @@ namespace GameplayFramework
         }
 
         /// <summary>
+        /// Callback call in FixedUpdate of the state machine.
+        /// </summary>
+        public virtual void Onfixed(T element)
+        {
+
+        }
+
+        /// <summary>
         /// Callback when this state change.
         /// </summary>
         public virtual void OnExit(T element)

@@ -56,10 +56,12 @@ namespace Pinatatane
 
         protected override void OnGameEnd()
         {
+
         }
 
         protected override void OnGameStart()
         {
+
         }
 
 #if UNITY_EDITOR

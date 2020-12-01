@@ -13,6 +13,9 @@ namespace Pinatatane
     {
         public override bool CheckCondition(LassoController element)
         {
+            if (!element.PinataController.PhotonView.IsMine)
+                return false;
+
             return !InputManager.Instance.aimButton.IsTrigger || !InputManager.Instance.grabButton.IsTrigger;
         }
     }

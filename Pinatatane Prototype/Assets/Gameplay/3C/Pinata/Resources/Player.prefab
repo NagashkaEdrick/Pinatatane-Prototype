@@ -3516,6 +3516,7 @@ MonoBehaviour:
     SerializationNodes: []
   PhotonView: {fileID: 8553982007327467278}
   PinataController: {fileID: 8553982007327467102}
+  NetworkSharedTransform: {fileID: 5250764148836121696}
 --- !u!1 &8553982007327465864
 GameObject:
   m_ObjectHideFlags: 0

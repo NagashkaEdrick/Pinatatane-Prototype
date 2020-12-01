@@ -24,11 +24,16 @@ namespace GameplayFramework.Network
 
         [SerializeField, BoxGroup("Network Infos")] NetworkSettings m_NetworkSettings = default;
 
+        private Photon.Realtime.Player m_Player;
 
         public bool IsConnected { get => m_IsConnected; set => m_IsConnected = value; }
         public bool UseNetwork { get => m_UseNetwork; set => m_UseNetwork = value; }
         public bool DebugMessage { get => m_DebugMessage; set => m_DebugMessage = value; }
         public NetworkSettings NetworkSettings { get => m_NetworkSettings; set => m_NetworkSettings = value; }
+        /// <summary>
+        /// The Network Player define at the player instantiation.
+        /// </summary>
+        public Photon.Realtime.Player Player { get => m_Player; private set => m_Player = value; }
 
         private void Awake()
         {
@@ -55,6 +60,7 @@ namespace GameplayFramework.Network
             IsConnected = true;
 
             if (DebugMessage) Debug.Log("<color=blue>Network: </color> Connected to Master.");
+            m_Player = PhotonNetwork.LocalPlayer;
         }
 
         public override void OnDisconnected(DisconnectCause cause)

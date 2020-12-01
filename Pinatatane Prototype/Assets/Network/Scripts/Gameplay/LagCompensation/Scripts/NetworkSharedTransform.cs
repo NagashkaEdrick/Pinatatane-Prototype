@@ -43,15 +43,22 @@ namespace GameplayFramework.Network
                 ActualisePositionAndRotation();
         }
 
-        public void OverrideLagCompensation(NetworkSharedTransform target)
+        /// <summary>
+        /// Donne l'owner du control de la position à un autre joueur.
+        /// </summary>
+        public void OverrideNetworkSharedTransform(NetworkSharedTransform target)
         {
-            if (GetControlInLocal)
-                return;
-
-            Debug.Log("override" + target.transform.parent.name);
-
             PhotonNetwork.GetPhotonView(target.PhotonView.ViewID).TransferOwnership(PhotonNetwork.LocalPlayer);
             PhotonView.RPC("RPC_SetControlInLocal", RpcTarget.AllBuffered, target.PhotonView.ViewID, false);
+        }
+
+        /// <summary>
+        /// Récupère l'owner initial.
+        /// </summary>
+        public void OverrideNetworkSharedTransformToDefaultPlayer()
+        {
+            PhotonNetwork.GetPhotonView(PhotonView.ViewID).TransferOwnership(PhotonNetwork.LocalPlayer);
+            PhotonView.RPC("RPC_SetControlInLocal", RpcTarget.AllBuffered, PhotonView.ViewID, true);
         }
 
         public void OnOwnershipRequest(PhotonView targetView, Photon.Realtime.Player requestingPlayer)
@@ -60,6 +67,11 @@ namespace GameplayFramework.Network
                 return;
         }
 
+        /// <summary>
+        /// Callback quand il y a un changement d'owner.
+        /// </summary>
+        /// <param name="targetView"></param>
+        /// <param name="previousOwner"></param>
         public void OnOwnershipTransfered(PhotonView targetView, Photon.Realtime.Player previousOwner)
         {
             if (targetView != PhotonView)
@@ -72,6 +84,9 @@ namespace GameplayFramework.Network
             }
         }
 
+        /// <summary>
+        /// Actualise les positions et la rotation en lecture des autres objets.
+        /// </summary>
         void ActualisePositionAndRotation()
         {
             var lagDistance = m_RemoteSharedPosition - m_SharedTransform.position;

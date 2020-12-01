@@ -6,6 +6,8 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Photon.Pun;
 
+using GameplayFramework.Network;
+
 namespace Pinatatane
 {
     public class NetworkSharedComponents : SerializedMonoBehaviour
@@ -13,16 +15,16 @@ namespace Pinatatane
         public PhotonView PhotonView;
 
         public PinataController PinataController;
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-                OnStartGrab();
-        }
+        public NetworkSharedTransform NetworkSharedTransform;
 
         public void OnStartGrab()
         {
             PhotonView.RPC("RPC_OnStartGrabbed", RpcTarget.All);
+        }
+
+        public void OnEndGrab()
+        {
+            PhotonView.RPC("RPC_OnEndGrabbed", RpcTarget.All);
         }
 
         [PunRPC]
@@ -31,8 +33,6 @@ namespace Pinatatane
             PinataController _pinataController = PhotonNetwork.GetPhotonView(PhotonView.ViewID).GetComponent<NetworkSharedComponents>().PinataController;
             if (_pinataController == null)
                 return;
-
-            Debug.Log("a");
 
             _pinataController.IsControllable = false;
         }
@@ -44,6 +44,9 @@ namespace Pinatatane
             if (_pinataController == null)
                 return;
 
+            Debug.Log("END GRABBBB");
+
+            NetworkSharedTransform.OverrideNetworkSharedTransformToDefaultPlayer();
             _pinataController.IsControllable = true;
         }
     }
