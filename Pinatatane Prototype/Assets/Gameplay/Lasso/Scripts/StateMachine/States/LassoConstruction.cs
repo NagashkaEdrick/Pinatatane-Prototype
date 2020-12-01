@@ -13,7 +13,6 @@ namespace Pinatatane
     {
         Coroutine lassoConstrucionCoroutine;
         RaycastHit hit;
-        Ray ray;
 
         float distanceParcouru;
         LassoController lassoController;
@@ -35,9 +34,17 @@ namespace Pinatatane
             {
                 distanceParcouru += element.Lasso.LassoData.constructionDistance * Time.deltaTime / element.Lasso.LassoData.constructionTime;
 
-                element.Lasso.LassoGraphics.Launch(element.StartPosition.position + element.StartPosition.forward * distanceParcouru);
+                Vector3 aimPoint = new Vector3(element.PinataController.Pawn.PawnTransform.position.x,
+                                                element.StartPosition.position.y,
+                                                element.PinataController.Pawn.PawnTransform.position.z)
+                                   + element.PinataController.Pawn.PawnTransform.forward
+                                   * distanceParcouru;
 
-                if (Physics.Raycast(element.StartPosition.position, element.StartPosition.forward, out hit, distanceParcouru))
+                if (element.debugMode) Debug.DrawRay(element.StartPosition.position, (aimPoint - element.StartPosition.position).normalized * distanceParcouru, Color.cyan, 0.1f);
+
+                element.Lasso.LassoGraphics.Launch(aimPoint);
+
+                if (Physics.Raycast(element.StartPosition.position, (aimPoint - element.StartPosition.position).normalized, out hit, distanceParcouru))
                 {
                     if (hit.collider.TryGetComponent(typeof(IGrabbable), out var _grabbedObject))
                     {
@@ -67,19 +74,6 @@ namespace Pinatatane
         {
             if(lassoConstrucionCoroutine != null) StopCoroutine(lassoConstrucionCoroutine);
             distanceParcouru = 0;
-
-            //element.isConstructed = false;
         }
-
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            if (lassoController != null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawLine(lassoController.StartPosition.position, lassoController.StartPosition.position + lassoController.StartPosition.forward * distanceParcouru);
-            }
-        }
-#endif
     }
 }
