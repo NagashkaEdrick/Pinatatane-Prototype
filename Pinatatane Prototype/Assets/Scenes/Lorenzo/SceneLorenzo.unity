@@ -1345,6 +1345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Transform: {fileID: 1115094425}
   m_Rigidbody: {fileID: 1115094428}
+  lagCompensation: {fileID: 0}
 --- !u!54 &1115094428
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1854,6 +1855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Transform: {fileID: 2130922626}
   m_Rigidbody: {fileID: 2130922627}
+  lagCompensation: {fileID: 0}
 --- !u!4 &246381323956349700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8553982007327466281, guid: 66725be79c259384a8133db6a683d45a, type: 3}
@@ -2151,10 +2153,6 @@ PrefabInstance:
     - target: {fileID: 8553982007327465866, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8553982007327465866, guid: 66725be79c259384a8133db6a683d45a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8553982007327466281, guid: 66725be79c259384a8133db6a683d45a, type: 3}
       propertyPath: m_LocalPosition.x
