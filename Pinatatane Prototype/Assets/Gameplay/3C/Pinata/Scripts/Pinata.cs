@@ -46,6 +46,8 @@ namespace Pinatatane
         public Transform Transform { get => m_PawnTransform; }
         public Rigidbody Rigidbody { get => m_Rigidbody;}
 
+        public bool ImLocalPinata = false;
+
         public void OnDeath()
         {
             Debug.Log("Je meurs");
@@ -67,6 +69,9 @@ namespace Pinatatane
 
             Controller.RegisterPawn(this);
 
+            if (PhotonView.IsMine)
+                ImLocalPinata = true;
+
             m_Health = PinataData.startHealth;
         }
 
@@ -78,13 +83,20 @@ namespace Pinatatane
 
         public void OnEndGrabbed()
         {
-            m_NetworkSharedTransform.OverrideNetworkSharedTransformToDefaultPlayer();
+            StartCoroutine(WaitEndGrab());
+        }
+
+        IEnumerator WaitEndGrab()
+        {
+            yield return new WaitForSeconds(1f);
+            //m_NetworkSharedTransform.OverrideNetworkSharedTransformToDefaultPlayer();
+            m_NetworkSharedTransform.ResetPosAndRot();
             m_NetworkSharedComponents.OnEndGrab();
+            yield break;
         }
 
         public void OnCurrentGrabbed()
         {
-            
         }
 
         public void ReceivedDamage(float damageTaken)

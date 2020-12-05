@@ -44,8 +44,6 @@ namespace Pinatatane
             if (_pinataController == null)
                 return;
 
-            Debug.Log("END GRABBBB");
-
             NetworkSharedTransform.OverrideNetworkSharedTransformToDefaultPlayer();
             _pinataController.IsControllable = true;
         }

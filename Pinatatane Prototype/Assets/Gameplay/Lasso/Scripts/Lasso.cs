@@ -10,6 +10,7 @@ namespace Pinatatane {
     public class Lasso : MyMonoBehaviour
     {
         [SerializeField] LassoData m_LassoData;
+        [SerializeField] IGrabbable m_MyGraddable;
         [SerializeField, ReadOnly] IGrabbable m_CurrenObjectGrabbed;
         [SerializeField] LassoGraphics m_LassoGraphics;
 
@@ -27,6 +28,7 @@ namespace Pinatatane {
             }
         }
         public LassoGraphics LassoGraphics { get => m_LassoGraphics; set => m_LassoGraphics = value; }
+        public IGrabbable MyGraddable { get => m_MyGraddable; set => m_MyGraddable = value; }
 
         public override void OnUpdate()
         {
