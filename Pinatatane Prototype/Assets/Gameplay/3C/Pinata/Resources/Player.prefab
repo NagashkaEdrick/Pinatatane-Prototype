@@ -684,6 +684,7 @@ MonoBehaviour:
       Data: 
   m_LassoData: {fileID: 11400000, guid: ef940613ff1fa194dbeeb46f6e3f4a26, type: 2}
   m_LassoGraphics: {fileID: 8553982007327467288}
+  m_LassoController: {fileID: 8553982007327466976}
 --- !u!1 &8553982007327465736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3528,6 +3529,7 @@ MonoBehaviour:
   m_Rigidbody: {fileID: 877472493901103490}
   m_NetworkSharedTransform: {fileID: 3157260897921570159}
   m_NetworkSharedComponents: {fileID: 1576005920999475990}
+  m_GrabbedBy: {fileID: 0}
   ImLocalPinata: 0
 --- !u!136 &3173635704185953848
 CapsuleCollider:

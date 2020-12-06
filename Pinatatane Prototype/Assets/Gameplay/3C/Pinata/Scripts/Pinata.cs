@@ -26,6 +26,7 @@ namespace Pinatatane
         [SerializeField] Rigidbody m_Rigidbody;
         [SerializeField] NetworkSharedTransform m_NetworkSharedTransform;
         [SerializeField] NetworkSharedComponents m_NetworkSharedComponents;
+        [SerializeField, ReadOnly] Lasso m_GrabbedBy;
 
         public PhotonView PhotonView { get => m_PhotonView;}
         public bool IsBlocked { get => PinataController.IsBlocked; set => PinataController.IsBlocked = value; }
@@ -45,9 +46,9 @@ namespace Pinatatane
         public NetworkSharedComponents NetworkSharedComponents { get => m_NetworkSharedComponents; }
         public Transform Transform { get => m_PawnTransform; }
         public Rigidbody Rigidbody { get => m_Rigidbody;}
+        public Lasso GrabbedBy { get => m_GrabbedBy; set => m_GrabbedBy = value; }
 
         public bool ImLocalPinata = false;
-
         #region Runtime 
 
         public override void OnStart()
@@ -72,8 +73,7 @@ namespace Pinatatane
         public void OnBlockedEnter()
         {
             Debug.Log("Enter Block");
-            Rigidbody.velocity = Vector3.zero;
-
+            GrabbedBy?.LassoController.KillGrab();
         }
 
         public void OnBlockedExit()

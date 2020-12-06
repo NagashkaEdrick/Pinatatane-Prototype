@@ -49,6 +49,10 @@ namespace Pinatatane {
         {
             blockedObject.IsBlocked = true;
             blockedObject.OnBlockedEnter();
+            if (blockedObject.Rigidbody != null)
+            {
+                blockedObject.Rigidbody.velocity = Vector3.zero;
+            }
             yield return new WaitForSeconds(time);
             blockedObject.IsBlocked = false;
             blockedObject.OnBlockedExit();

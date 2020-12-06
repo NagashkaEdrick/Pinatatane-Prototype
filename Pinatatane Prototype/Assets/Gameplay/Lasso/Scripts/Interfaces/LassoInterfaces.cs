@@ -15,6 +15,8 @@ namespace Pinatatane
 
         Rigidbody Rigidbody { get;}
 
+        Lasso GrabbedBy { get; set; }
+
         /// <summary>
         /// Callback when the object grabbed at first frame
         /// </summary>

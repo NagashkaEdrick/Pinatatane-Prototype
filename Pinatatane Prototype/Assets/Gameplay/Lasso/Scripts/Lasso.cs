@@ -13,6 +13,7 @@ namespace Pinatatane {
         [SerializeField] IGrabbable m_MyGraddable;
         [SerializeField, ReadOnly] IGrabbable m_CurrenObjectGrabbed;
         [SerializeField] LassoGraphics m_LassoGraphics;
+        [SerializeField] LassoController m_LassoController;
 
         public LassoData LassoData { get => m_LassoData; set => m_LassoData = value; }
         public IGrabbable CurrenObjectGrabbed
@@ -29,6 +30,7 @@ namespace Pinatatane {
         }
         public LassoGraphics LassoGraphics { get => m_LassoGraphics; set => m_LassoGraphics = value; }
         public IGrabbable MyGraddable { get => m_MyGraddable; set => m_MyGraddable = value; }
+        public LassoController LassoController { get => m_LassoController; set => m_LassoController = value; }
 
         public override void OnUpdate()
         {

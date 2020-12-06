@@ -43,6 +43,14 @@ namespace Pinatatane
         }
 
         /// <summary>
+        /// Appeller par l'object grabber -> Stop le grab.
+        /// </summary>
+        public void KillGrab()
+        {
+            Retract();
+        }
+
+        /// <summary>
         /// Retractation du grab.
         /// </summary>
         public void Retract()
@@ -50,6 +58,7 @@ namespace Pinatatane
             if (debugMode) Debug.Log("<color=yellow>Lasso: </color> Retractation du lasso...");
             Lasso.LassoGraphics.Retract();
             Lasso.CurrenObjectGrabbed?.OnEndGrabbed();
+            if (Lasso.CurrenObjectGrabbed != null) Lasso.CurrenObjectGrabbed.GrabbedBy = null;
             Lasso.CurrenObjectGrabbed = null;
             hasGrabbed = false;
         }

@@ -53,6 +53,7 @@ namespace Pinatatane
                             //Quand on touche un objet.
                             element.Lasso.CurrenObjectGrabbed = _grabbedObject as IGrabbable;
                             element.Lasso.LassoGraphics.LassoDebug(Color.red);
+                            element.Lasso.CurrenObjectGrabbed.GrabbedBy = element.Lasso;
 
                             if (element.debugMode) Debug.Log("<color=yellow>Lasso:</color> Le joueur attrape " + ((MonoBehaviour)_grabbedObject).name + ".");
 
