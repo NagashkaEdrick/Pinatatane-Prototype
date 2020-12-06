@@ -48,10 +48,10 @@ namespace Pinatatane {
         IEnumerator BlockCoroutine(IBlockable blockedObject, float time)
         {
             blockedObject.IsBlocked = true;
-            blockedObject.OnEnter();
+            blockedObject.OnBlockedEnter();
             yield return new WaitForSeconds(time);
             blockedObject.IsBlocked = false;
-            blockedObject.OnExit();
+            blockedObject.OnBlockedExit();
             yield break;
         }
     }

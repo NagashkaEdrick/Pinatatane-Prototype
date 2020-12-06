@@ -4,7 +4,7 @@
     {
         bool IsBlocked { get; set; }
 
-        void OnEnter();
-        void OnExit();
+        void OnBlockedEnter();
+        void OnBlockedExit();
     }
 }

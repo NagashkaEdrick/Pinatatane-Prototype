@@ -48,21 +48,7 @@ namespace Pinatatane
 
         public bool ImLocalPinata = false;
 
-        public void OnDeath()
-        {
-            Debug.Log("Je meurs");
-        }        
-
-        public void OnEnter()
-        {
-            Debug.Log("Enter Block");
-        }
-
-        public void OnExit()
-        {
-            Debug.Log("Exit Block");
-        }
-
+        #region Runtime
         public override void OnStart()
         {
             base.OnStart();
@@ -74,7 +60,26 @@ namespace Pinatatane
 
             m_Health = PinataData.startHealth;
         }
+        #endregion
 
+        public void OnDeath()
+        {
+            Debug.Log("Je meurs");
+        }
+
+        #region Block Callbacks
+        public void OnBlockedEnter()
+        {
+            Debug.Log("Enter Block");
+        }
+
+        public void OnBlockedExit()
+        {
+            Debug.Log("Exit Block");
+        }
+        #endregion
+
+        #region Grab Regions
         public void OnStartGrabbed()
         {
             m_NetworkSharedTransform.OverrideNetworkSharedTransform(m_NetworkSharedTransform);
@@ -98,11 +103,15 @@ namespace Pinatatane
         public void OnCurrentGrabbed()
         {
         }
+        #endregion
 
+        #region Damage Callback
         public void ReceivedDamage(float damageTaken)
         {
             Debug.Log("Je reçois " + damageTaken + " damages");
             Health -= damageTaken;
         }
+        #endregion
+
     }
 }

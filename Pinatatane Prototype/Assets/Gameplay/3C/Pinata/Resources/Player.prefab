@@ -3465,36 +3465,6 @@ MonoBehaviour:
   - {fileID: 8553982007327466978}
   - {fileID: 8553982007327466988}
   - {fileID: 8553982007327466911}
---- !u!1 &8553982007327465858
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8553982007327466297}
-  m_Layer: 0
-  m_Name: Network
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8553982007327466297
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8553982007327465858}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.0680725}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8553982007327466281}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8553982007327465864
 GameObject:
   m_ObjectHideFlags: 0
@@ -3691,7 +3661,6 @@ Transform:
   - {fileID: 8553982007327466287}
   - {fileID: 8553982007327466282}
   - {fileID: 8553982007327466196}
-  - {fileID: 8553982007327466297}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

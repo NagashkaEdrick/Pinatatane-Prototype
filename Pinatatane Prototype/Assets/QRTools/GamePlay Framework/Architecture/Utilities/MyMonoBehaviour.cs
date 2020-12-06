@@ -57,8 +57,8 @@ namespace GameplayFramework
         #endregion
 
         #region MyMonobehaviour CallBacks
-        protected abstract void OnGameStart();
-        protected abstract void OnGameEnd();
+        protected virtual void OnGameStart() { }
+        protected virtual void OnGameEnd() { }
         protected virtual void GameBreakEnter() { }
         protected virtual void GameBreakExit() { }
         #endregion

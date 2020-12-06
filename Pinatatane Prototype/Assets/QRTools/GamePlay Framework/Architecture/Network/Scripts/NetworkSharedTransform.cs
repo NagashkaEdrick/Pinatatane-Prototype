@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Photon.Pun;
-using Photon.Realtime;
 
 namespace GameplayFramework.Network
 {
@@ -74,7 +73,6 @@ namespace GameplayFramework.Network
         {
             m_RemoteSharedPosition = m_SharedTransform.position;
             m_RemoteSharedRotation = m_SharedTransform.rotation;
-            //PhotonView.RPC("RPC_UpdatePosAndRot", RpcTarget.AllBuffered, PhotonView.ViewID, m_RemoteSharedPosition, m_RemoteSharedRotation);
         }
 
         /// <summary>
