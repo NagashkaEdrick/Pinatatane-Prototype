@@ -21,8 +21,11 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  startHealth: 5
   movementSpeed: 5
   aimMovementSpeed: 4
   aimTransitionTime: 0.25
   rotationSpeedLerp: 2
   grabMovementSpeed: 1
+  dashForce: 1000
+  dashCoolDown: 1

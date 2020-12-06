@@ -56,6 +56,7 @@ namespace Pinatatane
         public void OnEnter()
         {
             Debug.Log("Enter Block");
+            Rigidbody.velocity = Vector3.zero;
         }
 
         public void OnExit()
