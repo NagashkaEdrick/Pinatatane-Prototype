@@ -48,7 +48,19 @@ namespace Pinatatane
 
         public bool ImLocalPinata = false;
 
-        #region Runtime
+        #region Runtime   
+
+        public void OnEnter()
+        {
+            Debug.Log("Enter Block");
+            Rigidbody.velocity = Vector3.zero;
+        }
+
+        public void OnExit()
+        {
+            Debug.Log("Exit Block");
+        }
+
         public override void OnStart()
         {
             base.OnStart();
