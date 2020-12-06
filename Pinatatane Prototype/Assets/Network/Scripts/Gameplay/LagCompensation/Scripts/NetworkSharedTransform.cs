@@ -12,9 +12,12 @@ namespace GameplayFramework.Network
     {
         public Transform m_SharedTransform;
         [SerializeField] PhotonView m_PhotonView;
+        [SerializeField] Rigidbody m_Rigidbody;
 
         [SerializeField] Vector3 m_RemoteSharedPosition;
         Quaternion m_RemoteSharedRotation;
+
+        [SerializeField] float teleportDistance = 5f;
 
         public bool GetControlInLocal = false;
 
@@ -67,6 +70,13 @@ namespace GameplayFramework.Network
                 return;
         }
 
+        public void ResetPosAndRot()
+        {
+            m_RemoteSharedPosition = m_SharedTransform.position;
+            m_RemoteSharedRotation = m_SharedTransform.rotation;
+            //PhotonView.RPC("RPC_UpdatePosAndRot", RpcTarget.AllBuffered, PhotonView.ViewID, m_RemoteSharedPosition, m_RemoteSharedRotation);
+        }
+
         /// <summary>
         /// Callback quand il y a un changement d'owner.
         /// </summary>
@@ -91,7 +101,7 @@ namespace GameplayFramework.Network
         {
             var lagDistance = m_RemoteSharedPosition - m_SharedTransform.position;
 
-            if (lagDistance.magnitude > 5f)
+            if (lagDistance.magnitude > teleportDistance)
             {
                 m_SharedTransform.position = m_RemoteSharedPosition;
                 lagDistance = Vector3.zero;
@@ -109,6 +119,15 @@ namespace GameplayFramework.Network
         void RPC_SetControlInLocal(int id, bool state)
         {
             PhotonNetwork.GetPhotonView(id).GetComponent<NetworkSharedTransform>().GetControlInLocal = state;
+        }
+
+        [PunRPC]
+        void RPC_UpdatePosAndRot(int id, Vector3 pos, Quaternion rot)
+        {
+            NetworkSharedTransform nst = PhotonNetwork.GetPhotonView(id).GetComponent<NetworkSharedTransform>();
+            if (nst == null) return;
+            m_RemoteSharedPosition = pos;
+            m_RemoteSharedRotation = rot;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

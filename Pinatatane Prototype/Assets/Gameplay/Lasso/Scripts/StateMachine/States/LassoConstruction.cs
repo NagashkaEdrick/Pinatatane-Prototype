@@ -48,14 +48,17 @@ namespace Pinatatane
                 {
                     if (hit.collider.TryGetComponent(typeof(IGrabbable), out var _grabbedObject))
                     {
-                        //Quand on touche un objet.
-                        element.Lasso.CurrenObjectGrabbed = _grabbedObject as IGrabbable;
-                        element.Lasso.LassoGraphics.LassoDebug(Color.red);
+                        if (_grabbedObject != element.Lasso.MyGraddable)
+                        {
+                            //Quand on touche un objet.
+                            element.Lasso.CurrenObjectGrabbed = _grabbedObject as IGrabbable;
+                            element.Lasso.LassoGraphics.LassoDebug(Color.red);
 
-                        if (element.debugMode) Debug.Log("<color=yellow>Lasso:</color> Le joueur attrape " + ((MonoBehaviour)_grabbedObject).name + ".");
+                            if (element.debugMode) Debug.Log("<color=yellow>Lasso:</color> Le joueur attrape " + ((MonoBehaviour)_grabbedObject).name + ".");
 
-                        element.isConstructed = true;
-                        yield break;
+                            element.isConstructed = true;
+                            yield break;
+                        }
                     }
                 }
                 

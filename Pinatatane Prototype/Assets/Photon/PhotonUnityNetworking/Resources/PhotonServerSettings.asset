@@ -66,6 +66,7 @@ MonoBehaviour:
   - RPC_SetControlInLocal
   - RPC_OnEndGrabbed
   - RPC_OnStartGrabbed
+  - RPC_UpdatePosAndRot
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
