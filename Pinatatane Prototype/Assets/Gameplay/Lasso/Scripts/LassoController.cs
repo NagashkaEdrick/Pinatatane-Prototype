@@ -37,9 +37,13 @@ namespace Pinatatane
         {
             if (NetworkManager.Instance.UseNetwork && PinataController.PhotonView.IsMine)
             {
-                m_LassoStateMachine.currentState.OnCurrent(this);
                 m_LassoStateMachine.CheckCurrentState(this);
             }
+        }
+
+        private void FixedUpdate()
+        {
+                m_LassoStateMachine.currentState.OnCurrent(this);
         }
 
         /// <summary>
